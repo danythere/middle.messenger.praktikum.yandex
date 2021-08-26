@@ -21,4 +21,5 @@
 
 ## 4. Ссылки:
 Макет:https://www.figma.com/file/cn4s2uPeAcVzpCm4MMMmox/Untitled?node-id=0%3A1  
-Netlify:
+Netlify: https://optimistic-leavitt-837679.netlify.app  
+Pull Request: https://github.com/danythere/middle.messenger.praktikum.yandex/pull/1
