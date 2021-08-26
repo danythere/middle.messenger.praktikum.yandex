@@ -1,6 +1,7 @@
 <div class="{{classes.registration}}">
   <div class="{{classes.registration-ground}}">
-    <div class="{{classes.registration-ground__name}}"><span>Регистрация</span></div>
+    <div class="{{classes.registration-ground__name}}">{{> heading title="Регистрация" classes=headingClasses}}
+    </div>
     <div class="{{classes.registration-ground__input-block}}">
         {{#each inputs}}
     <div
@@ -11,9 +12,6 @@
     </div>
   {{/each}} 
   </div>
-  <div class="{{classes.registration-ground__has-account-button}}"> 
-    {{> button capture="Уже есть аккаунт?" background="secondary" classes=buttonClasses id="has-account-button"}}
-    </div>
-    {{> button capture="Создать профиль" background="primary" classes=buttonClasses  }}
+    {{> button capture="Создать профиль" id="create-account-button" background="primary" classes=buttonClasses  }}
   </div>
 </div>

@@ -3,11 +3,18 @@ import authClasses from "../partials/pages/auth.css";
 import buttonClasses from "../partials/base/button.css";
 import profileClasses from "../partials/pages/profile.css";
 import inputClasses from "../partials/base/input.css";
+import errorPageClasses from "../partials/pages/errorPage.css";
 import registration from "../partials/pages/registration.hbs";
-import auth from '../partials/pages/auth.hbs';
+import errorPage from "../partials/pages/errorPage.hbs";
+import profile from "../partials/pages/profile.hbs";
+import chat from "../partials/pages/chat.hbs";
+import headingClasses from "../partials/base/heading.css";
+
+// Конфигурация всех страниц чата.
 export const pagesConfig = {
   auth: {
     classes: authClasses,
+    headingClasses,
     inputs: [
       {
         name: "login",
@@ -35,11 +42,33 @@ export const pagesConfig = {
           document.querySelector("#root").innerHTML = registration(
             this.registration
           );
-          this.registration.eventListeners.forEach((eventListener) => {
-            document
-              .querySelector(eventListener.selector)
-              .addEventListener(eventListener.action, eventListener.function.bind(pagesConfig));
-          });
+          if (this.registration.eventListeners) {
+            this.registration.eventListeners.forEach((eventListener) => {
+              document
+                .querySelector(eventListener.selector)
+                .addEventListener(
+                  eventListener.action,
+                  eventListener.function.bind(pagesConfig)
+                );
+            });
+          }
+        },
+      },
+      {
+        selector: "#enter-button",
+        action: "click",
+        function: function () {
+          document.querySelector("#root").innerHTML = chat(this.chat);
+          if (this.chat.eventListeners) {
+            this.chat.eventListeners.forEach((eventListener) => {
+              document
+                .querySelector(eventListener.selector)
+                .addEventListener(
+                  eventListener.action,
+                  eventListener.function.bind(pagesConfig)
+                );
+            });
+          }
         },
       },
     ],
@@ -47,6 +76,7 @@ export const pagesConfig = {
   registration: {
     classes: registrationClasses,
     buttonClasses,
+    headingClasses,
     inputs: [
       {
         name: "first_name",
@@ -99,17 +129,20 @@ export const pagesConfig = {
     ],
     eventListeners: [
       {
-        selector: "#has-account-button",
+        selector: "#create-account-button",
         action: "click",
         function: function () {
-          document.querySelector("#root").innerHTML = auth(
-            this.auth
-          );
-          this.auth.eventListeners.forEach((eventListener) => {
-            document
-              .querySelector(eventListener.selector)
-              .addEventListener(eventListener.action, eventListener.function.bind(pagesConfig));
-          });
+          document.querySelector("#root").innerHTML = chat(this.chat);
+          if (this.chat.eventListeners) {
+            this.chat.eventListeners.forEach((eventListener) => {
+              document
+                .querySelector(eventListener.selector)
+                .addEventListener(
+                  eventListener.action,
+                  eventListener.function.bind(pagesConfig)
+                );
+            });
+          }
         },
       },
     ],
@@ -118,6 +151,43 @@ export const pagesConfig = {
   profile: {
     classes: profileClasses,
     buttonClasses,
+    headingClasses,
+    eventListeners: [
+      {
+        selector: "#save",
+        action: "click",
+        function: function () {
+          document.querySelector("#root").innerHTML = chat(this.chat);
+          if (this.chat.eventListeners) {
+            this.chat.eventListeners.forEach((eventListener) => {
+              document
+                .querySelector(eventListener.selector)
+                .addEventListener(
+                  eventListener.action,
+                  eventListener.function.bind(pagesConfig)
+                );
+            });
+          }
+        },
+      },
+      {
+        selector: "#back",
+        action: "click",
+        function: function () {
+          document.querySelector("#root").innerHTML = chat(this.chat);
+          if (this.chat.eventListeners) {
+            this.chat.eventListeners.forEach((eventListener) => {
+              document
+                .querySelector(eventListener.selector)
+                .addEventListener(
+                  eventListener.action,
+                  eventListener.function.bind(pagesConfig)
+                );
+            });
+          }
+        },
+      },
+    ],
     inputs: [
       {
         name: "first_name",
@@ -182,6 +252,80 @@ export const pagesConfig = {
         capture: "Новый пароль",
         classes: profileClasses,
         inputClasses,
+      },
+    ],
+  },
+
+  errorPage: {
+    notFound: {
+      classes: errorPageClasses,
+      headingClasses,
+      text: "404",
+      image: "404-error.svg",
+    },
+    commonError: {
+      classes: errorPageClasses,
+      headingClasses,
+      text: "Произошла ошибка",
+      image: "error.svg",
+    },
+  },
+  chat: {
+    eventListeners: [
+      {
+        selector: "#not-found-error",
+        action: "click",
+        function: function () {
+          document.querySelector("#root").innerHTML = errorPage(
+            this.errorPage.notFound
+          );
+          if (this.errorPage.eventListeners) {
+            this.errorPage.eventListeners.forEach((eventListener) => {
+              document
+                .querySelector(eventListener.selector)
+                .addEventListener(
+                  eventListener.action,
+                  eventListener.function.bind(pagesConfig)
+                );
+            });
+          }
+        },
+      },
+      {
+        selector: "#error",
+        action: "click",
+        function: function () {
+          document.querySelector("#root").innerHTML = errorPage(
+            this.errorPage.commonError
+          );
+          if (this.errorPage.eventListeners) {
+            this.errorPage.eventListeners.forEach((eventListener) => {
+              document
+                .querySelector(eventListener.selector)
+                .addEventListener(
+                  eventListener.action,
+                  eventListener.function.bind(pagesConfig)
+                );
+            });
+          }
+        },
+      },
+      {
+        selector: "#profile",
+        action: "click",
+        function: function () {
+          document.querySelector("#root").innerHTML = profile(this.profile);
+          if (this.profile.eventListeners) {
+            this.profile.eventListeners.forEach((eventListener) => {
+              document
+                .querySelector(eventListener.selector)
+                .addEventListener(
+                  eventListener.action,
+                  eventListener.function.bind(pagesConfig)
+                );
+            });
+          }
+        },
       },
     ],
   },

@@ -1,6 +1,8 @@
 <div class="{{classes.profile}}">
+      <div class="{{classes.profile-back}}" id="back"><img class="{{classes.profile-back__title}}" src="arrow.svg"/></div>
   <div class="{{classes.profile-ground}}">
-        <div class="{{classes.profile-ground__name}}"><span>Профиль</span></div>
+        <div class="{{classes.profile-ground__name}}">{{> heading title="Профиль" classes=headingClasses}}</div>
+            <div class="{{classes.profile-ground__avatar}}" name="avatar"></div>
          {{#each inputs}}
     <div
             class="{{glueClasses this.classes.profile-ground__input-form this.classes.profile-ground__input-form_margin}}"
@@ -9,6 +11,6 @@
        {{> input classes=this.inputClasses width=400 height=20 type=this.type name=this.name id=this.id}}
     </div>
   {{/each}}                   
-        {{> button capture="Сохранить" background="primary" classes=buttonClasses  }}
+        {{> button capture="Сохранить" background="primary" id="save" classes=buttonClasses  }}
   </div>
 </div>

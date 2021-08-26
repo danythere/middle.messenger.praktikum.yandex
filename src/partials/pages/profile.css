@@ -8,10 +8,19 @@
   height: 100%;
 }
 
+.profile-back {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  cursor: pointer;
+}
+
 .profile-ground {
   background-color: var(--gray-background);
   width: 450px;
-  height: 600px;
+  height: 570px;
   border: var(--dark-gray-border) solid 1px;
   border-radius: 30px;
   display: flex;
@@ -20,9 +29,8 @@
 }
 
 .profile-ground__name {
-  margin-top: var(--margin-size-l);
+  margin-top: var(--margin-size-m);
   text-align: center;
-  font-size: var(--text-size-xxl);
 }
 
 .profile-ground__input-form {
@@ -35,5 +43,12 @@
 }
 
 .profile-ground__input-form_margin {
-  margin-bottom: var(--margin-size-xl);
+  margin-bottom: var(--margin-size-m);
+}
+.profile-ground__avatar {
+  width: 70px;
+  height: 70px;
+  margin-top: 10px;
+  border-radius: 50%;
+  background-color: lightcyan;
 }

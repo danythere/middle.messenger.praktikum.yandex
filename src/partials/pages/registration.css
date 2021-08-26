@@ -11,7 +11,7 @@
 .registration-ground {
   background-color: var(--gray-background);
   width: 450px;
-  height: 550px;
+  height: 390px;
   border: var(--dark-gray-border) solid 1px;
   border-radius: 30px;
   display: flex;
@@ -20,9 +20,8 @@
 }
 
 .registration-ground__name {
-  margin-top: var(--margin-size-l);
+  margin-top: var(--margin-size-m);
   text-align: center;
-  font-size: var(--text-size-xxl);
 }
 
 .registration-input-block__input-form {
@@ -35,7 +34,7 @@
 }
 
 .registration-ground__input-block_margin {
-  margin-bottom: var(--margin-size-xl);
+  margin-bottom: var(--margin-size-m);
 }
 
 .registration-ground__has-account-button {

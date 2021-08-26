@@ -11,7 +11,7 @@
 .auth-ground {
   background-color: var(--gray-background);
   width: 400px;
-  height: 300px;
+  height: 220px;
   border: var(--dark-gray-border) solid 1px;
   border-radius: 30px;
   display: flex;
@@ -20,14 +20,13 @@
 }
 
 .auth-ground__name {
-  margin-top: var(--margin-size-l);
+  margin-top: var(--margin-size-m);
   text-align: center;
-  font-size: var(--text-size-xxl);
 }
 
 .auth-ground__enter-button {
   margin-top: auto;
-  margin-bottom: var(--margin-size-xl);
+  margin-bottom: var(--margin-size-l);
 }
 
 .auth-ground__create-account-button {
@@ -44,5 +43,5 @@
 }
 
 .auth-ground__input-form_margin {
-  margin-bottom: var(--margin-size-xl);
+  margin-bottom: var(--margin-size-m);
 }
