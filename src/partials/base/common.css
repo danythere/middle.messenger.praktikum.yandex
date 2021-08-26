@@ -1,0 +1,12 @@
+:root {
+  --gray-background: #f3f3f3;
+  --dark-gray-border: #9c9597;
+  --margin-size-l: 15px;
+  --margin-size-xl: 20px;
+  --margin-size-xxl: 30px;
+  --text-size-xxl: 48px;
+  --text-size-xs: 12px;
+  --text-size-s: 14px;
+  --primary-background: #645e5e;
+  --secondary-background: #dddddd;
+}
