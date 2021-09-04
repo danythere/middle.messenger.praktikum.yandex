@@ -1,0 +1,42 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "---",
+  "main": "index.js",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "build": "parcel build static/index.html --no-cache --public-url ./",
+    "start-parcel": "parcel static/index.html --no-cache",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danythere/middle.messenger.praktikum.yandex.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danythere/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/danythere/middle.messenger.praktikum.yandex#readme",
+  "dependencies": {
+    "autoprefixer": "^9.8.6",
+    "express": "^4.17.1",
+    "handlebars": "^4.7.7",
+    "nodemon": "^2.0.12",
+    "parcel-bundler": "^1.4.1",
+    "parcel-plugin-handlebars-precompile": "^1.0.2",
+    "parcel-plugin-static-files-copy": "^2.6.0",
+    "postcss-cli": "^7.1.2",
+    "postcss-import": "^14.0.2",
+    "postcss-loader": "^4.0.4",
+    "postcss-nested": "^5.0.6"
+  },
+  "devDependencies": {
+    "postcss": "^8.3.6",
+    "postcss-css-variables": "^0.18.0",
+    "postcss-modules": "^3.2.2"
+  }
+}
