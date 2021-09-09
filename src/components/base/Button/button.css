@@ -1,0 +1,13 @@
+@import './../common.css';
+
+.button {
+   width: 120px;
+   height: 25px;
+   background-color: var(--secondary-background);
+   cursor: pointer;
+}
+
+.button_color-primary {
+   color: var(--light-text-color);
+   background-color: var(--primary-background);
+}

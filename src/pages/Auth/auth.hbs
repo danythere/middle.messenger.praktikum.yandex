@@ -1,0 +1,32 @@
+<div class='{{classes.auth}}'>
+   <div class='{{classes.auth-ground}}'>
+      <div
+         class='{{classes.auth-ground__name}}'>
+         {{{components.heading.template}}}
+      </div>
+      <div
+         class='{{classes.auth-ground__input-form}}
+               {{classes.auth-ground__input-form_margin}}'>
+         <label
+            class='{{classes.auth-ground__label}}'
+            for='{{components.loginInput.config.name}}'
+         >{{components.loginInput.config.capture}}
+      </label>
+         {{{components.loginInput.template}}}
+      </div>
+      <div
+         class='{{classes.auth-ground__input-form}}
+               {{classes.auth-ground__input-form_margin}}'>
+         <label
+            class='{{classes.auth-ground__label}}'
+            for='{{components.passwordInput.config.name}}'
+         >{{components.passwordInput.config.capture}}</label>
+         {{{components.passwordInput.template}}}
+      </div>
+      <div
+         class='{{classes.auth-ground__enter-button}}'>{{{components.enterButton.template}}}</div>
+         <div class="{{classes.auth-ground__create-account-button}}">
+            {{{components.createAccountButton.template}}}
+   </div>
+   </div>
+</div>

@@ -1,0 +1,14 @@
+@import '../base/common.css';
+
+.error-page__content {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   height: 100%;
+}
+
+.error-page__image {
+   width: 400px;
+   height: 400px;
+}
