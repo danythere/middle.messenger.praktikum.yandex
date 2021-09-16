@@ -5,14 +5,10 @@ const METHODS = {
    DELETE: 'DELETE',
 };
 
-// Самая простая версия. Реализовать штучку со всеми проверками им предстоит в конце спринта
-// Необязательный метод
 function queryStringify(data: XMLHttpRequestBodyInit) {
    if (typeof data !== 'object') {
       throw new Error('Data must be object');
    }
-
-   // Здесь достаточно и [object Object] для объекта
    const keys = Object.keys(data);
    return keys.reduce((result, key, index) => {
       return `${result}${key}=${data[key]}${
@@ -21,6 +17,9 @@ function queryStringify(data: XMLHttpRequestBodyInit) {
    }, '?');
 }
 
+/**
+ * Класс для запросов на сервер.
+ */
 export default class HTTPTransport {
    get = (
       url: string,

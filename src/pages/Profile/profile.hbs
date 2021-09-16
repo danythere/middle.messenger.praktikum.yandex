@@ -1,18 +1,16 @@
 <div class="{{classes.profile}}">
-      <div class="{{classes.profile-back}}" id="back"><img class="{{classes.profile-back__title}}" src="arrow.svg"/></div>
+  <div class="{{classes.profile-back}}" id="back"><img class="{{classes.profile-back__title}}" src="arrow.svg" /></div>
   <div class="{{classes.profile-ground}}">
-       {{{components.headings.heading.template}}}
-           {{{components.avatars.avatar.template}}}
-           <form>
-         {{#each components.inputs}}
-    <div
-            class="{{../classes.profile-ground__input-form}} {{../classes.profile-ground__input-form_margin}}"
-    >
-      <label class="{{../classes.profile-ground__label}}" for="{{this.config.name}}">{{this.config.capture}}</label>
-      {{{this.template}}}
-    </div>
-  {{/each}}            
-  </form>       
-      {{{components.buttons.saveButton.template}}}
+    {{{components.headings.heading.template}}}
+    {{{components.avatars.avatar.template}}}
+    <form>
+      {{#each components.inputs}}
+      <div class="{{../classes.profile-ground__input-form}} {{../classes.profile-ground__input-form_margin}}">
+        <label class="{{../classes.profile-ground__label}}" for="{{this.config.name}}">{{this.config.capture}}</label>
+        {{{this.template}}}
+      </div>
+      {{/each}}
+    </form>
+    {{{components.buttons.saveButton.template}}}
   </div>
 </div>

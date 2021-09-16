@@ -12,7 +12,7 @@ const headingConfig = {
 const firstNameInputConfig = {
    type: 'text',
    placeholder: '',
-   name: 'first-name',
+   name: 'first_name',
    width: '200',
    height: '25',
    validFunc: Validator.validateName,
@@ -20,7 +20,7 @@ const firstNameInputConfig = {
 const secondNameInputConfig = {
    type: 'text',
    placeholder: '',
-   name: 'second-name',
+   name: 'second_name',
    width: '200',
    height: '25',
    validFunc: Validator.validateName,
@@ -37,7 +37,7 @@ const loginInputConfig = {
 const mailInputConfig = {
    type: 'text',
    placeholder: '',
-   name: 'mail',
+   name: 'email',
    width: '200',
    height: '25',
    validFunc: Validator.validateEmail,
@@ -62,14 +62,6 @@ const phoneInputConfig = {
 const createAccountButtonConfig = {
    capture: 'Создать аккаунт',
    background: 'primary',
-   eventHandlers: {
-      onClick: (): void => {
-         import('../Chat').then(Page => {
-            const Chat = Page.default;
-            Router.getInstance().changePage(new Chat({}));
-         });
-      },
-   },
 };
 export const getConfig = (eventHandlers: {
    [prop: string]: void;

@@ -8,7 +8,7 @@ import Validator from '../../utils/Validator';
 const firstNameInputConfig = {
    type: 'text',
    placeholder: '',
-   name: 'first-name',
+   name: 'first_name',
    width: '200',
    height: '25',
    validFunc: Validator.validateName,
@@ -17,7 +17,7 @@ const firstNameInputConfig = {
 const secondNameInputConfig = {
    type: 'text',
    placeholder: '',
-   name: 'second-name',
+   name: 'second_name',
    width: '200',
    height: '25',
    validFunc: Validator.validateName,
@@ -25,7 +25,7 @@ const secondNameInputConfig = {
 const nicknameInputConfig = {
    type: 'text',
    placholder: '',
-   name: 'nickname',
+   name: 'display_name',
    width: '200',
    height: '25',
    validFunc: Validator.validateName,
@@ -34,7 +34,7 @@ const nicknameInputConfig = {
 const mailInputConfig = {
    type: 'text',
    placeholder: '',
-   name: 'mail',
+   name: 'email',
    width: '200',
    height: '25',
    validFunc: Validator.validateEmail,
@@ -59,7 +59,7 @@ const phoneInputConfig = {
 const oldPasswordInputConfig = {
    type: 'password',
    placeholder: '',
-   name: 'old-password',
+   name: 'oldPassword',
    width: '200',
    height: '25',
    validFunc: Validator.validatePassword,
@@ -68,7 +68,7 @@ const oldPasswordInputConfig = {
 const newPasswordInputConfig = {
    type: 'password',
    placeholder: '',
-   name: 'new-password',
+   name: 'newPpassword',
    width: '200',
    height: '25',
    validFunc: Validator.validatePassword,

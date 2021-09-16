@@ -5,6 +5,9 @@
    "printWidth": 80,
    "tabWidth": 3,
    "arrowParens": "avoid",
+   "[html]": {
+      "singleQuote": false
+    },
    "prettier/prettier": [
       "error",
       {

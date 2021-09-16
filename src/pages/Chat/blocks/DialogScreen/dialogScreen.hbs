@@ -1,31 +1,31 @@
 <div class="{{classes.dialog-screen}}">
-<div class="{{classes.dialog-screen__content}}">
-   <div class='{{classes.dialog-screen__header}}'>
-      {{{components.avatars.user.template}}}
-     <div class="{{classes.dialog-screen__name}}"> {{{userName}}} </div>
-     <hr >
-   </div>
-   <div>
-      {{#each messages}}
+   <div class="{{classes.dialog-screen__content}}">
+      <div class="{{classes.dialog-screen__header}}">
+         {{{components.avatars.user.template}}}
+         <div class="{{classes.dialog-screen__name}}"> {{{userName}}} </div>
+         <hr>
+      </div>
+      <div>
+         {{#each messages}}
          {{#if this.author}}
-         <div class='{{../classes.dialog-screen__message-wrapper_my}} {{../classes.dialog-screen__message-wrapper}}'>
-            <div class='{{../classes.dialog-screen__message}}'>
+         <div class="{{../classes.dialog-screen__message-wrapper_my}} {{../classes.dialog-screen__message-wrapper}}">
+            <div class="{{../classes.dialog-screen__message}}">
                {{{this.text}}}
             </div>
-            </div>
+         </div>
          {{else}}
          <div class="{{../classes.dialog-screen__message-wrapper}}">
-            <div class='{{../classes.dialog-screen__message}}'>
+            <div class="{{../classes.dialog-screen__message}}">
                {{{this.text}}}
             </div>
-            </div>
+         </div>
          {{/if}}
-      {{/each}}
-   </div>
-   <form>
-   <div class="{{classes.dialog-screen__message-input}}">
-   {{{components.chat.messageInput.template}}}
-   </div>
-   </form>
+         {{/each}}
+      </div>
+      <form>
+         <div class="{{classes.dialog-screen__message-input}}">
+            {{{components.chat.messageInput.template}}}
+         </div>
+      </form>
    </div>
 </div>

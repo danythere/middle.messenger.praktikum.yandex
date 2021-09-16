@@ -2,6 +2,7 @@ import Block from '../components/mvc/Block';
 import registration from './Registration/registration.hbs';
 import compile from '../utils/helpers';
 import { getConfig } from './Registration/config';
+import Router from '../utils/Router';
 import Input from '../components/base/Input';
 import Heading from '../components/base/Heading';
 import Button from '../components/base/Button';
@@ -66,6 +67,10 @@ export default class Registration extends Block {
             if (form) {
                const formData = new FormData(form);
                console.log(formData);
+               import('./Chat').then(Page => {
+                  const Chat = Page.default;
+                  Router.getInstance().changePage(new Chat({}));
+               });
             }
          }
       }

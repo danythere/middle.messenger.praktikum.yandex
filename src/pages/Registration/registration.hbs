@@ -1,27 +1,22 @@
-<div class='{{classes.registration}}'>
-   <div class='{{classes.registration-ground}}'>
+<div class="{{classes.registration}}">
+   <div class="{{classes.registration-ground}}">
       <form>
-      <div
-         class='{{classes.registration-ground__name}}'
-      >{{{components.headings.heading.template}}}
-      </div>
-      {{#each components.inputs}}
-      <div class='{{../classes.registration-ground__input-form_margin}}'>
-         <label
-            class='{{../classes.registration-ground__label}}'
-            for='{{this.config.name}}'
-         >{{this.config.capture}}</label>
-         {{{this.template}}}
-      </div>
+         <div class="{{classes.registration-ground__name}}">
+            {{{components.headings.heading.template}}}
+         </div>
+         {{#each components.inputs}}
+         <div class="{{../classes.registration-ground__input-form_margin}}">
+            <label class="{{../classes.registration-ground__label}}"
+               for="{{this.config.name}}">{{this.config.capture}}</label>
+            {{{this.template}}}
+         </div>
 
-     {{/each}}
-     </form>
+         {{/each}}
+      </form>
 
-      <div class='{{classes.registration-ground__input-form_margin}}'>
-         <label
-            class='{{classes.registration-ground__label}}'
-            for='{{components.phoneInput.config.name}}'
-         >{{components.phoneInput.config.capture}}</label>
+      <div class="{{classes.registration-ground__input-form_margin}}">
+         <label class="{{classes.registration-ground__label}}"
+            for="{{components.phoneInput.config.name}}">{{components.phoneInput.config.capture}}</label>
          {{{components.phoneInput.template}}}
       </div>
       {{{components.buttons.createAccountButton.template}}}

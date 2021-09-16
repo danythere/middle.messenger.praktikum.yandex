@@ -1,21 +1,21 @@
-<div class='{{classes.dialog-list}}'>
-   <div class='{{classes.dialog-list__header}}'>
-      <div class='{{classes.my-profile}}'>
+<div class="{{classes.dialog-list}}">
+   <div class="{{classes.dialog-list__header}}">
+      <div class="{{classes.my-profile}}">
          {{{components.avatars.myProfile.template}}}
          <div class="{{classes.my-profile__button}}">
-         {{{components.buttons.myProfile.template}}}
+            {{{components.buttons.myProfile.template}}}
          </div>
       </div>
-      
+
       <div class="{{classes.dialog-list__search}}">
          {{{components.inputs.search.template}}}
       </div>
    </div>
-   <div class='{{classes.dialog-list__body}}'>
+   <div class="{{classes.dialog-list__body}}">
       {{#each components.dialogPreviews}}
-         <div class='{{../classes.dialog-list__message-preview}}'>
-            {{{this.template}}}
-         </div>
+      <div class="{{../classes.dialog-list__message-preview}}">
+         {{{this.template}}}
+      </div>
       {{/each}}
    </div>
 </div>
