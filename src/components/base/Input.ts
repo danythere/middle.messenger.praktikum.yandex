@@ -1,7 +1,7 @@
 import Block from '../mvc/Block';
 import compile from '../../utils/helpers';
 import classes from './Input/input.css';
-import input from './input/input.hbs';
+import input from './Input/input.hbs';
 
 /**
  * Базовый компонент поля ввода.
