@@ -26,3 +26,7 @@ Netlify: https://optimistic-leavitt-837679.netlify.app
 Pull Request: 
 * https://github.com/danythere/middle.messenger.praktikum.yandex/pull/1
 * https://github.com/danythere/middle.messenger.praktikum.yandex/pull/2
+
+Валидацию по фокусу не получилось сделать :(
+    Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
+Такую ошибку выдает, если повесить в input-е еще событие focus.
