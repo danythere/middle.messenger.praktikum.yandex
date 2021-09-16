@@ -1,0 +1,38 @@
+@import './../../../../components/base/common.css';
+.dialog-preview {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   background-color: white;
+   cursor: pointer;
+}
+
+.dialog-preview:hover {
+   background-color: rgb(218, 221, 252);
+}
+
+.dialog-preview__author-name {
+   font-weight: bold;
+}
+
+.dialog-preview__right {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.dialog-preview__left {
+   display: flex;
+   flex-direction: row;
+}
+
+.dialog-preview__time {
+   font-size: var(--text-size-xs);
+}
+
+.dialog-preview__message {
+   display: -webkit-box;
+   -webkit-line-clamp: 3;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+}

@@ -1,5 +1,8 @@
-import EventBus from '../utils/EventBus';
+import EventBus from '../../utils/EventBus';
 
+/**
+ * Базовый компонент.
+ */
 export default class Block {
    static EVENTS = {
       INIT: 'init',
@@ -8,15 +11,15 @@ export default class Block {
       FLOW_RENDER: 'flow:render',
    };
 
-   _element = null;
+   _element: HTMLElement | null = null;
 
-   _meta = null;
+   _meta: { tagName: string; props: { [prop: string]: unknown } } | null = null;
 
    props: any;
 
-   eventBus: () => any;
+   eventBus: () => EventBus;
 
-   /** JSDoc
+   /**
     * @param {string} tagName
     * @param {Object} props
     *
@@ -39,43 +42,67 @@ export default class Block {
       eventBus.emit(Block.EVENTS.INIT);
    }
 
-   _registerEvents(eventBus): void {
+   /**
+    * Регистрируем события жизненного цикла.
+    * @param eventBus
+    */
+   _registerEvents(eventBus: EventBus): void {
       eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
       eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
       eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
       eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
    }
 
-   _createResources() {
-      const { tagName } = this._meta;
-      this._element = this._createDocumentElement(tagName);
+   /**
+    * Создаем компонент по meta.
+    */
+   _createResources(): void {
+      if (this._meta) {
+         const { tagName } = this._meta;
+         this._element = this._createDocumentElement(tagName);
+      }
    }
 
+   /**
+    * Инициализация компонента.
+    */
    init(): void {
       this._createResources();
       this.eventBus().emit(Block.EVENTS.FLOW_CDM);
    }
 
+   /**
+    * Цикл: элемент вставлен.
+    */
    _componentDidMount(): void {
       this.componentDidMount();
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
    }
 
-   componentDidMount(oldProps) {}
+   componentDidMount(): void {}
 
-   _componentDidUpdate(oldProps, newProps) {
-      const response = this.componentDidUpdate(oldProps, newProps);
+   /**
+    * Цикл: компонент обновлен.
+    * @returns
+    */
+   _componentDidUpdate(): void {
+      const response = this.componentDidUpdate();
       if (!response) {
          return;
       }
       this._render();
    }
 
-   componentDidUpdate(oldProps, newProps) {
+   componentDidUpdate(): boolean {
       return true;
    }
 
-   setProps = nextProps => {
+   /**
+    * Обновление состояния компонента.
+    * @param nextProps
+    * @returns
+    */
+   setProps = (nextProps: { [prop: string]: unknown }): void => {
       if (!nextProps) {
          return;
       }
@@ -83,61 +110,89 @@ export default class Block {
       Object.assign(this.props, nextProps);
    };
 
-   get element() {
+   /**
+    * Рендер функция.
+    */
+   _render(): void {
+      const block = this.render();
+      if (this._element) {
+         while (this._element.firstChild) {
+            this._element.removeChild(this._element.firstChild);
+         }
+         if (this.props.rootStyle) {
+            this._element.setAttribute('style', this.props.rootStyle);
+         }
+         this._element.appendChild(block as Node);
+      }
+   }
+
+   render(): DocumentFragment | void {}
+
+   /**
+    * Получение элемента.
+    * @returns
+    */
+   getContent(): HTMLElement | null {
       return this._element;
    }
 
-   _render() {
-      const block = this.render();
-      while (this._element.firstChild) {
-         this._element.removeChild(this._element.firstChild);
-      }
-      if (this.props.rootStyle) {
-         this._element.setAttribute('style', this.props.rootStyle);
-      }
-      this._element.appendChild(block);
-   }
-
-   render(): DocumentFragment {}
-
-   getContent() {
-      return this.element;
-   }
-
-   _makePropsProxy(props) {
-      // Можно и так передать this
-      // Такой способ больше не применяется с приходом ES6+
+   /**
+    * Проксируем пропсы.
+    * @param props
+    * @returns
+    */
+   _makePropsProxy(props: any): ProxyConstructor | null {
       const self = this;
+      if (typeof props === 'object') {
+         return new Proxy(props, {
+            get(target, prop) {
+               const value = target[prop];
+               return typeof value === 'function' ? value.bind(target) : value;
+            },
+            set(target, prop, value) {
+               target[prop] = value;
 
-      return new Proxy(props, {
-         get(target, prop) {
-            const value = target[prop];
-            return typeof value === 'function' ? value.bind(target) : value;
-         },
-         set(target, prop, value) {
-            target[prop] = value;
-
-            // Запускаем обновление компоненты
-            // Плохой cloneDeep, в след итерации нужно заставлять добавлять cloneDeep им самим
-            self.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
-            return true;
-         },
-         deleteProperty() {
-            throw new Error('Нет доступа');
-         },
-      });
+               // Запускаем обновление компоненты
+               // Плохой cloneDeep, в след итерации нужно заставлять добавлять cloneDeep им самим
+               self
+                  .eventBus()
+                  .emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
+               return true;
+            },
+            deleteProperty() {
+               throw new Error('Нет доступа');
+            },
+         });
+      }
+      return null;
    }
 
-   _createDocumentElement(tagName) {
-      // Можно сделать метод, который через фрагменты в цикле создает сразу несколько блоков
+   /**
+    * Создание root.
+    * @param tagName
+    * @returns
+    */
+   _createDocumentElement(tagName: string): HTMLElement {
       return document.createElement(tagName);
    }
 
-   show() {
-      this.getContent().style.display = 'block';
+   /**
+    * Отобразить компонент.
+    */
+   show(): void {
+      const content = this.getContent();
+      if (content) {
+         content.style.display = 'block';
+      }
    }
 
-   hide() {
-      this.getContent().style.display = 'none';
+   /**
+    * Скрыть компонент.
+    */
+   hide(): void {
+      const content = this.getContent();
+      if (content) {
+         content.style.display = 'none';
+      }
    }
 }

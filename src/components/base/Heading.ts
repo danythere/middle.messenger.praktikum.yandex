@@ -1,10 +1,13 @@
 import Block from '../mvc/Block';
-import compile from '../utils/helpers';
+import compile from '../../utils/helpers';
 import classes from './Heading/heading.css';
 import heading from './Heading/heading.hbs';
 
+/**
+ * Базовый компонент отображения заголовков.
+ */
 export default class Heading extends Block {
-   constructor(props) {
+   constructor(props: { [props: string]: unknown }) {
       // Создаём враппер дом-элемент button
       super('div', props);
    }

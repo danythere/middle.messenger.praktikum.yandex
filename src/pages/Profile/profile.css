@@ -1,6 +1,7 @@
-@import '../base/common.css';
+@import '../../components/base/common.css';
 
 .profile {
+   position: absolute;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -22,7 +23,7 @@
    flex-direction: column;
    align-items: center;
    width: 450px;
-   height: 570px;
+   height: 580px;
    background-color: var(--gray-background);
    border: var(--dark-gray-border) solid 1px;
    border-radius: 30px;
@@ -44,11 +45,4 @@
 
 .profile-ground__input-form_margin {
    margin-bottom: var(--margin-size-m);
-}
-.profile-ground__avatar {
-   width: 70px;
-   height: 70px;
-   margin-top: 10px;
-   background-color: lightcyan;
-   border-radius: 50%;
 }

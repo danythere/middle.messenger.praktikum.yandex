@@ -1,0 +1,22 @@
+:root {
+   --avatar-size-m: 70px;
+   --avatar-size-s: 30px;
+   --avatar-size-xs: 20px;
+}
+
+.avatar {
+   border-radius: 50%;
+}
+
+.avatar_size_m {
+   width: var(--avatar-size-m);
+   height: var(--avatar-size-m);
+}
+.avatar_size_s {
+   width: var(--avatar-size-s);
+   height: var(--avatar-size-s);
+}
+.avatar_size_xs {
+   width: var(--avatar-size-xs);
+   height: var(--avatar-size-xs);
+}

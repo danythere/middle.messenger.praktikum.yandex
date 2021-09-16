@@ -3,11 +3,3 @@
    padding: 0;
    border: 0;
 }
-
-main > div,
-html,
-body,
-main {
-   width: 100%;
-   height: 100%;
-}

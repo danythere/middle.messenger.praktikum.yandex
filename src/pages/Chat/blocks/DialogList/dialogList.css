@@ -1,0 +1,27 @@
+@import './../../../../components/base/common.css';
+.my-profile {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+}
+
+.dialog-list {
+   height: 100%;
+   background-color: #c4c4c4;
+   border-right: solid 2px #9b9b9b;
+}
+
+.my-profile__button {
+   margin-left: var(--margin-size-l);
+}
+
+.dialog-list__search {
+   margin-top: var(--margin-size-l);
+}
+.dialog-list__message-preview {
+   margin-top: var(--margin-size-3xs);
+}
+
+.dialog-list__header {
+   padding: 10px;
+}

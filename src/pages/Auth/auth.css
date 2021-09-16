@@ -1,6 +1,7 @@
 @import '../../components/base/common.css';
 
 .auth {
+   position: absolute;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -31,11 +32,6 @@
 
 .auth-ground__create-account-button {
    margin-bottom: var(--margin-size-xxl);
-}
-
-.auth-ground__input-form {
-   display: flex;
-   flex-direction: column;
 }
 
 .auth-ground__label {

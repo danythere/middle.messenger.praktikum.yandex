@@ -1,74 +1,29 @@
 <div class='{{classes.registration}}'>
    <div class='{{classes.registration-ground}}'>
+      <form>
       <div
          class='{{classes.registration-ground__name}}'
-      >{{{components.heading.template}}}
+      >{{{components.headings.heading.template}}}
       </div>
-      <div
-         class='{{classes.registration-ground__input-form}}
-            {{classes.registration-ground__input-form_margin}}'
-      >
+      {{#each components.inputs}}
+      <div class='{{../classes.registration-ground__input-form_margin}}'>
          <label
-            class='{{classes.registration-ground__label}}'
-            for='{{components.firstNameInput.config.name}}'
-         >{{components.firstNameInput.config.capture}}</label>
-         {{{components.firstNameInput.template}}}
+            class='{{../classes.registration-ground__label}}'
+            for='{{this.config.name}}'
+         >{{this.config.capture}}</label>
+         {{{this.template}}}
       </div>
 
-      <div
-         class='{{classes.registration-ground__input-form}}
-            {{classes.registration-ground__input-form_margin}}'
-      >
-         <label
-            class='{{classes.registration-ground__label}}'
-            for='{{components.secondNameInput.config.name}}'
-         >{{components.secondNameInput.config.capture}}</label>
-         {{{components.secondNameInput.template}}}
-      </div>
+     {{/each}}
+     </form>
 
-      <div
-         class='{{classes.registration-ground__input-form}}
-            {{classes.registration-ground__input-form_margin}}'
-      >
-         <label
-            class='{{classes.registration-ground__label}}'
-            for='{{components.loginInput.config.name}}'
-         >{{components.loginInput.config.capture}}</label>
-         {{{components.loginInput.template}}}
-      </div>
-
-      <div
-         class='{{classes.registration-ground__input-form}}
-            {{classes.registration-ground__input-form_margin}}'
-      >
-         <label
-            class='{{classes.registration-ground__label}}'
-            for='{{components.mailInput.config.name}}'
-         >{{components.mailInput.config.capture}}</label>
-         {{{components.mailInput.template}}}
-      </div>
-
-      <div
-         class='{{classes.registration-ground__input-form}}
-            {{classes.registration-ground__input-form_margin}}'
-      >
-         <label
-            class='{{classes.registration-ground__label}}'
-            for='{{components.passwordInput.config.name}}'
-         >{{components.passwordInput.config.capture}}</label>
-         {{{components.passwordInput.template}}}
-      </div>
-
-      <div
-         class='{{classes.registration-ground__input-form}}
-            {{classes.registration-ground__input-form_margin}}'
-      >
+      <div class='{{classes.registration-ground__input-form_margin}}'>
          <label
             class='{{classes.registration-ground__label}}'
             for='{{components.phoneInput.config.name}}'
          >{{components.phoneInput.config.capture}}</label>
          {{{components.phoneInput.template}}}
       </div>
-      {{{components.createAccountButton.template}}}
+      {{{components.buttons.createAccountButton.template}}}
    </div>
 </div>

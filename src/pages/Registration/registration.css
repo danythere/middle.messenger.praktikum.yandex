@@ -1,6 +1,7 @@
 @import '../../components/base/common.css';
 
 .registration {
+   position: absolute;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -21,6 +22,7 @@
 
 .registration-ground__name {
    margin-top: var(--margin-size-m);
+   padding-bottom: 15px;
    text-align: center;
 }
 

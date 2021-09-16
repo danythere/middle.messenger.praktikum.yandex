@@ -11,8 +11,6 @@
       "start-parcel": "parcel static/index.html --no-cache",
       "eslint": "eslint",
       "start": "node app.js",
-      "stylelint": "stylelint",
-      "stylelint:fix": "stylelint '**/*{.css,.scss}' --fix"
    },
    "repository": {
       "type": "git",
@@ -25,8 +23,10 @@
    },
    "homepage": "https://github.com/danythere/middle.messenger.praktikum.yandex#readme",
    "dependencies": {
+      "@types/hbs": "^4.0.1",
       "@typescript-eslint/eslint-plugin": "^4.30.0",
       "autoprefixer": "^9.8.6",
+      "components": "^0.1.0",
       "eslint-config-airbnb": "^18.2.1",
       "eslint-config-airbnb-typescript": "^14.0.0",
       "eslint-config-google": "^0.14.0",

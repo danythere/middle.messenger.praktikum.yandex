@@ -1,4 +1,4 @@
-@import '../base/common.css';
+@import '../../components/base/common.css';
 
 .error-page__content {
    display: flex;

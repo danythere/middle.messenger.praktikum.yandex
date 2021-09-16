@@ -1,32 +1,25 @@
 <div class='{{classes.auth}}'>
    <div class='{{classes.auth-ground}}'>
-      <div
-         class='{{classes.auth-ground__name}}'>
-         {{{components.heading.template}}}
+      <div class='{{classes.auth-ground__name}}'>
+         {{{components.headings.heading.template}}}
       </div>
-      <div
-         class='{{classes.auth-ground__input-form}}
-               {{classes.auth-ground__input-form_margin}}'>
+      <form>
+      {{#each components.inputs}}
+      <div class='{{../classes.auth-ground__input-form_margin}}'>
          <label
-            class='{{classes.auth-ground__label}}'
-            for='{{components.loginInput.config.name}}'
-         >{{components.loginInput.config.capture}}
-      </label>
-         {{{components.loginInput.template}}}
+            class='{{../classes.auth-ground__label}}'
+            for='{{this.config.name}}'
+         >{{this.config.capture}}
+         </label>
+         {{{this.template}}}
       </div>
+      {{/each}}
+      </form>
       <div
-         class='{{classes.auth-ground__input-form}}
-               {{classes.auth-ground__input-form_margin}}'>
-         <label
-            class='{{classes.auth-ground__label}}'
-            for='{{components.passwordInput.config.name}}'
-         >{{components.passwordInput.config.capture}}</label>
-         {{{components.passwordInput.template}}}
+         class='{{classes.auth-ground__enter-button}}'
+      >{{{components.buttons.enterButton.template}}}</div>
+      <div class='{{classes.auth-ground__create-account-button}}'>
+         {{{components.buttons.createAccountButton.template}}}
       </div>
-      <div
-         class='{{classes.auth-ground__enter-button}}'>{{{components.enterButton.template}}}</div>
-         <div class="{{classes.auth-ground__create-account-button}}">
-            {{{components.createAccountButton.template}}}
-   </div>
    </div>
 </div>

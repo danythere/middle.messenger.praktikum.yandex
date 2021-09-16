@@ -1,13 +1,37 @@
 @import './../common.css';
 
 .button {
-   width: 120px;
    height: 25px;
    background-color: var(--secondary-background);
    cursor: pointer;
 }
 
-.button_color-primary {
+.button_size_s {
+   width: var(--button-size-s);
+}
+
+.button_size_m {
+   width: var(--button-size-m);
+}
+
+.button_size_xs {
+   width: var(--button-size-xs);
+}
+
+.button_color_primary {
    color: var(--light-text-color);
    background-color: var(--primary-background);
+}
+
+.button_color_send {
+   background-color: var(--send-background);
+}
+
+.button__icon {
+   width: 20px;
+   height: 20px;
+}
+
+.button_style_rounded {
+   border-radius: 20%;
 }
