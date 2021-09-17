@@ -1,13 +1,14 @@
-import Block from '../components/mvc/Block';
+import Block from '../components/base/Block';
 import errorPage from './ErrorPage/errorPage.hbs';
 import compile from '../utils/helpers';
 import { notFoundConfig, commonConfig } from './ErrorPage/config';
+import { DefaultPropsType } from '../components/types';
 
 /**
  * Страница с ошибкой.
  */
 export default class ErrorPage extends Block {
-   constructor(props: { [props: string]: unknown }) {
+   constructor(props: DefaultPropsType) {
       super('div', { ...props });
    }
 

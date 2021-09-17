@@ -4,6 +4,7 @@ import Button from '../../components/base/Button';
 import classes from './profile.css';
 import Avatar from '../../components/base/Avatar';
 import Validator from '../../utils/Validator';
+import { EventHandlersType, ClassesType } from '../types';
 
 const firstNameInputConfig = {
    type: 'text',
@@ -87,10 +88,10 @@ const avatarConfig = {
    size: 'm',
    link: 'https://usatiki.ru/files/images/4279051374_afdee3a409_b.jpg',
 };
-export const getConfig = (eventHandlers: {
-   [prop: string]: void;
-}): {
-   classes: { [props: string]: string };
+export const getConfig = (
+   eventHandlers: EventHandlersType,
+): {
+   classes: ClassesType;
    components: {
       headings: {
          [prop: string]: {

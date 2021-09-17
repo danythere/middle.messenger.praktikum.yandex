@@ -1,14 +1,14 @@
-import Block from '../mvc/Block';
+import Block from './Block';
 import classes from './Button/button.css';
 import button from './Button/button.hbs';
 import compile from '../../utils/helpers';
+import { DefaultPropsType } from '../types';
 
 /**
  * Базовый компонент кнопки.
  */
 export default class Button extends Block {
-   constructor(props: { [props: string]: unknown }) {
-      // Создаём враппер дом-элемент button
+   constructor(props: DefaultPropsType) {
       super('div', props);
    }
 

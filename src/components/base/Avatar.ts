@@ -1,13 +1,14 @@
-import Block from '../mvc/Block';
+import Block from './Block';
 import compile from '../../utils/helpers';
 import avatar from './Avatar/avatar.hbs';
+import { DefaultPropsType } from '../types';
 import classes from './Avatar/avatar.css';
 
 /**
  * Базовый компонент отображения аватара.
  */
 export default class Avatar extends Block {
-   constructor(props: { [props: string]: unknown }) {
+   constructor(props: DefaultPropsType) {
       super('div', props);
    }
 

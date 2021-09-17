@@ -5,7 +5,7 @@ import { registerHelpers } from './helpers';
 registerHelpers();
 import Auth from './pages/Auth';
 import Router from './utils/Router';
-import Block from './components/mvc/Block';
+import Block from './components/base/Block';
 
 window.onload = (): void => {
    Router.getInstance().subscribeOnChangePage(async (newPage: Block) => {

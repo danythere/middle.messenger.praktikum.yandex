@@ -1,4 +1,4 @@
-import Block from '../components/mvc/Block';
+import Block from '../components/base/Block';
 import EventBus from './EventBus';
 
 /**

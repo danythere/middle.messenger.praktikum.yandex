@@ -2,8 +2,8 @@ import Avatar from '../../../../components/base/Avatar';
 import Input from '../../../../components/base/Input';
 import classes from './dialogList.css';
 import DialogPreview from '../DialogPreview';
-import Router from '../../../../utils/Router';
 import Button from '../../../../components/base/Button';
+import { Names, switchPage } from '../../../pageSwitcher';
 
 const myProfileAvatarConfig = {
    size: 'xs',
@@ -26,10 +26,7 @@ const profileButtonConfig = {
    size: 'm',
    eventHandlers: {
       onClick: (): void => {
-         import('../../../Profile').then(Page => {
-            const Profile = Page.default;
-            Router.getInstance().changePage(new Profile({}));
-         });
+         switchPage(Names.Profile);
       },
    },
 };

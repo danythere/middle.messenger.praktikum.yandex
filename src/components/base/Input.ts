@@ -1,7 +1,8 @@
-import Block from '../mvc/Block';
+import Block from './Block';
 import compile from '../../utils/helpers';
 import classes from './Input/input.css';
 import input from './Input/input.hbs';
+import { DefaultPropsType } from '../types';
 
 /**
  * Базовый компонент поля ввода.
@@ -9,13 +10,9 @@ import input from './Input/input.hbs';
 export default class Input extends Block {
    private _value: string;
 
-   private _initialStyle = 'default';
-
-   constructor(props: { [props: string]: unknown }) {
-      // Создаём враппер дом-элемент button
+   constructor(props: DefaultPropsType) {
       super('div', props);
       this._value = (props.value as string) || '';
-      this._initialStyle = (props.style as string) || 'default';
    }
 
    getValue(): string {
@@ -25,18 +22,29 @@ export default class Input extends Block {
    validate(): string | null {
       if (this.props.validFunc) {
          const validRes = this.props.validFunc(this._value);
-         if (validRes) {
-            this.setProps({
-               invalid: true,
-               invalidIconVisible: true,
-               invalidText: validRes,
-            });
-         } else {
-            this.setProps({
-               invalid: false,
-               style: this._initialStyle,
-               invalidIconVisible: false,
-            });
+         const content = this.getContent();
+         if (content) {
+            const errorIcon = content.querySelector('[name="error-icon"]');
+            const inputEl = content.querySelector('input');
+
+            if (validRes) {
+               if (inputEl) {
+                  inputEl.classList.add(classes.input_style_invalid);
+               }
+               if (errorIcon) {
+                  errorIcon.classList.remove(
+                     classes['input__invalid-mark_hide'],
+                  );
+                  errorIcon?.setAttribute('title', validRes);
+               }
+            } else {
+               if (inputEl) {
+                  inputEl.classList.remove(classes.input_style_invalid);
+               }
+               if (errorIcon) {
+                  errorIcon.classList.add(classes['input__invalid-mark_hide']);
+               }
+            }
          }
          return validRes;
       }
@@ -54,11 +62,10 @@ export default class Input extends Block {
          background: this.props.background || 'transparent',
          style: this.props.style || 'default',
          placeholder: this.props.placeholder,
-         invalidIconVisible: this.props.invalidIconVisible,
          invalidText: this.props.invalidText,
-         invalid: this.props.invalid,
       });
       const inputElement = fragment.content.querySelector('input');
+      const errorIcon = fragment.content.querySelector('[name="error-icon"]');
       inputElement?.addEventListener('change', (event: InputEvent) => {
          this._value = (<HTMLInputElement>event.target).value;
       });
@@ -66,17 +73,18 @@ export default class Input extends Block {
          inputElement?.addEventListener('blur', () => {
             const validRes = this.props.validFunc(this.getValue());
             if (validRes) {
-               this.setProps({
-                  invalid: true,
-                  invalidIconVisible: true,
-                  invalidText: validRes,
-               });
+               inputElement.classList.add(classes.input_style_invalid);
+               if (errorIcon) {
+                  errorIcon.classList.remove(
+                     classes['input__invalid-mark_hide'],
+                  );
+                  errorIcon?.setAttribute('title', validRes);
+               }
             } else {
-               this.setProps({
-                  invalid: false,
-                  style: this._initialStyle,
-                  invalidIconVisible: false,
-               });
+               inputElement.classList.remove(classes.input_style_invalid);
+               if (errorIcon) {
+                  errorIcon.classList.add(classes['input__invalid-mark_hide']);
+               }
             }
          });
       }

@@ -1,7 +1,5 @@
 <input class="{{classes.input}} {{getClass 'input_style_' style classes}}
-   {{getClass 'input_background_' background classes}}{{#if invalid}} {{classes.input_style_invalid}} {{/if}}"
+   {{getClass 'input_background_' background classes}}"
    type="{{type}}" name="{{name}}" value="{{value}}" placeholder="{{placeholder}}"
    style="width:{{width}}px;height:{{height}}px" />
-{{#if invalidIconVisible}}
-<div title="{{invalidText}}" class="{{classes.input__invalid-mark}}">!</div>
-{{/if}}
+<div title="{{invalidText}}" name="error-icon" class="{{classes.input__invalid-mark}} {{classes.input__invalid-mark_hide}}">!</div>

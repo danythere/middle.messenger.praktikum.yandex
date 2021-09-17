@@ -1,16 +1,17 @@
-import Block from '../../../components/mvc/Block';
+import Block from '../../../components/base/Block';
 import dialogScreen from './DialogScreen/dialogScreen.hbs';
 import compile from '../../../utils/helpers';
 import { getConfig } from './DialogScreen/config';
 import Avatar from '../../../components/base/Avatar';
 import MessageInput from './MessageInput';
+import { ClassesType } from '../../types';
 
 /**
  * Экран открытого диалога.
  */
 export default class DialogScreen extends Block {
    private _config: {
-      classes: { [props: string]: string };
+      classes: ClassesType;
       userName: string;
       messages: { text: string; author: boolean }[];
       components: {

@@ -1,18 +1,20 @@
-import Block from '../components/mvc/Block';
+import Block from '../components/base/Block';
 import registration from './Registration/registration.hbs';
 import compile from '../utils/helpers';
 import { getConfig } from './Registration/config';
-import Router from '../utils/Router';
 import Input from '../components/base/Input';
 import Heading from '../components/base/Heading';
 import Button from '../components/base/Button';
+import { ClassesType } from './types';
+import { Names, switchPage } from './pageSwitcher';
+import { DefaultPropsType } from '../components/types';
 
 /**
  * Страница регистрации.
  */
 export default class Registration extends Block {
    private _config: {
-      classes: { [props: string]: string };
+      classes: ClassesType;
       components: {
          headings: {
             [prop: string]: {
@@ -38,7 +40,7 @@ export default class Registration extends Block {
       };
    };
 
-   constructor(props: { [props: string]: unknown }) {
+   constructor(props: DefaultPropsType) {
       super('div', { ...props });
    }
 
@@ -67,10 +69,7 @@ export default class Registration extends Block {
             if (form) {
                const formData = new FormData(form);
                console.log(formData);
-               import('./Chat').then(Page => {
-                  const Chat = Page.default;
-                  Router.getInstance().changePage(new Chat({}));
-               });
+               switchPage(Names.Chat);
             }
          }
       }

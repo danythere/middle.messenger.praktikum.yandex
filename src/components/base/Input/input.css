@@ -18,8 +18,8 @@
 }
 
 .input_style_rounded {
-   padding: 5px 5px;
-   border-radius: 10px 10px 10px 10px;
+   padding: 5px;
+   border-radius: 10px;
 }
 
 .input_style_invalid {
@@ -37,4 +37,8 @@
    background-color: #dfdbdb;
    border-radius: 50%;
    cursor: default;
+}
+
+.input__invalid-mark_hide {
+   display: none;
 }

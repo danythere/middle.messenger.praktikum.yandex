@@ -1,4 +1,5 @@
 import EventBus from '../../utils/EventBus';
+import classes from './Block/block.css';
 
 /**
  * Базовый компонент.
@@ -142,21 +143,22 @@ export default class Block {
     * @returns
     */
    _makePropsProxy(props: any): ProxyConstructor | null {
-      const self = this;
       if (typeof props === 'object') {
          return new Proxy(props, {
             get(target, prop) {
                const value = target[prop];
                return typeof value === 'function' ? value.bind(target) : value;
             },
-            set(target, prop, value) {
+            set: (target, prop, value) => {
                target[prop] = value;
 
                // Запускаем обновление компоненты
                // Плохой cloneDeep, в след итерации нужно заставлять добавлять cloneDeep им самим
-               self
-                  .eventBus()
-                  .emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
+               this.eventBus().emit(
+                  Block.EVENTS.FLOW_CDU,
+                  { ...target },
+                  target,
+               );
                return true;
             },
             deleteProperty() {
@@ -180,9 +182,8 @@ export default class Block {
     * Отобразить компонент.
     */
    show(): void {
-      const content = this.getContent();
-      if (content) {
-         content.style.display = 'block';
+      if (this._element) {
+         this._element.classList.remove(classes.block_hide);
       }
    }
 
@@ -190,9 +191,8 @@ export default class Block {
     * Скрыть компонент.
     */
    hide(): void {
-      const content = this.getContent();
-      if (content) {
-         content.style.display = 'none';
+      if (this._element) {
+         this._element.classList.add(classes.block_hide);
       }
    }
 }

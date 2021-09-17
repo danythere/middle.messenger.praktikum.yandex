@@ -1,13 +1,14 @@
-import Block from '../../../components/mvc/Block';
+import Block from '../../../components/base/Block';
 import dialogPreview from './DialogPreview/dialogPreview.hbs';
 import compile from '../../../utils/helpers';
 import { getConfig } from './DialogPreview/config';
+import { DefaultPropsType } from '../../../components/types';
 
 /**
  * Блок диалога, отображаемый в ленте диалогов.
  */
 export default class DialogPreview extends Block {
-   constructor(props: { [props: string]: unknown }) {
+   constructor(props: DefaultPropsType) {
       super('div', { ...props });
    }
 

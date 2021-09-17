@@ -1,4 +1,4 @@
-import Block from './mvc/Block';
+import Block from './base/Block';
 
 export default interface IComponentConfig {
    config: { [prop: string]: string | number | void };

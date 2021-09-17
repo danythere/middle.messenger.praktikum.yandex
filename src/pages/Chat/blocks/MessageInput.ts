@@ -1,13 +1,14 @@
-import Block from '../../../components/mvc/Block';
+import Block from '../../../components/base/Block';
 import messageInput from './MessageInput/messageInput.hbs';
 import compile from '../../../utils/helpers';
 import { config } from './MessageInput/config';
+import { DefaultPropsType } from '../../../components/types';
 
 /**
  * Компонент ввода сообщений.
  */
 export default class MessageInput extends Block {
-   constructor(props: { [props: string]: unknown }) {
+   constructor(props: DefaultPropsType) {
       super('div', { ...props });
    }
 

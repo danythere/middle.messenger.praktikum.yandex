@@ -1,9 +1,10 @@
 import Input from '../../components/base/Input';
 import Heading from '../../components/base/Heading';
 import Button from '../../components/base/Button';
-import Router from '../../utils/Router';
 import classes from './auth.css';
 import Validator from '../../utils/Validator';
+import { EventHandlersType, ClassesType } from '../types';
+import { Names, switchPage } from '../pageSwitcher';
 
 const headingConfig = { title: 'Войти' };
 const loginInputConfig = {
@@ -31,17 +32,14 @@ const createAccountButtonConfig = {
    background: 'secondary',
    eventHandlers: {
       onClick: (): void => {
-         import('../Registration').then(page => {
-            const Registration = page.default;
-            Router.getInstance().changePage(new Registration({}));
-         });
+         switchPage(Names.Registration);
       },
    },
 };
-export const getConfig = (eventHandlers: {
-   [prop: string]: void;
-}): {
-   classes: { [props: string]: string };
+export const getConfig = (
+   eventHandlers: EventHandlersType,
+): {
+   classes: ClassesType;
    components: {
       headings: {
          [prop: string]: {

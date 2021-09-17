@@ -1,19 +1,20 @@
-import Block from '../components/mvc/Block';
+import Block from '../components/base/Block';
 import profile from './Profile/profile.hbs';
 import compile from '../utils/helpers';
 import { getConfig } from './Profile/config';
-import Router from '../utils/Router';
 import Avatar from '../components/base/Avatar';
 import Input from '../components/base/Input';
 import Heading from '../components/base/Heading';
 import Button from '../components/base/Button';
+import { ClassesType } from './types';
+import { Names, switchPage } from './pageSwitcher';
 
 /**
  * Страница авторизации.
  */
 export default class Profile extends Block {
    private _config: {
-      classes: { [props: string]: string };
+      classes: ClassesType;
       components: {
          headings: {
             [prop: string]: {
@@ -73,10 +74,7 @@ export default class Profile extends Block {
             const form = content.querySelector('form');
             const formData = new FormData(form || undefined);
             console.log(formData);
-            import('./Chat').then(Page => {
-               const Chat = Page.default;
-               Router.getInstance().changePage(new Chat({}));
-            });
+            switchPage(Names.Chat);
          }
       }
    }
@@ -89,10 +87,7 @@ export default class Profile extends Block {
       const fragment = compile(profile, config);
       const backButton = fragment?.content.querySelector('#back');
       backButton?.addEventListener('click', () => {
-         import('./Chat').then(Page => {
-            const Chat = Page.default;
-            Router.getInstance().changePage(new Chat({}));
-         });
+         switchPage(Names.Chat);
       });
       return fragment.content;
    }

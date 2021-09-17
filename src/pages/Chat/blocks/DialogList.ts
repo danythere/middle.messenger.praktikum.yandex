@@ -1,13 +1,14 @@
-import Block from '../../../components/mvc/Block';
+import Block from '../../../components/base/Block';
 import dialogList from './DialogList/dialogList.hbs';
 import compile from '../../../utils/helpers';
 import { config } from './DialogList/config';
+import { DefaultPropsType } from '../../../components/types';
 
 /**
  * Лента диалогов.
  */
 export default class DialogList extends Block {
-   constructor(props: { [props: string]: unknown }) {
+   constructor(props: DefaultPropsType) {
       super('div', { ...props });
    }
 

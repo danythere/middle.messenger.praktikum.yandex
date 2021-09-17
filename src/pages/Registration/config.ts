@@ -2,8 +2,8 @@ import Input from '../../components/base/Input';
 import Heading from '../../components/base/Heading';
 import Button from '../../components/base/Button';
 import classes from './registration.css';
-import Router from '../../utils/Router';
 import Validator from '../../utils/Validator';
+import { EventHandlersType, ClassesType } from '../types';
 
 const headingConfig = {
    title: 'Регистрация',
@@ -63,10 +63,10 @@ const createAccountButtonConfig = {
    capture: 'Создать аккаунт',
    background: 'primary',
 };
-export const getConfig = (eventHandlers: {
-   [prop: string]: void;
-}): {
-   classes: { [props: string]: string };
+export const getConfig = (
+   eventHandlers: EventHandlersType,
+): {
+   classes: ClassesType;
    components: {
       headings: {
          [prop: string]: {
