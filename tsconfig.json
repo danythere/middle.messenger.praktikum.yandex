@@ -1,0 +1,13 @@
+{
+   "compilerOptions": {
+      "outDir": "outDir/",
+      "baseUrl": "./src",
+      "noImplicitAny": true,
+      "target": "es5",
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "sourceMap": true,
+      "strictNullChecks": true
+   },
+   "include": ["src/**/*"]
+}

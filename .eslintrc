@@ -1,0 +1,22 @@
+{
+   "root": true,
+
+   "parser": "@typescript-eslint/parser",
+   "plugins": ["@typescript-eslint", "no-loops"],
+   "parserOptions": {
+      "project": "./tsconfig.json"
+   },
+   "extends": [
+      "airbnb-base",
+      "airbnb-typescript/base",
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:prettier/recommended"
+   ],
+   "rules": {
+      "import/prefer-default-export": "off",
+      "no-underscore-dangle": "off",
+      "class-methods-use-this": "off"
+   }
+}

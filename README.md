@@ -20,6 +20,11 @@ https://github.com/danythere/middle.messenger.praktikum.yandex/pull/1
 * Ошибка 404
 * Ошибка 500*
 
+## 4. Проверка кода.
+В проекте действуют следующие линтеры:
+* eslint(файл с настройками .eslintrc)
+* проверка типизации typescript(файл с настройками tsconfig.json)
+* stylelint(файл с настройками .stylelintrc.json)
 ## 4. Ссылки:
 Макет:https://www.figma.com/file/cn4s2uPeAcVzpCm4MMMmox/Untitled?node-id=0%3A1  
 Netlify: https://optimistic-leavitt-837679.netlify.app  

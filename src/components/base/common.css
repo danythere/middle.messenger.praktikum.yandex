@@ -1,0 +1,20 @@
+:root {
+   --gray-background: #f3f3f3;
+   --dark-gray-border: #9c9597;
+   --light-text-color: #d9d9d9;
+   --margin-size-m: 10px;
+   --margin-size-l: 15px;
+   --margin-size-xl: 20px;
+   --margin-size-xxl: 30px;
+   --margin-size-2xs: 5px;
+   --margin-size-3xs: 3px;
+   --text-size-s: 14px;
+   --text-size-xs: 12px;
+   --text-size-2xs: 10px;
+   --primary-background: #645e5e;
+   --secondary-background: #ddd;
+   --send-background: #def3ff;
+   --button-size-s: 120px;
+   --button-size-m: 150px;
+   --button-size-xs: 70px;
+}

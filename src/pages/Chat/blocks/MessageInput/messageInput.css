@@ -1,0 +1,15 @@
+@import './../../../../components/base/common.css';
+
+.message-input {
+   display: flex;
+   align-items: center;
+}
+
+.message-input__operation {
+   margin-right: var(--margin-size-m);
+   cursor: pointer;
+}
+
+.message-input__send-button {
+   margin-left: var(--margin-size-xxl);
+}

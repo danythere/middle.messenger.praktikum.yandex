@@ -1,0 +1,44 @@
+@import './../common.css';
+.input {
+   color: inherit;
+   border: none;
+   outline: none;
+}
+
+.input_style_default {
+   border-bottom: 1px solid black;
+}
+
+.input_background_transparent {
+   background-color: transparent;
+}
+
+.input_background_gray {
+   background-color: rgb(219, 219, 219);
+}
+
+.input_style_rounded {
+   padding: 5px;
+   border-radius: 10px;
+}
+
+.input_style_invalid {
+   border-bottom: 1px solid red;
+}
+
+.input__invalid-mark {
+   position: absolute;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   width: 20px;
+   height: 20px;
+   margin-left: var(--margin-size-2xs);
+   background-color: #dfdbdb;
+   border-radius: 50%;
+   cursor: default;
+}
+
+.input__invalid-mark_hide {
+   display: none;
+}
