@@ -66,11 +66,15 @@ export default class Input extends Block {
       });
       const inputElement = fragment.content.querySelector('input');
       const errorIcon = fragment.content.querySelector('[name="error-icon"]');
-      inputElement?.addEventListener('change', (event: InputEvent) => {
+      inputElement?.addEventListener('input', (event: InputEvent) => {
          this._value = (<HTMLInputElement>event.target).value;
+         if (this.props.eventHandlers?.onChange) {
+            this.props.eventHandlers.onChange(this._value);
+         }
       });
-      if (this.props.validFunc) {
-         inputElement?.addEventListener('blur', () => {
+
+      inputElement?.addEventListener('blur', () => {
+         if (this.props.validFunc) {
             const validRes = this.props.validFunc(this.getValue());
             if (validRes) {
                inputElement.classList.add(classes.input_style_invalid);
@@ -86,8 +90,8 @@ export default class Input extends Block {
                   errorIcon.classList.add(classes['input__invalid-mark_hide']);
                }
             }
-         });
-      }
+         }
+      });
 
       return fragment.content;
    }

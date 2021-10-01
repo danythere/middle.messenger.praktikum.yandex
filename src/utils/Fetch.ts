@@ -20,7 +20,7 @@ function queryStringify(data: XMLHttpRequestBodyInit) {
 /**
  * Класс для запросов на сервер.
  */
-export default class HTTPTransport {
+export default class Fetch {
    get = (
       url: string,
       options: { [prop: string]: unknown } = {},
@@ -85,7 +85,6 @@ export default class HTTPTransport {
             method as string,
             isGet && !!data ? `${url}${queryStringify(data)}` : url,
          );
-
          Object.keys(headers as Headers).forEach(key => {
             xhr.setRequestHeader(key, headers[key]);
          });
@@ -99,11 +98,11 @@ export default class HTTPTransport {
 
          xhr.timeout = timeout;
          xhr.ontimeout = reject;
-
+         xhr.withCredentials = true;
          if (isGet || !data) {
             xhr.send();
          } else {
-            xhr.send(data as XMLHttpRequestBodyInit);
+            xhr.send(data);
          }
       });
    };

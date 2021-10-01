@@ -6,8 +6,9 @@ import Input from '../components/base/Input';
 import Heading from '../components/base/Heading';
 import Button from '../components/base/Button';
 import { ClassesType } from './types';
-import { Names, switchPage } from './pageSwitcher';
+import Router from '../utils/Router';
 import { DefaultPropsType } from '../components/types';
+import Controller from '../api/Controller';
 
 /**
  * Страница регистрации.
@@ -68,8 +69,11 @@ export default class Registration extends Block {
             const form = content.querySelector('form');
             if (form) {
                const formData = new FormData(form);
+               new Controller().registrate(
+                  JSON.stringify(Object.fromEntries(formData)),
+               );
                console.log(formData);
-               switchPage(Names.Chat);
+               // new Router('#root').go('/messenger');
             }
          }
       }

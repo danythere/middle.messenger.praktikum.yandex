@@ -1,9 +1,12 @@
 import Avatar from '../../../../components/base/Avatar';
 import Input from '../../../../components/base/Input';
+import Popup from '../../../../components/base/Popup';
 import classes from './dialogList.css';
 import DialogPreview from '../DialogPreview';
 import Button from '../../../../components/base/Button';
-import { Names, switchPage } from '../../../pageSwitcher';
+import Router from '../../../../utils/Router';
+import Controller from '../../../../api/Controller';
+import CreateChatTemplate from './CreateChatTemplate/CreateChatTemplate';
 
 const myProfileAvatarConfig = {
    size: 'xs',
@@ -22,21 +25,69 @@ const searchConfig = {
 
 const profileButtonConfig = {
    capture: 'Мой профиль',
+   background: 'primary',
+   size: 'm',
+   eventHandlers: {
+      onClick: (): void => {
+         new Router('#root').go('/settings');
+      },
+   },
+};
+
+const logoutButtonConfig = {
+   capture: 'Выход',
    background: 'secondary',
    size: 'm',
    eventHandlers: {
       onClick: (): void => {
-         switchPage(Names.Profile);
+         new Controller().logout().then(() => {
+            new Router('#root').go('/');
+         });
       },
    },
 };
-export const config = {
+
+const createChatButtonConfig = {
+   capture: 'Создать чат',
+   background: 'secondary',
+   size: 'm',
+};
+
+const createChatPopupConfig = {
+   title: 'Создать чат',
+   width: 200,
+   height: 200,
+   components: {
+      main: {
+         content: {
+            config: {},
+            inst: new CreateChatTemplate({}),
+            template: null,
+         },
+      },
+   },
+};
+
+export const getConfig = eventHandlers => ({
    classes,
    components: {
       buttons: {
          myProfile: {
             config: profileButtonConfig,
             inst: new Button(profileButtonConfig),
+            template: null,
+         },
+         logout: {
+            config: logoutButtonConfig,
+            inst: new Button(logoutButtonConfig),
+            template: null,
+         },
+         createChat: {
+            config: createChatButtonConfig,
+            inst: new Button({
+               ...createChatButtonConfig,
+               eventHandlers: { onClick: eventHandlers.createChatHandler },
+            }),
             template: null,
          },
       },
@@ -51,6 +102,13 @@ export const config = {
          search: {
             config: searchConfig,
             inst: new Input(searchConfig),
+            template: null,
+         },
+      },
+      popups: {
+         createChat: {
+            config: createChatPopupConfig,
+            inst: new Popup(createChatPopupConfig),
             template: null,
          },
       },
@@ -100,4 +158,4 @@ export const config = {
          },
       ],
    },
-};
+});

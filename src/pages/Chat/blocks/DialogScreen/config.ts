@@ -1,10 +1,32 @@
 import classes from './dialogScreen.css';
 import Avatar from '../../../../components/base/Avatar';
 import MessageInput from '../MessageInput';
+import Button from '../../../../components/base/Button';
+import Popup from '../../../../components/base/Popup';
+import AddUsersTemplate from './AddUsersTemplate/AddUsersTemplate';
 
 const avatarConfig = {
    size: 'm',
    link: 'https://sobkor.net/uploads/posts/2016-04/1461838526_12.jpg',
+};
+const addNewUserButtonConfig = {
+   capture: '+',
+   background: 'primary',
+};
+
+const addUserPopupConfig = {
+   title: 'Добавить пользователя',
+   width: 400,
+   height: 300,
+   components: {
+      main: {
+         content: {
+            config: {},
+            inst: new AddUsersTemplate({}),
+            template: null,
+         },
+      },
+   },
 };
 export const getConfig = (eventHandlers: {
    [prop: string]: void;
@@ -23,7 +45,7 @@ export const getConfig = (eventHandlers: {
       chat: {
          [prop: string]: {
             config: unknown;
-            inst: MessageInput;
+            inst: MessageInput | Button;
             template: (() => string) | null;
          };
       };
@@ -63,6 +85,19 @@ export const getConfig = (eventHandlers: {
             inst: new MessageInput({
                eventHandlers: { onSendClick: eventHandlers.onSendClick },
             }),
+            template: null,
+         },
+         addUserButton: {
+            config: addNewUserButtonConfig,
+            inst: new Button({
+               ...addNewUserButtonConfig,
+               eventHandlers: { onClick: eventHandlers.onAddUserClick },
+            }),
+            template: null,
+         },
+         addUserPopup: {
+            config: addUserPopupConfig,
+            inst: new Popup(addUserPopupConfig),
             template: null,
          },
       },

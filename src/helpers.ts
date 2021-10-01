@@ -12,4 +12,25 @@ export function registerHelpers(): void {
          return classes[someClass + postfix];
       },
    );
+   Handlebars.registerHelper(
+      'devide',
+      (left: number, right: number): number => {
+         return left / right;
+      },
+   );
+
+   Handlebars.registerHelper(
+      'getDataByColumns',
+      (data: object[], columns: object[]): number => {
+         const res = data.reduce((acc, cur, ind) => {
+            const row = [];
+            columns.forEach(column => {
+               row.push(cur[column.displayProperty]);
+            });
+            acc.push(row);
+            return acc;
+         }, []);
+         return res;
+      },
+   );
 }

@@ -55,8 +55,15 @@ export default class DialogScreen extends Block {
       }
    }
 
+   private _openUsersPopup(): void {
+      this._config.components.chat.addUserPopup.inst.open();
+   }
+
    render(): DocumentFragment {
-      const config = getConfig({ onSendClick: this._sendMessage.bind(this) });
+      const config = getConfig({
+         onSendClick: this._sendMessage.bind(this),
+         onAddUserClick: this._openUsersPopup.bind(this),
+      });
       this._config = config;
       const fragment = compile(dialogScreen, config);
       return fragment.content;

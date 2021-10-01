@@ -6,8 +6,9 @@ import Input from '../components/base/Input';
 import Button from '../components/base/Button';
 import Heading from '../components/base/Heading';
 import { ClassesType } from './types';
-import { switchPage, Names } from './pageSwitcher';
 import { DefaultPropsType } from '../components/types';
+import Router from '../utils/Router';
+import Controller from '../api/Controller';
 
 /**
  * Страница авторизации.
@@ -66,8 +67,12 @@ export default class Auth extends Block {
          if (content) {
             const form = content.querySelector('form');
             const formData = new FormData(form || undefined);
+            new Controller()
+               .auth(JSON.stringify(Object.fromEntries(formData)))
+               .then(() => {
+                  new Router('#root').go('/messenger');
+               });
             console.log(formData);
-            switchPage(Names.Chat);
          }
       }
    }

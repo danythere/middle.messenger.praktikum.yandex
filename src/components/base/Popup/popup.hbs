@@ -1,0 +1,12 @@
+<div class="{{classes.popup__overlay}} {{getClass 'popup_' mode classes}}">
+    <div class="{{classes.popup}}"
+        style="width:{{width}}px;height:{{height}}px;top:calc(50% - {{devide height  2}}px);left:calc(50% - {{devide width 2}}px)">
+        <div class="{{classes.popup__header}}">
+            <div> {{title}}</div>
+            <div id="close-button">X</div>
+        </div>
+        <div>
+            {{{components.main.content.template}}}
+        </div>
+    </div>
+</div>

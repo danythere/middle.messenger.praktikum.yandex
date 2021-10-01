@@ -16,6 +16,8 @@ export default class Block {
 
    _meta: { tagName: string; props: { [prop: string]: unknown } } | null = null;
 
+   protected state: any = {};
+
    props: any;
 
    eventBus: () => EventBus;
@@ -28,13 +30,15 @@ export default class Block {
     */
    constructor(tagName = 'div', props = {}) {
       const eventBus = new EventBus();
-
+      this.getStateFromProps(props);
       this._meta = {
          tagName,
          props,
       };
 
       this.props = this._makePropsProxy(props);
+
+      this.state = this._makePropsProxy(this.state);
 
       this.eventBus = () => eventBus;
 
@@ -69,24 +73,27 @@ export default class Block {
     */
    init(): void {
       this._createResources();
-      this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+      this.eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props);
+   }
+
+   protected getStateFromProps(props: any): void {
+      this.state = {};
    }
 
    /**
     * Цикл: элемент вставлен.
     */
-   _componentDidMount(): void {
-      this.componentDidMount();
-      this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+   _componentDidMount(props: any): void {
+      this.componentDidMount(props);
    }
 
-   componentDidMount(): void {}
+   componentDidMount(props: any): void {}
 
    /**
     * Цикл: компонент обновлен.
     * @returns
     */
-   _componentDidUpdate(): void {
+   _componentDidUpdate(oldProps: any, newProps: any): void {
       const response = this.componentDidUpdate();
       if (!response) {
          return;
@@ -116,6 +123,20 @@ export default class Block {
     */
    _render(): void {
       const block = this.render();
+      if (block instanceof Promise) {
+         block.then(newBlock => {
+            if (this._element) {
+               while (this._element.firstChild) {
+                  this._element.removeChild(this._element.firstChild);
+               }
+               if (this.props.rootStyle) {
+                  this._element.setAttribute('style', this.props.rootStyle);
+               }
+               this._element.appendChild(newBlock as Node);
+            }
+         });
+         return;
+      }
       if (this._element) {
          while (this._element.firstChild) {
             this._element.removeChild(this._element.firstChild);

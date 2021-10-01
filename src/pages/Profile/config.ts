@@ -69,7 +69,7 @@ const oldPasswordInputConfig = {
 const newPasswordInputConfig = {
    type: 'password',
    placeholder: '',
-   name: 'newPpassword',
+   name: 'newPassword',
    width: '200',
    height: '25',
    validFunc: Validator.validatePassword,
@@ -84,6 +84,10 @@ const saveButtonConfig = {
    background: 'primary',
 };
 
+const changePasswordButtonConfig = {
+   capture: 'Изменить пароль',
+   background: 'primary',
+};
 const avatarConfig = {
    size: 'm',
    link: 'https://usatiki.ru/files/images/4279051374_afdee3a409_b.jpg',
@@ -121,6 +125,13 @@ export const getConfig = (
             template: (() => string) | null;
          };
       };
+      password: {
+         [prop: string]: {
+            config: unknown;
+            inst: Input;
+            template: (() => string) | null;
+         };
+      };
    };
 } => ({
    classes,
@@ -131,6 +142,14 @@ export const getConfig = (
             inst: new Button({
                ...saveButtonConfig,
                eventHandlers: { onClick: eventHandlers.onClick },
+            }),
+            template: null,
+         },
+         changePassword: {
+            config: changePasswordButtonConfig,
+            inst: new Button({
+               ...changePasswordButtonConfig,
+               eventHandlers: { onClick: eventHandlers.changePassword },
             }),
             template: null,
          },
@@ -180,6 +199,8 @@ export const getConfig = (
             inst: new Input(phoneInputConfig),
             template: null,
          },
+      },
+      password: {
          oldPasswordInput: {
             config: { ...oldPasswordInputConfig, capture: 'Старый пароль' },
             inst: new Input(oldPasswordInputConfig),

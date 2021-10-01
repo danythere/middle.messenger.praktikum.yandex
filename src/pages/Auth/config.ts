@@ -4,7 +4,7 @@ import Button from '../../components/base/Button';
 import classes from './auth.css';
 import Validator from '../../utils/Validator';
 import { EventHandlersType, ClassesType } from '../types';
-import { Names, switchPage } from '../pageSwitcher';
+import Router from '../../utils/Router';
 
 const headingConfig = { title: 'Войти' };
 const loginInputConfig = {
@@ -32,7 +32,7 @@ const createAccountButtonConfig = {
    background: 'secondary',
    eventHandlers: {
       onClick: (): void => {
-         switchPage(Names.Registration);
+         new Router('#root').go('/sign-up');
       },
    },
 };

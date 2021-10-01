@@ -12,5 +12,18 @@
       {{/each}}
     </form>
     {{{components.buttons.saveButton.template}}}
+    <form id="password-form">
+      <div class="{{classes.profile-ground__input-form}} {{classes.profile-ground__input-form_margin}}">
+        <label class="{{classes.profile-ground__label}}"
+          for="{{components.password.oldPasswordInput.config.name}}">{{components.password.oldPasswordInput.config.capture}}</label>
+        {{{components.password.oldPasswordInput.template}}}
+      </div>
+      <div class="{{classes.profile-ground__input-form}} {{classes.profile-ground__input-form_margin}}">
+        <label class="{{classes.profile-ground__label}}"
+          for="{{components.password.newPasswordInput.config.name}}">{{components.password.newPasswordInput.config.capture}}</label>
+        {{{components.password.newPasswordInput.template}}}
+      </div>
+    </form>
+    {{{components.buttons.changePassword.template}}}
   </div>
 </div>

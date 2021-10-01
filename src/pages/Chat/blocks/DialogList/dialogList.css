@@ -25,3 +25,7 @@
 .dialog-list__header {
    padding: 10px;
 }
+
+.dialog-list__first-line {
+   display: flex;
+}

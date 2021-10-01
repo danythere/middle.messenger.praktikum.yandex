@@ -1,0 +1,9 @@
+<div>
+    {{#each (getDataByColumns data columns)}}
+    <div class="{{../classes.list__row}} {{../classes.list__row_clickable}}" >
+        {{#each this}}
+        <div class="{{../classes.list__cell}}">{{this}}</div>
+        {{/each}}
+    </div>
+    {{/each}}
+</div>

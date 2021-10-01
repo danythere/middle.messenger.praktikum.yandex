@@ -1,12 +1,16 @@
 <div class="{{classes.dialog-list}}">
    <div class="{{classes.dialog-list__header}}">
-      <div class="{{classes.my-profile}}">
-         {{{components.avatars.myProfile.template}}}
-         <div class="{{classes.my-profile__button}}">
-            {{{components.buttons.myProfile.template}}}
+      <div class="{{classes.dialog-list__first-line}}">
+         <div class="{{classes.my-profile}}">
+            {{{components.avatars.myProfile.template}}}
+            <div class="{{classes.my-profile__button}}">
+               {{{components.buttons.myProfile.template}}}
+            </div>
          </div>
+         {{{components.buttons.logout.template}}}
+         {{{components.buttons.createChat.template}}}
+         {{{components.popups.createChat.template}}}
       </div>
-
       <div class="{{classes.dialog-list__search}}">
          {{{components.inputs.search.template}}}
       </div>

@@ -6,21 +6,16 @@ registerHelpers();
 import Auth from './pages/Auth';
 import Router from './utils/Router';
 import Block from './components/base/Block';
+import Profile from './pages/Profile';
+import Chat from './pages/Chat';
+import Registration from './pages/Registration';
 
 window.onload = (): void => {
-   Router.getInstance().subscribeOnChangePage(async (newPage: Block) => {
-      const root = document.querySelector('#root');
-      while (root?.firstChild) {
-         root?.removeChild(root.firstChild);
-      }
-      const content = newPage.getContent();
-      if (content) {
-         root?.appendChild(content);
-      }
-   });
-   const auth = new Auth({});
-   const content = auth.getContent();
-   if (content) {
-      document.querySelector('#root')?.appendChild(content);
-   }
+   const router = new Router('#root');
+   router
+      .use('/sign-up', Registration)
+      .use('/settings', Profile)
+      .use('/messenger', Chat)
+      .use('/', Auth);
+   router.start();
 };
