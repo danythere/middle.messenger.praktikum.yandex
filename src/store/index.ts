@@ -1,6 +1,6 @@
 import chats from './chats';
 import user from './user';
-import { Store } from '../utils/store';
+import { Store } from '../utils/Store';
 import Block from '../components/base/Block';
 import { DefaultPropsType } from '../components/types';
 import { ClassType } from '../components/interfaces';
