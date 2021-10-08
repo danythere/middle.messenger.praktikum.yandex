@@ -1,7 +1,5 @@
 import Block from './Block';
 import classes from './Button/button.css';
-import button from './Button/button.hbs';
-import compile from '../../utils/helpers';
 import { DefaultPropsType } from '../types';
 
 /**
@@ -12,20 +10,32 @@ export default class Button extends Block {
       super('div', props);
    }
 
-   render(): DocumentFragment {
-      const fragment = compile(button, {
+   getStateFromProps(): void {
+      this.state = {
          classes,
-         background: this.props.background,
-         capture: this.props.capture,
-         icon: this.props.icon,
-         style: this.props.style || 'default',
-         size: this.props.size || 's',
-      });
-      if (this.props.eventHandlers?.onClick) {
-         fragment.content
-            .querySelector('button')
-            ?.addEventListener('click', this.props.eventHandlers.onClick);
+         capture: '',
+         background: '',
+         icon: null,
+         style: 'default',
+         size: 's',
+      };
+   }
+
+   componentAfterRender(): void {
+      if (this.props.onClick) {
+         this.getContent()?.addEventListener('click', this.props.onClick);
       }
-      return fragment.content;
+   }
+
+   render(): string {
+      return `<button type='button' class="{{classes.button}}
+      {{getClass 'button_color_' background classes}} {{getClass 'button_style_' style classes}}
+   {{getClass 'button_size_' size classes}}">
+   {{#if icon}}
+   <img src="{{icon}}" class="{{classes.button__icon}}" />
+   {{else}}
+   {{capture}}
+   {{/if}}
+</button>`;
    }
 }

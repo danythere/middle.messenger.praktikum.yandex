@@ -1,86 +1,107 @@
 import Block from '../components/base/Block';
-import auth from './Auth/auth.hbs';
-import compile from '../utils/helpers';
-import { getConfig } from './Auth/config';
-import Input from '../components/base/Input';
-import Button from '../components/base/Button';
-import Heading from '../components/base/Heading';
-import { ClassesType } from './types';
+import classes from './Auth/auth.css';
+import Validator from '../utils/Validator';
 import { DefaultPropsType } from '../components/types';
 import Router from '../utils/Router';
 import Controller from '../api/Controller';
+import Input from '../components/base/Input';
+import { connect } from '../store';
 
 /**
  * Страница авторизации.
  */
-export default class Auth extends Block {
-   private _config: {
-      classes: ClassesType;
-      components: {
-         headings: {
-            [prop: string]: {
-               config: unknown;
-               inst: Heading;
-               template: (() => string) | null;
-            };
-         };
-         inputs: {
-            [prop: string]: {
-               config: unknown;
-               inst: Input;
-               template: (() => string) | null;
-            };
-         };
-         buttons: {
-            [prop: string]: {
-               config: unknown;
-               inst: Button;
-               template: (() => string) | null;
-            };
-         };
-      };
-   };
-
+class Auth extends Block {
    constructor(props: DefaultPropsType) {
       super('div', { ...props });
    }
 
-   protected _submit(): void {
-      let successValid = true;
-      Object.entries(this._config.components.inputs).forEach(
-         ([, input]: [
-            string,
-            {
-               config: { [prop: string]: unknown };
-               inst: Input;
-               template: () => string;
-            },
-         ]) => {
-            const validRes = input.inst.validate();
-            if (validRes) {
-               successValid = false;
-            }
-         },
-      );
-      if (successValid) {
+   getStateFromProps(): void {
+      this.state = {
+         classes,
+         passwordValidFunc: Validator.validatePassword,
+         loginValidFunc: Validator.validateLogin,
+         createAccountClickHandler: this._createAccount,
+         enterClickHandler: this._auth.bind(this),
+      };
+   }
+
+   protected _createAccount(): void {
+      new Router('#root').go('/sign-up');
+   }
+
+   componentDidUpdate(oldProps: any, newProps: any): boolean {
+      if (newProps.user && newProps.user.profile.id) {
+         new Router('#root').go('/messenger');
+      }
+      return true;
+   }
+
+   protected _auth(): void {
+      const loginInput = this.getChild('login') as unknown as Input;
+      const passwordInput = this.getChild('password') as unknown as Input;
+      if (
+         loginInput &&
+         passwordInput &&
+         !loginInput.validate() &&
+         !passwordInput.validate()
+      ) {
          const content = this.getContent();
          if (content) {
-            const form = content.querySelector('form');
-            const formData = new FormData(form || undefined);
+            const form = content.querySelector('form') as HTMLFormElement;
+            const formData = new FormData(form);
             new Controller()
-               .auth(JSON.stringify(Object.fromEntries(formData)))
+               .auth(
+                  JSON.stringify(
+                     Object.fromEntries(
+                        formData as unknown as Iterable<[string, unknown]>,
+                     ),
+                  ),
+               )
                .then(() => {
                   new Router('#root').go('/messenger');
                });
-            console.log(formData);
          }
       }
    }
 
-   render(): DocumentFragment {
-      const config = getConfig({ onClick: this._submit.bind(this) });
-      const fragment = compile(auth, config);
-      this._config = config;
-      return fragment.content;
+   render(): string {
+      return `<div class="{{classes.auth}}">
+      <div class="{{classes.auth-ground}}">
+         <div class="{{classes.auth-ground__name}}">
+           {{{Heading title='Авторизация'}}}
+         </div>
+         <form>
+         <div class="{{classes.auth-ground__input-form_margin}} {{classes.auth-ground__input-form}}">
+         <label class="{{classes.auth-ground__label}}" for="login">Логин
+         </label>
+         {{{Input  type='text'
+         name = 'login'
+         validFunc=loginValidFunc
+         width = '200'
+         height = '25'}}}
+      </div>
+            <div class="{{classes.auth-ground__input-form_margin}} {{classes.auth-ground__input-form}}">
+               <label class="{{classes.auth-ground__label}}" for="password">Пароль
+               </label>
+               {{{Input  
+               type='password'
+               name = 'password'
+               width = '200'
+               validFunc=passwordValidFunc
+               height = '25'}}}
+            </div>
+         </form>
+         <div class="{{classes.auth-ground__enter-button}}">{{{Button capture='Войти'  onClick=enterClickHandler background='primary'}}}</div>
+         <div class="{{classes.auth-ground__create-account-button}}">
+            {{{Button capture='Создать аккаунт' onClick=createAccountClickHandler background='secondary'}}}
+         </div>
+      </div>
+   </div>`;
    }
 }
+
+const AuthWithStore = connect(
+   (state: any) => ({ user: state.user || null }),
+   Auth,
+);
+export default AuthWithStore;

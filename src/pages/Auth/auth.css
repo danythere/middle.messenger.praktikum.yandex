@@ -41,3 +41,8 @@
 .auth-ground__input-form_margin {
    margin-bottom: var(--margin-size-m);
 }
+
+.auth-ground__input-form {
+   display: flex;
+   flex-direction: column;
+}

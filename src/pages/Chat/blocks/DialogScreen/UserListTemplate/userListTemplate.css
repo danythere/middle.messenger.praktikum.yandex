@@ -26,14 +26,30 @@
    display: none;
 }
 
-popup_visible {
-   display: block;
-}
-
 .popup__close-button {
    cursor: pointer;
 }
 
-.create-chat-template__button {
-   margin-top: var(--margin-size-m);
+popup_visible {
+   display: block;
+}
+
+.user-list-template__body {
+   max-height: 330px;
+   overflow: auto;
+   margin-bottom: var(--margin-size-m);
+   padding: 0 10px;
+}
+
+.user-list-template__item{
+   display: flex;
+   justify-content: space-between;
+}
+.user-list-template__item:hover {
+   background-color: khaki;
+}
+
+.user-list-template__delete-button {
+   color: red;
+   cursor: pointer;
 }

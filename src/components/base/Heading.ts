@@ -1,8 +1,6 @@
 import Block from './Block';
-import compile from '../../utils/helpers';
 import classes from './Heading/heading.css';
 import { DefaultPropsType } from '../types';
-import heading from './Heading/heading.hbs';
 
 /**
  * Базовый компонент отображения заголовков.
@@ -12,11 +10,16 @@ export default class Heading extends Block {
       super('div', props);
    }
 
-   render(): DocumentFragment {
-      const fragment = compile(heading, {
+   getStateFromProps(): void {
+      this.state = {
          classes,
-         title: this.props.title,
-      });
-      return fragment.content;
+         title: '',
+      };
+   }
+
+   render(): string {
+      return `<h1 class="{{classes.heading}}">
+      {{title}}
+  </h1>`;
    }
 }

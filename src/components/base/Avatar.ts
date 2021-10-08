@@ -1,6 +1,4 @@
 import Block from './Block';
-import compile from '../../utils/helpers';
-import avatar from './Avatar/avatar.hbs';
 import { DefaultPropsType } from '../types';
 import classes from './Avatar/avatar.css';
 
@@ -12,12 +10,21 @@ export default class Avatar extends Block {
       super('div', props);
    }
 
-   render(): DocumentFragment {
-      const fragment = compile(avatar, {
+   getStateFromProps(): void {
+      this.state = {
          classes,
-         size: this.props.size,
-         link: this.props.link,
-      });
-      return fragment.content;
+         size: 's',
+      };
+   }
+
+   render(): string {
+      return `<div name="avatar">
+      {{#if link}}
+      <img src="{{link}}" class="{{classes.avatar}} {{getClass 'avatar_size_' size classes}}" />
+      {{else}}
+      <div class="{{classes.avatar}} {{classes.avatar_empty}} {{getClass 'avatar_size_' size classes}}"> </div>
+      {{/if}}
+
+   </div>`;
    }
 }

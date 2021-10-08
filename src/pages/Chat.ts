@@ -1,10 +1,19 @@
+/* eslint-disable global-require */
 import Block from '../components/base/Block';
-import chat from './Chat/chat.hbs';
-import compile from '../utils/helpers';
-import { config } from './Chat/config';
+import classes from './Chat/chat.css';
 import { DefaultPropsType } from '../components/types';
-import Controller from '../api/Controller';
+import { registerComponent } from '../helpers';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const components = require('./Chat/blocks/*.ts') as {
+   [key: string]: { default: typeof Block };
+};
+
+Object.values(components).forEach(component => {
+   if (component.default.name !== 'WithStore') {
+      registerComponent(component.default);
+   }
+});
 /**
  * Страница с чатами.
  */
@@ -13,12 +22,16 @@ export default class Chat extends Block {
       super('div', { ...props });
    }
 
+   getStateFromProps(): void {
+      this.state = {
+         classes,
+      };
+   }
+
    render(): DocumentFragment {
-      new Controller().getChats().then(res => {
-         debugger;
-         console.log(res);
-      });
-      const fragment = compile(chat, config);
-      return fragment.content;
+      return `<div class="{{classes.chat}}">
+     {{{DialogList}}}
+      {{{DialogScreen}}}
+   </div>`;
    }
 }

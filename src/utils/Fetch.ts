@@ -102,7 +102,7 @@ export default class Fetch {
          if (isGet || !data) {
             xhr.send();
          } else {
-            xhr.send(data);
+            xhr.send(data as XMLHttpRequestBodyInit);
          }
       });
    };

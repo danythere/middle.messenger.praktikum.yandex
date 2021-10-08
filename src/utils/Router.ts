@@ -27,7 +27,7 @@ export default class Router<T extends Block> {
       Router.__instance = this;
    }
 
-   use(pathname: string, block: new (props: any) => T): Router<T> {
+   use(pathname: string, block: new (props: unknown) => T): Router<T> {
       const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 
       this.routes.push(route);
@@ -42,7 +42,6 @@ export default class Router<T extends Block> {
             this._onRoute(currentTarget.location.pathname);
          }
       };
-
       this._onRoute(window.location.pathname);
    }
 

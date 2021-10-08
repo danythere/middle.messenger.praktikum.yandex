@@ -1,4 +1,4 @@
-import Handlebars from 'handlebars/dist/handlebars.runtime';
+import Handlebars from 'handlebars';
 
 // Склеить класс и его постфикс.
 export function registerHelpers(): void {
@@ -21,9 +21,12 @@ export function registerHelpers(): void {
 
    Handlebars.registerHelper(
       'getDataByColumns',
-      (data: object[], columns: object[]): number => {
-         const res = data.reduce((acc, cur, ind) => {
-            const row = [];
+      (
+         data: { [props: string]: unknown }[],
+         columns: { displayProperty: string }[],
+      ): unknown[] => {
+         const res = data.reduce((acc: unknown[], cur) => {
+            const row: unknown[] = [];
             columns.forEach(column => {
                row.push(cur[column.displayProperty]);
             });
@@ -31,6 +34,51 @@ export function registerHelpers(): void {
             return acc;
          }, []);
          return res;
+      },
+   );
+
+   Handlebars.registerHelper(
+      'getValueFromObject',
+      (object: { [key: string]: unknown }, key: string): unknown => {
+         return object[key];
+      },
+   );
+
+   Handlebars.registerHelper('reverse', (array: unknown[]) => {
+      if (Array.isArray(array)) {
+         const newArray = [...array];
+         newArray.reverse();
+         return newArray;
+      }
+      return array;
+   });
+
+   Handlebars.registerHelper(
+      'equalPrimitive',
+      (first: unknown, second: unknown): boolean => {
+         return first === second;
+      },
+   );
+}
+
+export function registerComponent<Props = any>(
+   Component: BlockConstructable,
+   name?: string,
+): void {
+   Handlebars.registerHelper(
+      name || Component.name,
+      function buildBlock({ hash: { ref, ...hash }, data }: HelperOptions) {
+         if (!data.root.children) {
+            // eslint-disable-next-line no-param-reassign
+            data.root.children = {};
+         }
+         const { children } = data.root;
+
+         const component = new Component(hash);
+
+         children[component.id] = component;
+
+         return `<div data-id="${component.id}"></div>`;
       },
    );
 }
