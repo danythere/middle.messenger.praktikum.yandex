@@ -3,7 +3,8 @@ import classes from './List/list.css';
 import { DefaultPropsType } from '../types';
 
 /**
- * Базовый компонент поля ввода.
+ * Базовый список( к сожалению не хватило сил сделать его универсальным, поэтому
+ * он используется в одном месте, думаю вынесу его в следующей итерации из базовых).
  */
 export default class List extends Block {
    constructor(props: DefaultPropsType) {
@@ -45,7 +46,7 @@ export default class List extends Block {
                {{#each (getDataByColumns data columns)}}
                <div class="{{../classes.list__row}} {{../classes.list__row_clickable}}" >
                    {{#each this}}
-                   <div class="{{../classes.list__cell}}">{{this}}</div>
+                     <div class="{{../classes.list__cell}}">{{this}}</div>
                    {{/each}}
                </div>
                {{/each}}

@@ -2,11 +2,12 @@ import Block from '../../../../../components/base/Block';
 import Controller from '../../../../../api/Controller';
 import { DefaultPropsType } from '../../../../../components/types';
 import classes from './userListTemplate.css';
+import popupClasses from '../../../../../components/base/popup.css';
 import { IUser } from '../../../../../interfaces/user';
 import { IPopupOptions } from '../../../../../components/interfaces';
 
 /**
- * Блок диалога, отображаемый в ленте диалогов.
+ * Окно с участниками чата.
  */
 export default class UserListTemplate extends Block {
    constructor(props: DefaultPropsType) {
@@ -15,7 +16,7 @@ export default class UserListTemplate extends Block {
 
    getStateFromProps(): void {
       this.state = {
-         classes,
+         classes: { ...classes, ...popupClasses },
          mode: 'hide',
          users: [],
          hasMore: true,
@@ -99,16 +100,17 @@ export default class UserListTemplate extends Block {
               <div name="close-button" class="{{classes.popup__close-button}}">X</div>
           </div>
           <div class="{{classes.user-list-template__body}}">
-           {{#each users}}
-           <div name='list-item' class="{{../classes.user-list-template__item}}">
-           {{getValueFromObject this 'first_name'}} <span name="delete-button" class="{{../classes.user-list-template__delete-button}}">X</span>
-           </div>
-           {{/each}}
+              {{#each users}}
+              <div name='list-item' class="{{../classes.user-list-template__item}}">
+                  {{getValueFromObject this 'first_name'}} <span name="delete-button"
+                      class="{{../classes.user-list-template__delete-button}}">X</span>
+              </div>
+              {{/each}}
           </div>
           <div>
-          {{#if hasMore}}
-          {{{Button capture='Загрузить еще...' onClick=loadMore}}}
-          {{/if}}</div>
+              {{#if hasMore}}
+              {{{Button capture='Загрузить еще...' onClick=loadMore}}}
+              {{/if}}</div>
       </div>
   </div>`;
    }

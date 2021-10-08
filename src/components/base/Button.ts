@@ -31,11 +31,11 @@ export default class Button extends Block {
       return `<button type='button' class="{{classes.button}}
       {{getClass 'button_color_' background classes}} {{getClass 'button_style_' style classes}}
    {{getClass 'button_size_' size classes}}">
-   {{#if icon}}
-   <img src="{{icon}}" class="{{classes.button__icon}}" />
-   {{else}}
-   {{capture}}
-   {{/if}}
+    {{#if icon}}
+    <img src="{{icon}}" class="{{classes.button__icon}}" />
+    {{else}}
+    {{capture}}
+    {{/if}}
 </button>`;
    }
 }

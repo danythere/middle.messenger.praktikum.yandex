@@ -37,7 +37,7 @@ export default class MessageInput extends Block {
       return `<div class="{{classes.message-input}}">
       <img src="paper-clip.svg" class="{{classes.message-input__operation}}" height="30px" width="30px" />
       <img src="smile.svg" class="{{classes.message-input__operation}}" height="30px" width="30px" />
-      {{{Input    
+      {{{Input
       type= 'text'
       name= 'message'
       width='600'
@@ -46,12 +46,12 @@ export default class MessageInput extends Block {
       validFunc=validFunc
       background='gray'}}}
       <div class="{{classes.message-input__send-button}}">
-         {{{Button    background= 'send'
-         style= 'rounded'
-         onClick=sendHandler
-         size= 'xs'
-         icon='send.svg'}}}
+          {{{Button background= 'send'
+          style= 'rounded'
+          onClick=sendHandler
+          size= 'xs'
+          icon='send.svg'}}}
       </div>
-   </div>`;
+  </div>`;
    }
 }

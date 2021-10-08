@@ -67,36 +67,37 @@ class Auth extends Block {
    render(): string {
       return `<div class="{{classes.auth}}">
       <div class="{{classes.auth-ground}}">
-         <div class="{{classes.auth-ground__name}}">
-           {{{Heading title='Авторизация'}}}
-         </div>
-         <form>
-         <div class="{{classes.auth-ground__input-form_margin}} {{classes.auth-ground__input-form}}">
-         <label class="{{classes.auth-ground__label}}" for="login">Логин
-         </label>
-         {{{Input  type='text'
-         name = 'login'
-         validFunc=loginValidFunc
-         width = '200'
-         height = '25'}}}
+          <div class="{{classes.auth-ground__name}}">
+              {{{Heading title='Авторизация'}}}
+          </div>
+          <form>
+              <div class="{{classes.auth-ground__input-form_margin}} {{classes.auth-ground__input-form}}">
+                  <label class="{{classes.auth-ground__label}}" for="login">Логин
+                  </label>
+                  {{{Input type='text'
+                  name = 'login'
+                  validFunc=loginValidFunc
+                  width = '200'
+                  height = '25'}}}
+              </div>
+              <div class="{{classes.auth-ground__input-form_margin}} {{classes.auth-ground__input-form}}">
+                  <label class="{{classes.auth-ground__label}}" for="password">Пароль
+                  </label>
+                  {{{Input
+                  type='password'
+                  name = 'password'
+                  width = '200'
+                  validFunc=passwordValidFunc
+                  height = '25'}}}
+              </div>
+          </form>
+          <div class="{{classes.auth-ground__enter-button}}">{{{Button capture='Войти' onClick=enterClickHandler
+              background='primary'}}}</div>
+          <div class="{{classes.auth-ground__create-account-button}}">
+              {{{Button capture='Создать аккаунт' onClick=createAccountClickHandler background='secondary'}}}
+          </div>
       </div>
-            <div class="{{classes.auth-ground__input-form_margin}} {{classes.auth-ground__input-form}}">
-               <label class="{{classes.auth-ground__label}}" for="password">Пароль
-               </label>
-               {{{Input  
-               type='password'
-               name = 'password'
-               width = '200'
-               validFunc=passwordValidFunc
-               height = '25'}}}
-            </div>
-         </form>
-         <div class="{{classes.auth-ground__enter-button}}">{{{Button capture='Войти'  onClick=enterClickHandler background='primary'}}}</div>
-         <div class="{{classes.auth-ground__create-account-button}}">
-            {{{Button capture='Создать аккаунт' onClick=createAccountClickHandler background='secondary'}}}
-         </div>
-      </div>
-   </div>`;
+  </div>`;
    }
 }
 

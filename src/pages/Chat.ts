@@ -28,10 +28,10 @@ export default class Chat extends Block {
       };
    }
 
-   render(): DocumentFragment {
+   render(): string {
       return `<div class="{{classes.chat}}">
-     {{{DialogList}}}
-      {{{DialogScreen}}}
-   </div>`;
+                  {{{DialogList}}}
+                  {{{DialogScreen}}}
+      </div>`;
    }
 }

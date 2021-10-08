@@ -10,6 +10,8 @@ export const store = new Store({
    user,
 });
 
+
+// КАК ЭТО ТИПИЗИРОВАТЬ? :((( Возвращаемый тип функции connect...
 export function connect(
    stateToProps: (state: any) => any,
    Component: typeof Block,

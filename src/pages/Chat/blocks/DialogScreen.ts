@@ -92,31 +92,31 @@ class DialogScreen extends Block {
    render(): string {
       return `<div class="{{classes.dialog-screen}}">
       <div class="{{classes.dialog-screen__content}}">
-      {{#if chat.id}}
-         <div class="{{classes.dialog-screen__header}}">
-            {{{Avatar}}}
-            <div class="{{classes.dialog-screen__name}}">
-            {{{Heading title=chat.title}}}
-            </div>
-           {{{Button  capture='Добавить пользователя' background='primary'  size='m' onClick=openAddUserPopup}}}
-            {{{AddUsersTemplate name='addUserPopup'}}}
-            {{{Button  capture='Участники' background='secondary'  size='m' onClick=openUserListPopup}}}
-            {{{UserListTemplate name='userListPopup' chatId=chat.id}}}
-            <hr>
-         </div>
-         {{{MessageFeed users=users name='messageFeed'}}}
-         <form>
-            <div class="{{classes.dialog-screen__message-input}}">
-              {{{MessageInput name='messageInput'}}}
-            </div>
-         </form>
-         {{else}}
-         <div class="{{classes.dialog-screen__empty-view-text}}">
-         {{{Heading title="Выберите чат для начала общения!"}}}
-         </div>
-         {{/if}}
+          {{#if chat.id}}
+          <div class="{{classes.dialog-screen__header}}">
+              {{{Avatar}}}
+              <div class="{{classes.dialog-screen__name}}">
+                  {{{Heading title=chat.title}}}
+              </div>
+              {{{Button capture='Добавить пользователя' background='primary' size='m' onClick=openAddUserPopup}}}
+              {{{AddUsersTemplate name='addUserPopup'}}}
+              {{{Button capture='Участники' background='secondary' size='m' onClick=openUserListPopup}}}
+              {{{UserListTemplate name='userListPopup' chatId=chat.id}}}
+              <hr>
+          </div>
+          {{{MessageFeed users=users name='messageFeed'}}}
+          <form>
+              <div class="{{classes.dialog-screen__message-input}}">
+                  {{{MessageInput name='messageInput'}}}
+              </div>
+          </form>
+          {{else}}
+          <div class="{{classes.dialog-screen__empty-view-text}}">
+              {{{Heading title="Выберите чат для начала общения!"}}}
+          </div>
+          {{/if}}
       </div>
-   </div>`;
+  </div>`;
    }
 }
 const DialogScreenWithStore = connect(

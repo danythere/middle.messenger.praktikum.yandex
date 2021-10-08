@@ -1,15 +1,17 @@
 import Controller from '../../../../../api/Controller';
 import Block from '../../../../../components/base/Block';
 import classes from './createChatTemplate.css';
+import popupClasses from '../../../../../components/base/popup.css';
 import { DefaultPropsType } from '../../../../../components/types';
 import Input from '../../../../../components/base/Input';
 import { IPopupOptions } from '../../../../../components/interfaces';
+import Validator from '../../../../../utils/Validator';
 
 interface ICreateChatTemplateOptions extends IPopupOptions {
    onCreateHandler: () => unknown;
 }
 /**
- * Блок диалога, отображаемый в ленте диалогов.
+ * Окно создания чата.
  */
 export default class CreateChatTemplate extends Block {
    private _onCreate: () => unknown;
@@ -20,14 +22,19 @@ export default class CreateChatTemplate extends Block {
 
    getStateFromProps(): void {
       this.state = {
-         classes,
+         classes: { ...classes, ...popupClasses },
          mode: 'hide',
+         validFunc: Validator.validateTitle,
          createChat: this._createChat.bind(this),
       };
    }
 
    protected _createChat(): void {
       const child = this.getChild('nameInput') as unknown as Input;
+      const validRes = child.validate();
+      if (validRes) {
+         return;
+      }
       new Controller()
          .createChat(
             JSON.stringify({
@@ -80,10 +87,10 @@ export default class CreateChatTemplate extends Block {
               <div name="close-button" class="{{classes.popup__close-button}}">X</div>
           </div>
           <div>
-          {{{Input onChange=searchHandler name='nameInput'}}}
-          <div class="{{classes.create-chat-template__button}}">
-         {{{Button capture='Создать' onClick=createChat}}}
-         </div>
+              {{{Input onChange=searchHandler name='nameInput' validFunc=validFunc}}}
+              <div class="{{classes.create-chat-template__button}}">
+                  {{{Button capture='Создать' onClick=createChat}}}
+              </div>
           </div>
       </div>
   </div>`;

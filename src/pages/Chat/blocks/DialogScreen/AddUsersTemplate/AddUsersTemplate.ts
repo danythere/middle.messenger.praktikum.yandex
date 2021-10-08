@@ -1,7 +1,7 @@
 import Block from '../../../../../components/base/Block';
 import Controller from '../../../../../api/Controller';
 import { store } from '../../../../../store';
-import classes from './addUsersTemplate.css';
+import popupClasses from '../../../../../components/base/popup.css';
 import { DefaultPropsType } from '../../../../../components/types';
 import { IUser } from '../../../../../interfaces/user';
 import { IChat } from '../../../../../interfaces/chat';
@@ -12,7 +12,7 @@ interface IAddUsersTemplateOptions extends IPopupOptions {
    onChooseHandler: () => unknown;
 }
 /**
- * Блок диалога, отображаемый в ленте диалогов.
+ * Окно с добавлением участника чата.
  */
 export default class AddUsersTemplate extends Block {
    private _onChooseHandler: (item: IUser) => unknown;
@@ -23,7 +23,7 @@ export default class AddUsersTemplate extends Block {
 
    getStateFromProps(): void {
       this.state = {
-         classes,
+         classes: popupClasses,
          mode: 'hide',
          columns: [
             { displayProperty: 'login' },
@@ -95,8 +95,8 @@ export default class AddUsersTemplate extends Block {
               <div name="close-button" class="{{classes.popup__close-button}}">X</div>
           </div>
           <div>
-          {{{Input onChange=searchHandler}}}
-          {{{List name='list' onItemClick=itemClickHandler columns=columns source=source searchStringKey='login'}}}
+              {{{Input onChange=searchHandler}}}
+              {{{List name='list' onItemClick=itemClickHandler columns=columns source=source searchStringKey='login'}}}
           </div>
       </div>
   </div>`;

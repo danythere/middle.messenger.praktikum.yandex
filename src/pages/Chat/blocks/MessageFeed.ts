@@ -6,7 +6,7 @@ import { store } from '../../../store';
 import { IUser } from '../../../interfaces/user';
 
 /**
- * Компонент ввода сообщений.
+ * Лента сообщений в диалоге.
  */
 export default class MessageFeed extends Block {
    private _isUnloadingMessages: boolean;
@@ -124,18 +124,18 @@ export default class MessageFeed extends Block {
       {{#each (reverse messages)}}
       {{#if (equalPrimitive this.user_id ../currentUser)}}
       <div class="{{../classes.dialog-screen__message-wrapper_my}} {{../classes.dialog-screen__message-wrapper}}">
-      <div class="{{../classes.dialog-screen__message}}">
-         {{{this.content}}}
+          <div class="{{../classes.dialog-screen__message}}">
+              {{{this.content}}}
+          </div>
       </div>
-   </div>
       {{else}}
       <div class="{{../classes.dialog-screen__message-wrapper}}">
-         <div class="{{../classes.dialog-screen__message}}">
-            {{{this.content}}}
-         </div>
+          <div class="{{../classes.dialog-screen__message}}">
+              {{{this.content}}}
+          </div>
       </div>
       {{/if}}
       {{/each}}
-      </div>`;
+  </div>`;
    }
 }

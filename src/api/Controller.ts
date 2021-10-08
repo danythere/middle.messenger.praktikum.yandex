@@ -1,5 +1,6 @@
 import Fetch from '../utils/Fetch';
 
+const API_LINK = 'https://ya-praktikum.tech/api/v2';
 /**
  * Контроллер.
  */
@@ -20,7 +21,7 @@ export default class Controller {
    }
 
    public auth(data: string): Promise<XMLHttpRequest> {
-      return this._fetch.post('https://ya-praktikum.tech/api/v2/auth/signin', {
+      return this._fetch.post(`${API_LINK}/auth/signin`, {
          data,
          headers: {
             'Content-Type': 'application/json',
@@ -32,7 +33,7 @@ export default class Controller {
    public registrate(data: string): Promise<boolean> {
       return new Promise(resolve => {
          this._fetch
-            .post('https://ya-praktikum.tech/api/v2/auth/signup', {
+            .post(`${API_LINK}/auth/signup`, {
                data,
                headers: { 'Content-Type': 'application/json' },
             })
@@ -44,28 +45,24 @@ export default class Controller {
 
    public logout(): Promise<boolean> {
       return new Promise(resolve => {
-         this._fetch
-            .post('https://ya-praktikum.tech/api/v2/auth/logout')
-            .then(() => {
-               resolve(true);
-            });
+         this._fetch.post(`${API_LINK}/auth/logout`).then(() => {
+            resolve(true);
+         });
       });
    }
 
    public getCurrentUser(): Promise<string> {
       return new Promise(resolve => {
-         this._fetch
-            .get('https://ya-praktikum.tech/api/v2/auth/user')
-            .then(res => {
-               resolve(res.response);
-            });
+         this._fetch.get(`${API_LINK}/auth/user`).then(res => {
+            resolve(res.response);
+         });
       });
    }
 
    public changeProfile(data: string): Promise<string> {
       return new Promise(resolve => {
          this._fetch
-            .put('https://ya-praktikum.tech/api/v2/user/profile', {
+            .put(`${API_LINK}/user/profile`, {
                data,
                headers: { 'Content-Type': 'application/json' },
             })
@@ -76,7 +73,7 @@ export default class Controller {
    }
 
    public changePassword(data: string): Promise<XMLHttpRequest> {
-      return this._fetch.put('https://ya-praktikum.tech/api/v2/user/password', {
+      return this._fetch.put(`${API_LINK}/user/password`, {
          data,
          headers: { 'Content-Type': 'application/json' },
       });
@@ -91,7 +88,7 @@ export default class Controller {
    ): Promise<string> {
       return new Promise(resolve => {
          this._fetch
-            .get('https://ya-praktikum.tech/api/v2/chats', {
+            .get(`${API_LINK}/chats`, {
                data,
             })
             .then(res => {
@@ -101,16 +98,16 @@ export default class Controller {
    }
 
    public createChat(data: string): Promise<XMLHttpRequest> {
-      return this._fetch.post('https://ya-praktikum.tech/api/v2/chats', {
+      return this._fetch.post(`${API_LINK}/chats`, {
          data,
          headers: { 'Content-Type': 'application/json' },
       });
    }
 
-   public searchUsers(data: JSON): Promise<XMLHttpRequest> {
+   public searchUsers(data: JSON): Promise<string> {
       return new Promise(resolve => {
          this._fetch
-            .post('https://ya-praktikum.tech/api/v2/user/search', {
+            .post(`${API_LINK}/user/search`, {
                headers: { 'Content-Type': 'application/json' },
                data,
             })
@@ -122,18 +119,16 @@ export default class Controller {
 
    public getToken(id: number): Promise<string> {
       return new Promise(resolve => {
-         this._fetch
-            .post(`https://ya-praktikum.tech/api/v2/chats/token/${id}`)
-            .then(data => {
-               resolve(data.response);
-            });
+         this._fetch.post(`${API_LINK}/chats/token/${id}`).then(data => {
+            resolve(data.response);
+         });
       });
    }
 
    public addUserInChat(data: string): Promise<boolean> {
       return new Promise(resolve => {
          this._fetch
-            .put('https://ya-praktikum.tech/api/v2/chats/users', {
+            .put(`${API_LINK}/chats/users`, {
                headers: { 'Content-Type': 'application/json' },
                data,
             })
@@ -146,7 +141,7 @@ export default class Controller {
    public changeAvatar(form: FormData): Promise<string> {
       return new Promise(resolve => {
          this._fetch
-            .put('https://ya-praktikum.tech/api/v2/user/profile/avatar', {
+            .put(`${API_LINK}/user/profile/avatar`, {
                data: form,
                headers: {
                   Accept: 'application/json',
@@ -214,7 +209,7 @@ export default class Controller {
    ): Promise<string> {
       return new Promise(resolve => {
          this._fetch
-            .get(`https://ya-praktikum.tech/api/v2/chats/${chatId}/users`, {
+            .get(`${API_LINK}/chats/${chatId}/users`, {
                data,
             })
             .then(res => {
@@ -226,7 +221,7 @@ export default class Controller {
    deleteChatUser(data: JSON): Promise<boolean> {
       return new Promise(resolve => {
          this._fetch
-            .delete('https://ya-praktikum.tech/api/v2/chats/users', {
+            .delete(`${API_LINK}/chats/users`, {
                data,
                headers: {
                   'content-type': 'application/json',

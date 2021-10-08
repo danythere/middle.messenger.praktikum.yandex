@@ -210,39 +210,41 @@ class Profile extends Block {
 
    render(): string {
       return `<div class="{{classes.profile}}">
-  <div class="{{classes.profile-back}}" id="back"><img class="{{classes.profile-back__title}}" src="arrow.svg" /></div>
-  <div class="{{classes.profile-ground}}">
-    {{{Heading title='Профиль'}}}
-    <form name="avatarForm">
-    <label class="{{classes.profile-avatar_cursor}}">
-      {{{Avatar size='m' link=avatar}}}
-      <input  name='avatar'  accept="image/png, image/gif, image/jpeg" type="file" hidden>
-   </label>
-   </form>
-    <form name='mainDataForm'>
-      {{#each inputsConfig}}
-      <div class="{{../classes.profile-ground__input-form}} {{../classes.profile-ground__input-form_margin}}">
-        <label class="{{../classes.profile-ground__label}}" for="{{this.name}}">{{this.capture}}</label>
-        {{{Input value=this.value type=this.type name=this.name height=this.height validFunc=validFunc width=this.width}}}
+      <div class="{{classes.profile-back}}" id="back"><img class="{{classes.profile-back__title}}" src="arrow.svg" />
       </div>
-      {{/each}}
-    </form>
-    {{{Button capture='Сохранить' background='primary' onClick=changeProfileClickHandler}}}
-    <form name='passwordForm' class="{{classes.profile-ground__password-form}}">
-      <div class="{{classes.profile-ground__input-form}} {{classes.profile-ground__input-form_margin}}">
-        <label class="{{classes.profile-ground__label}}"
-          for="{{components.password.oldPasswordInput.config.name}}">Старый пароль</label>
-        {{{Input type='password' width=200 height=25 name='oldPassword' validFunc=passwordValidFunc}}}
+      <div class="{{classes.profile-ground}}">
+          {{{Heading title='Профиль'}}}
+          <form name="avatarForm">
+              <label class="{{classes.profile-avatar_cursor}}">
+                  {{{Avatar size='m' link=avatar}}}
+                  <input name='avatar' accept="image/png, image/gif, image/jpeg" type="file" hidden>
+              </label>
+          </form>
+          <form name='mainDataForm'>
+              {{#each inputsConfig}}
+              <div class="{{../classes.profile-ground__input-form}} {{../classes.profile-ground__input-form_margin}}">
+                  <label class="{{../classes.profile-ground__label}}" for="{{this.name}}">{{this.capture}}</label>
+                  {{{Input value=this.value type=this.type name=this.name height=this.height validFunc=validFunc
+                  width=this.width}}}
+              </div>
+              {{/each}}
+          </form>
+          {{{Button capture='Сохранить' background='primary' onClick=changeProfileClickHandler}}}
+          <form name='passwordForm' class="{{classes.profile-ground__password-form}}">
+              <div class="{{classes.profile-ground__input-form}} {{classes.profile-ground__input-form_margin}}">
+                  <label class="{{classes.profile-ground__label}}"
+                      for="{{components.password.oldPasswordInput.config.name}}">Старый пароль</label>
+                  {{{Input type='password' width=200 height=25 name='oldPassword' validFunc=passwordValidFunc}}}
+              </div>
+              <div class="{{classes.profile-ground__input-form}} {{classes.profile-ground__input-form_margin}}">
+                  <label class="{{classes.profile-ground__label}}"
+                      for="{{components.password.newPasswordInput.config.name}}">Новый пароль</label>
+                  {{{Input type='password' width=200 height=25 name='newPassword' validFunc=passwordValidFunc}}}
+              </div>
+          </form>
+          {{{Button capture='Изменить пароль' background='primary' onClick=changePasswordClickHandler}}}
       </div>
-      <div class="{{classes.profile-ground__input-form}} {{classes.profile-ground__input-form_margin}}">
-        <label class="{{classes.profile-ground__label}}"
-          for="{{components.password.newPasswordInput.config.name}}">Новый пароль</label>
-        {{{Input type='password' width=200 height=25 name='newPassword' validFunc=passwordValidFunc}}}
-      </div>
-    </form>
-    {{{Button capture='Изменить пароль'  background='primary' onClick=changePasswordClickHandler}}}
-  </div>
-</div>`;
+  </div>`;
    }
 }
 

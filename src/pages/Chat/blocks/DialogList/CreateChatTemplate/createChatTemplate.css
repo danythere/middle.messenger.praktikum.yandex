@@ -1,38 +1,4 @@
 @import '../../../../../components/base/common.css';
-.popup {
-   position: absolute;
-   margin: auto auto;
-   background-color: #f1f1f1;
-   border-radius: 20px;
-}
-
-.popup__header {
-   padding: 5px 10px;
-   display: flex;
-   justify-content: space-between;
-}
-.popup__overlay {
-   position: fixed;
-   z-index: 10000;
-   left: 0;
-   top: 0;
-   width: 100%;
-   height: 100%;
-   background: rgba(0, 0, 0, 0.7);
-   text-align: center;
-}
-
-.popup_hide {
-   display: none;
-}
-
-popup_visible {
-   display: block;
-}
-
-.popup__close-button {
-   cursor: pointer;
-}
 
 .create-chat-template__button {
    margin-top: var(--margin-size-m);

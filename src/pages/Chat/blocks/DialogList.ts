@@ -106,7 +106,7 @@ class DialogList extends Block {
    _openCreateChatPopup(): void {
       const child = this.getChild('createChatPopup') as CreateChatTemplate;
       child?.open({
-         width: 200,
+         width: 300,
          height: 100,
          title: 'Создать чат',
          onCreateHandler: this._addChatHandler.bind(this),
@@ -115,47 +115,47 @@ class DialogList extends Block {
 
    render(): string {
       return `<div class="{{classes.dialog-list}}">
-            <div class="{{classes.dialog-list__header}}">
-               <div class="{{classes.dialog-list__first-line}}">
-                  <div class="{{classes.my-profile}}">
-                     {{{Avatar link=avatar}}}
-                     <div class="{{classes.my-profile__button}}">
-                        {{{Button background='primary' capture='Мой профиль' onClick=openProfile}}}
-                     </div>
+      <div class="{{classes.dialog-list__header}}">
+          <div class="{{classes.dialog-list__first-line}}">
+              <div class="{{classes.my-profile}}">
+                  {{{Avatar link=avatar}}}
+                  <div class="{{classes.my-profile__button}}">
+                      {{{Button background='primary' capture='Мой профиль' onClick=openProfile}}}
                   </div>
-                  {{{Button capture='Создать чат' onClick=openCreateChat}}}
-                 {{{Button capture='Выход' onClick=exitHandler}}}
-                  {{{CreateChatTemplate name='createChatPopup' onCreate=addChatHandler }}}
-               </div>
-               <div class="{{classes.dialog-list__search}}">
-                 {{{Input  type='text'
-                 placeholder='Поиск...'
-                 name='search'
-                 background='gray'
-                 width=300
-                 height=30
-                 style='rounded'}}}
-               </div>
-            </div>
-            <div class="{{classes.dialog-list__body}}">
-               {{#each chats}}
-               {{#if (equalPrimitive (getValueFromObject this 'id') ../currentChat.id)}}
-               <div class="{{../classes.dialog-list__message-preview}}">
-               {{{DialogPreview style='active' data=this onChoose=../onChooseHandler}}}
-               </div>
-               {{else}}      
-               <div class="{{../classes.dialog-list__message-preview}}">
-                  {{{DialogPreview data=this onChoose=../onChooseHandler}}}
-               </div>
-               {{/if}}
-               {{/each}}
-            </div>
-            <div>
-            {{#if hasMore}}
-            {{{Button capture='Загрузить еще...' onClick=loadMore}}}
-            {{/if}}
-            </div>
-            </div>`;
+              </div>
+              {{{Button capture='Создать чат' onClick=openCreateChat}}}
+              {{{Button capture='Выход' onClick=exitHandler}}}
+              {{{CreateChatTemplate name='createChatPopup' onCreate=addChatHandler }}}
+          </div>
+          <div class="{{classes.dialog-list__search}}">
+              {{{Input type='text'
+              placeholder='Поиск...'
+              name='search'
+              background='gray'
+              width=300
+              height=30
+              style='rounded'}}}
+          </div>
+      </div>
+      <div class="{{classes.dialog-list__body}}">
+          {{#each chats}}
+          {{#if (equalPrimitive (getValueFromObject this 'id') ../currentChat.id)}}
+          <div class="{{../classes.dialog-list__message-preview}}">
+              {{{DialogPreview style='active' data=this onChoose=../onChooseHandler}}}
+          </div>
+          {{else}}
+          <div class="{{../classes.dialog-list__message-preview}}">
+              {{{DialogPreview data=this onChoose=../onChooseHandler}}}
+          </div>
+          {{/if}}
+          {{/each}}
+      </div>
+      <div>
+          {{#if hasMore}}
+          {{{Button capture='Загрузить еще...' onClick=loadMore}}}
+          {{/if}}
+      </div>
+  </div>`;
    }
 }
 
