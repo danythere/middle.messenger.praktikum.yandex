@@ -14,7 +14,7 @@ const RES_LINK = 'https://ya-praktikum.tech/api/v2/resources';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const component = require('./DialogList/CreateChatTemplate/CreateChatTemplate.ts');
 
-registerComponent(component.default);
+registerComponent(component.default, 'CreateChatTemplate');
 /**
  * Лента диалогов.
  */
