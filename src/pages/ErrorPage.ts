@@ -27,4 +27,6 @@ export default class ErrorPage extends Block {
       </div>
     </div>`;
    }
+
+   static regName = 'ErrorPage';
 }

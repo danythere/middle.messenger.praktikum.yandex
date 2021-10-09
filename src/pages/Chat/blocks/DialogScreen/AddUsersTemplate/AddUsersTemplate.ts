@@ -101,4 +101,6 @@ export default class AddUsersTemplate extends Block {
       </div>
   </div>`;
    }
+
+   static regName = 'AddUsersTemplate';
 }
