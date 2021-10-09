@@ -53,5 +53,5 @@ export default class List extends Block {
            </div>`;
    }
 
-   static regName = 'Avatar';
+   static regName = 'List';
 }
