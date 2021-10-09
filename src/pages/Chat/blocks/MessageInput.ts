@@ -54,4 +54,6 @@ export default class MessageInput extends Block {
       </div>
   </div>`;
    }
+
+   static regName = 'MessageInput';
 }

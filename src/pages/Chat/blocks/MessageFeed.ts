@@ -138,4 +138,6 @@ export default class MessageFeed extends Block {
       {{/each}}
   </div>`;
    }
+
+   static regName = 'MessageFeed';
 }
