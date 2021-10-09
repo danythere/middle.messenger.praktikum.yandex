@@ -47,4 +47,6 @@ export default class DialogPreview extends Block {
       </div>
   </div>`;
    }
+
+   static regName = 'DialogPreview';
 }
