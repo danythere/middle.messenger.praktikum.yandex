@@ -38,4 +38,7 @@ export default class Button extends Block {
     {{/if}}
 </button>`;
    }
+
+   static regName = 'Button';
+}
 }

@@ -52,4 +52,6 @@ export default class List extends Block {
                {{/each}}
            </div>`;
    }
+
+   static regName = 'Avatar';
 }

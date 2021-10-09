@@ -3,10 +3,10 @@ const app = express();
 const path = require('path');
 const router = express.Router();
 
-app.use(express.static('dist'));
+app.use(express.static(path.join(__dirname, '/dist')));
 
-router.get('/',function(req,res){
-  res.sendFile(path.join(__dirname+'/index.html'));
+router.get('*',function(req,res){
+  res.sendFile(path.join(__dirname+'/dist/index.html'));
 });
 
 app.use('/', router);

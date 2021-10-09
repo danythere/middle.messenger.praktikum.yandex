@@ -22,4 +22,7 @@ export default class Heading extends Block {
       {{title}}
   </h1>`;
    }
+
+   static regName = 'Heading';
+}
 }

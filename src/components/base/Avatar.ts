@@ -27,4 +27,6 @@ export default class Avatar extends Block {
 
    </div>`;
    }
+
+   static regName = 'Avatar';
 }

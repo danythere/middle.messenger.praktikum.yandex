@@ -115,4 +115,7 @@ export default class Input extends Block {
    <div title="{{invalidText}}" name="error-icon" class="{{classes.input__invalid-mark}} {{classes.input__invalid-mark_hide}}">!</div></div>
    `;
    }
+
+   static regName = 'Input';
+}
 }

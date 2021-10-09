@@ -66,7 +66,7 @@ export function registerComponent<Props = any>(
    name?: string,
 ): void {
    Handlebars.registerHelper(
-      name || Component.name,
+      name || Component.regName,
       function buildBlock({ hash: { ref, ...hash }, data }: HelperOptions) {
          if (!data.root.children) {
             // eslint-disable-next-line no-param-reassign
