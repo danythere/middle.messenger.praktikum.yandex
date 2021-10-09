@@ -12,7 +12,7 @@ const addUserTemplate = require('./DialogScreen/AddUsersTemplate/AddUsersTemplat
 const messageFeed = require('./MessageFeed.ts');
 const userListTemplate = require('./DialogScreen/UserListTemplate/UserListTemplate.ts');
 
-registerComponent(addUserTemplate.default, 'AddUserTemplate');
+registerComponent(addUserTemplate.default, 'AddUsersTemplate');
 registerComponent(messageFeed.default, 'MessageFeed');
 registerComponent(userListTemplate.default, 'UserListTemplate');
 /**
