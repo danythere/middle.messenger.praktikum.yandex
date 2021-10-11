@@ -4,14 +4,14 @@ import Route from './Route';
 
 const errorRoute = new Route('/404', ErrorPage, { rootQuery: '#root' });
 
-export default class Router<T extends Block> {
+export default class Router {
    static __instance: Router;
 
-   routes: Route<T>[];
+   routes: Route[];
 
    history: History;
 
-   private _currentRoute: Route<T> | null;
+   private _currentRoute: Route | null;
 
    private _rootQuery: string;
 
@@ -27,7 +27,7 @@ export default class Router<T extends Block> {
       Router.__instance = this;
    }
 
-   use(pathname: string, block: new (props: unknown) => T): Router<T> {
+   use(pathname: string, block: new (props: unknown) => Block): Router {
       const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 
       this.routes.push(route);
@@ -64,7 +64,7 @@ export default class Router<T extends Block> {
       this.history.forward();
    }
 
-   getRoute(pathname: string): Route<T> | undefined {
+   getRoute(pathname: string): Route | undefined {
       return this.routes.find(route => route.match(pathname));
    }
 }

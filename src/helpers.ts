@@ -1,3 +1,4 @@
+import Block from 'components/base/Block';
 import Handlebars from 'handlebars';
 
 // Склеить класс и его постфикс.
@@ -61,10 +62,7 @@ export function registerHelpers(): void {
    );
 }
 
-export function registerComponent<Props = any>(
-   Component: BlockConstructable,
-   name?: string,
-): void {
+export function registerComponent(Component: Block, name?: string): void {
    Handlebars.registerHelper(
       name || Component.regName,
       function buildBlock({ hash: { ref, ...hash }, data }: HelperOptions) {

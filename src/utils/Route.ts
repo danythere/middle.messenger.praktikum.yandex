@@ -4,10 +4,7 @@ function isEqual(lhs: string, rhs: string): boolean {
    return lhs === rhs;
 }
 
-function render<T extends Block>(
-   query: string,
-   block: T | null,
-): Element | null {
+function render(query: string, block: Block | null): Element | null {
    const root = document.querySelector(query);
    if (block) {
       while (root?.firstChild) {
@@ -21,18 +18,18 @@ function render<T extends Block>(
    return root;
 }
 
-export default class Route<T extends Block> {
+export default class Route {
    private _pathname: string;
 
-   private _block: T | null;
+   private _block: Block | null;
 
-   private _blockClass: new (props: any) => T;
+   private _blockClass: new (props: any) => Block;
 
    private _props: { rootQuery: string };
 
    constructor(
       pathname: string,
-      view: new (props: any) => T,
+      view: new (props: any) => Block,
       props: { rootQuery: string },
    ) {
       this._pathname = pathname;

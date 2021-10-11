@@ -101,7 +101,7 @@ export default class Block {
 
    componentAfterRender(): void {}
 
-   protected getStateFromProps(props: unknown): void {
+   protected getStateFromProps(_props: unknown): void {
       this.state = {};
    }
 
@@ -117,7 +117,7 @@ export default class Block {
       this._render();
    }
 
-   componentDidUpdate(oldProps: unknown, newProps: unknown): boolean {
+   componentDidUpdate(_oldProps: unknown, _newProps: unknown): boolean {
       return true;
    }
 

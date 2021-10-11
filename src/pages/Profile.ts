@@ -8,11 +8,21 @@ import { connect, store } from '../store';
 import { setUser } from '../store/user';
 import { IUser } from '../interfaces/user';
 
+interface IProfileState {
+   classes: { [props: string]: string };
+   passwordValidFunc: (password: string) => string | null;
+   changePasswordClickHandler: void;
+   changeProfileClickHandler: void;
+   avatar: string | null;
+   inputsConfig: IInputProps[];
+}
 const RES_LINK = 'https://ya-praktikum.tech/api/v2/resources';
 /**
  * Страница авторизации.
  */
 class Profile extends Block {
+   state: IProfileState;
+
    getStateFromProps(): void {
       const state = store.getState() as {
          user: {
@@ -95,7 +105,7 @@ class Profile extends Block {
       super('div', { ...props });
    }
 
-   componentDidUpdate(oldProps: any, newProps: any): boolean {
+   componentDidUpdate(_oldProps: any, newProps: any): boolean {
       if (newProps && newProps.profile) {
          const { profile } = newProps;
          let hasChanged = false;

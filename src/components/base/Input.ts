@@ -11,11 +11,20 @@ export interface IInputProps {
    capture: string;
    validFunc: () => string | null;
 }
+
+interface IInputState {
+   value: string;
+   classes: { [key: string]: string };
+   style: string;
+   background: string;
+}
 /**
  * Базовый компонент поля ввода.
  */
 export default class Input extends Block {
    private _value: string;
+
+   state: IInputState;
 
    constructor(props: IInputProps) {
       super('div', props);
@@ -117,5 +126,4 @@ export default class Input extends Block {
    }
 
    static regName = 'Input';
-}
 }

@@ -2,11 +2,17 @@ import Block from './Block';
 import classes from './List/list.css';
 import { DefaultPropsType } from '../types';
 
+interface IListState {
+   data: unknown[];
+   classes: { [key: string]: string };
+}
 /**
  * Базовый список( к сожалению не хватило сил сделать его универсальным, поэтому
  * он используется в одном месте, думаю вынесу его в следующей итерации из базовых).
  */
 export default class List extends Block {
+   state: IListState;
+
    constructor(props: DefaultPropsType) {
       super('div', props);
    }

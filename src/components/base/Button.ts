@@ -41,4 +41,3 @@ export default class Button extends Block {
 
    static regName = 'Button';
 }
-}

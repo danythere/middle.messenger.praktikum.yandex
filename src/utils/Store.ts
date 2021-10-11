@@ -33,7 +33,7 @@ export class Store extends EventBus {
    }
 
    private combineReducers(reducers: Indexed): Reducer {
-      return (state: unknown, action: Action) => {
+      return (_state: unknown, action: Action) => {
          const newState: Indexed = {};
 
          Object.entries(reducers).forEach(([key, reducer]) => {

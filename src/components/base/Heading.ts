@@ -25,4 +25,3 @@ export default class Heading extends Block {
 
    static regName = 'Heading';
 }
-}

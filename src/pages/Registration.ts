@@ -88,7 +88,7 @@ class Registration extends Block {
       super('div', { ...props });
    }
 
-   componentDidUpdate(oldProps: any, newProps: any): boolean {
+   componentDidUpdate(_oldProps: any, newProps: any): boolean {
       if (newProps.user && newProps.user.profile.id) {
          new Router('#root').go('/messenger');
       }
