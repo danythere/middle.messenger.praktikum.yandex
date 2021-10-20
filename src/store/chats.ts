@@ -1,4 +1,4 @@
-import { Action } from '../utils/store';
+import { Action } from '../utils/Store';
 import { IChat } from '../interfaces/chat';
 
 const SET_CURRENT_CHAT = 'chat/SET_CURRENT';

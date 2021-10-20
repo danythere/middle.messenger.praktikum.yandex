@@ -1,6 +1,6 @@
 import Block from '../../../../../components/base/Block';
 import Controller from '../../../../../api/Controller';
-import { DefaultPropsType } from '../../../../../components/types';
+import { DefaultPropsType, ClassesType } from '../../../../../components/types';
 import classes from './userListTemplate.css';
 import popupClasses from '../../../../../components/base/popup.css';
 import { IUser } from '../../../../../interfaces/user';
@@ -14,6 +14,17 @@ export default class UserListTemplate extends Block {
       super('div', { ...props });
    }
 
+   state: {
+      users: IUser[];
+      classes: ClassesType;
+      mode: string;
+      hasMore: boolean;
+      loadMore?: void;
+      width?: number;
+      title?: string;
+      height?: number;
+   };
+
    getStateFromProps(): void {
       this.state = {
          classes: { ...classes, ...popupClasses },
@@ -25,9 +36,10 @@ export default class UserListTemplate extends Block {
    }
 
    componentAfterRender(): void {
-      const itemsArray = [
-         ...this.getContent()?.querySelectorAll('span[name="delete-button"'),
-      ];
+      const nodeList = this.getContent()?.querySelectorAll(
+         'span[name="delete-button"',
+      );
+      const itemsArray = Array.from(nodeList as ArrayLike<Element>);
       this.state.users.forEach((item: IUser, index: number) => {
          itemsArray[index].addEventListener('click', () => {
             new Controller().deleteChatUser(

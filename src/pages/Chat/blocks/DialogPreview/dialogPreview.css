@@ -3,9 +3,9 @@
    display: flex;
    flex-direction: row;
    justify-content: space-between;
+   padding: 10px;
    background-color: white;
    cursor: pointer;
-   padding: 10px;
 }
 
 .dialog-preview:hover {

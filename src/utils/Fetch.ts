@@ -5,7 +5,7 @@ const METHODS = {
    DELETE: 'DELETE',
 };
 
-function queryStringify(data: XMLHttpRequestBodyInit) {
+function queryStringify(data: { [props: string]: unknown }) {
    if (typeof data !== 'object') {
       throw new Error('Data must be object');
    }
@@ -67,11 +67,18 @@ export default class Fetch {
 
    request = (
       url: string,
-      options: { [prop: string]: unknown } = {},
+      options: {
+         headers?: { [props: string]: string };
+         method?: string;
+         data?: { [props: string]: unknown };
+      } = { headers: { 'Content-Type': 'application/json' } },
       timeout = 5000,
    ): Promise<XMLHttpRequest> => {
-      const { headers = {}, method, data } = options;
-
+      const {
+         headers = { 'Content-Type': 'application/json' },
+         method,
+         data,
+      } = options;
       return new Promise((resolve, reject) => {
          if (!method) {
             reject(new Error('No method'));
@@ -85,7 +92,7 @@ export default class Fetch {
             method as string,
             isGet && !!data ? `${url}${queryStringify(data)}` : url,
          );
-         Object.keys(headers as Headers).forEach(key => {
+         Object.keys(headers).forEach(key => {
             xhr.setRequestHeader(key, headers[key]);
          });
 
@@ -102,7 +109,7 @@ export default class Fetch {
          if (isGet || !data) {
             xhr.send();
          } else {
-            xhr.send(data as XMLHttpRequestBodyInit);
+            xhr.send(data as unknown as XMLHttpRequestBodyInit);
          }
       });
    };

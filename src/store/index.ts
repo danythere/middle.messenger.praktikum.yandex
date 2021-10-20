@@ -3,19 +3,23 @@ import user from './user';
 import { Store } from '../utils/Store';
 import Block from '../components/base/Block';
 import { DefaultPropsType } from '../components/types';
-import { ClassType } from '../components/interfaces';
+import { IChat } from '../interfaces/chat';
+import { IUser } from '../interfaces/user';
 
+export interface IStore {
+   chats: IChat[];
+   user: { profile: IUser };
+}
 export const store = new Store({
    chats,
    user,
 });
 
-
-// КАК ЭТО ТИПИЗИРОВАТЬ? :((( Возвращаемый тип функции connect...
 export function connect(
-   stateToProps: (state: any) => any,
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   stateToProps: (state: unknown) => any,
    Component: typeof Block,
-): ClassType<WithStore> {
+): unknown {
    return class WithStore extends Component {
       constructor(props: DefaultPropsType) {
          super({ ...props, ...stateToProps(store.getState()) });

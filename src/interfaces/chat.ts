@@ -13,3 +13,13 @@ export interface IChat {
       id: number;
    };
 }
+
+export interface IMessage {
+   chat_id: number;
+   content: string;
+   file: File;
+   id: number;
+   is_read: boolean;
+   time: string;
+   type: string;
+}

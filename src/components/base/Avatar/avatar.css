@@ -8,10 +8,6 @@
    border-radius: 50%;
 }
 
-.avatar_empty{
-   background-color: #ababab;
-}
-
 .avatar_size_m {
    width: var(--avatar-size-m);
    height: var(--avatar-size-m);

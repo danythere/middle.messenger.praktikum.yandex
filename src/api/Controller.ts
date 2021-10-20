@@ -35,7 +35,6 @@ export default class Controller {
          this._fetch
             .post(`${API_LINK}/auth/signup`, {
                data,
-               headers: { 'Content-Type': 'application/json' },
             })
             .then(() => {
                resolve(true);
@@ -64,7 +63,6 @@ export default class Controller {
          this._fetch
             .put(`${API_LINK}/user/profile`, {
                data,
-               headers: { 'Content-Type': 'application/json' },
             })
             .then(res => {
                resolve(res.response);
@@ -75,7 +73,6 @@ export default class Controller {
    public changePassword(data: string): Promise<XMLHttpRequest> {
       return this._fetch.put(`${API_LINK}/user/password`, {
          data,
-         headers: { 'Content-Type': 'application/json' },
       });
    }
 
@@ -100,15 +97,13 @@ export default class Controller {
    public createChat(data: string): Promise<XMLHttpRequest> {
       return this._fetch.post(`${API_LINK}/chats`, {
          data,
-         headers: { 'Content-Type': 'application/json' },
       });
    }
 
-   public searchUsers(data: JSON): Promise<string> {
+   public searchUsers(data: string): Promise<string> {
       return new Promise(resolve => {
          this._fetch
             .post(`${API_LINK}/user/search`, {
-               headers: { 'Content-Type': 'application/json' },
                data,
             })
             .then(res => {
@@ -129,7 +124,6 @@ export default class Controller {
       return new Promise(resolve => {
          this._fetch
             .put(`${API_LINK}/chats/users`, {
-               headers: { 'Content-Type': 'application/json' },
                data,
             })
             .then(() => {
@@ -218,7 +212,7 @@ export default class Controller {
       });
    }
 
-   deleteChatUser(data: JSON): Promise<boolean> {
+   deleteChatUser(data: string): Promise<boolean> {
       return new Promise(resolve => {
          this._fetch
             .delete(`${API_LINK}/chats/users`, {

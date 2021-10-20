@@ -15,12 +15,13 @@ import Controller from './api/Controller';
 import Block from './components/base/Block';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const components = require('./components/base/*.ts') as {
-   [key: string]: { default: typeof Block };
-};
+const components = require.context('./components/base/', false, /\.ts$/);
 
-Object.values(components).forEach(component => {
-   registerComponent(component.default);
+components.keys().forEach(item => {
+   const component = components(item);
+   if (component.default.name !== 'WithStore') {
+      registerComponent(component.default);
+   }
 });
 window.onload = (): void => {
    const router = new Router('#root');
@@ -28,9 +29,9 @@ window.onload = (): void => {
       store.dispatch(setUser(JSON.parse(res)));
    });
    router
-      .use('/', Auth)
-      .use('/sign-up', Registration)
-      .use('/settings', Profile)
+      .use('/', Auth as new (props: unknown) => Block)
+      .use('/sign-up', Registration as new (props: unknown) => Block)
+      .use('/settings', Profile as new (props: unknown) => Block)
       .use('/messenger', Chat);
    router.start();
 };
