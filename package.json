@@ -13,7 +13,6 @@
       "start-parcel": "parcel ./static/index.html  --no-cache",
       "eslint": "eslint",
       "start": "node app.js",
-      "stylelint": "stylelint --fix '**/*.css'",
       "validate": "npm-run-all --parallel mocha eslint",
       "mocha": "mocha --require ts-node/register --require ignore-styles './src/**/*.spec.ts'"
    },
@@ -69,6 +68,7 @@
       "@types/ignore-styles": "^5.0.0",
       "@types/jsdom": "^16.2.13",
       "@types/mocha": "^9.0.0",
+      "@types/sinon": "^10.0.4",
       "@types/webpack-env": "^1.16.3",
       "@typescript-eslint/parser": "^4.30.0",
       "chai": "^4.3.4",
