@@ -7,7 +7,7 @@ module.exports = {
    plugins: [
       require('autoprefixer'),
       new HtmlWebpackPlugin({
-         title: 'Наш заголовок страницы',
+         title: 'Чат',
          template: './static/index.html',
       }),
    ],
