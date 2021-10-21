@@ -1,15 +1,12 @@
-import Block from 'components/base/Block';
 import Handlebars from 'handlebars';
+import { ClassesType } from './components/types';
+import Block from './components/base/Block';
 
 // Склеить класс и его постфикс.
 export function registerHelpers(): void {
    Handlebars.registerHelper(
       'getClass',
-      (
-         someClass: string,
-         postfix: string,
-         classes: { [className: string]: string },
-      ): string => {
+      (someClass: string, postfix: string, classes: ClassesType): string => {
          return classes[someClass + postfix];
       },
    );
@@ -62,10 +59,20 @@ export function registerHelpers(): void {
    );
 }
 
-export function registerComponent(Component: Block, name?: string): void {
+export function registerComponent(
+   Component: typeof Block,
+   name?: string,
+): void {
    Handlebars.registerHelper(
-      name || Component.regName,
-      function buildBlock({ hash: { ref, ...hash }, data }: HelperOptions) {
+      name || (Component.regName as string),
+      function buildBlock({
+         hash,
+         data,
+      }: {
+         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         hash: any;
+         data: { root: { children: { [prop: string]: Block } } };
+      }) {
          if (!data.root.children) {
             // eslint-disable-next-line no-param-reassign
             data.root.children = {};

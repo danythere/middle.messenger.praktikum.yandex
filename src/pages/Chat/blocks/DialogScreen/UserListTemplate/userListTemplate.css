@@ -2,12 +2,12 @@
 
 .user-list-template__body {
    max-height: 330px;
-   overflow: auto;
    margin-bottom: var(--margin-size-m);
    padding: 0 10px;
+   overflow: auto;
 }
 
-.user-list-template__item{
+.user-list-template__item {
    display: flex;
    justify-content: space-between;
 }
