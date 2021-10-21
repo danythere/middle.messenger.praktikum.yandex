@@ -1,0 +1,21 @@
+@import '../../../../../components/base/common.css';
+
+.user-list-template__body {
+   max-height: 330px;
+   margin-bottom: var(--margin-size-m);
+   padding: 0 10px;
+   overflow: auto;
+}
+
+.user-list-template__item {
+   display: flex;
+   justify-content: space-between;
+}
+.user-list-template__item:hover {
+   background-color: khaki;
+}
+
+.user-list-template__delete-button {
+   color: red;
+   cursor: pointer;
+}

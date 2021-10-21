@@ -5,7 +5,7 @@ const METHODS = {
    DELETE: 'DELETE',
 };
 
-function queryStringify(data: XMLHttpRequestBodyInit) {
+function queryStringify(data: { [props: string]: unknown }) {
    if (typeof data !== 'object') {
       throw new Error('Data must be object');
    }
@@ -20,7 +20,7 @@ function queryStringify(data: XMLHttpRequestBodyInit) {
 /**
  * Класс для запросов на сервер.
  */
-export default class HTTPTransport {
+export default class Fetch {
    get = (
       url: string,
       options: { [prop: string]: unknown } = {},
@@ -67,11 +67,18 @@ export default class HTTPTransport {
 
    request = (
       url: string,
-      options: { [prop: string]: unknown } = {},
+      options: {
+         headers?: { [props: string]: string };
+         method?: string;
+         data?: { [props: string]: unknown };
+      } = { headers: { 'Content-Type': 'application/json' } },
       timeout = 5000,
    ): Promise<XMLHttpRequest> => {
-      const { headers = {}, method, data } = options;
-
+      const {
+         headers = { 'Content-Type': 'application/json' },
+         method,
+         data,
+      } = options;
       return new Promise((resolve, reject) => {
          if (!method) {
             reject(new Error('No method'));
@@ -80,13 +87,12 @@ export default class HTTPTransport {
 
          const xhr = new XMLHttpRequest();
          const isGet = method === METHODS.GET;
-
          xhr.open(
             method as string,
             isGet && !!data ? `${url}${queryStringify(data)}` : url,
          );
-
-         Object.keys(headers as Headers).forEach(key => {
+         console.log(isGet);
+         Object.keys(headers).forEach(key => {
             xhr.setRequestHeader(key, headers[key]);
          });
 
@@ -99,11 +105,11 @@ export default class HTTPTransport {
 
          xhr.timeout = timeout;
          xhr.ontimeout = reject;
-
+         xhr.withCredentials = true;
          if (isGet || !data) {
             xhr.send();
          } else {
-            xhr.send(data as XMLHttpRequestBodyInit);
+            xhr.send(data as unknown as XMLHttpRequestBodyInit);
          }
       });
    };

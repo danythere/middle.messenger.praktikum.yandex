@@ -1,43 +1,36 @@
 @import './../../../../components/base/common.css';
 
 .dialog-screen {
+   width: 100%;
    background-color: white;
 }
 
 .dialog-screen__content {
-   padding: 0 20px;
-}
-
-.dialog-screen__message {
-   width: fit-content;
-   max-width: 60%;
-   padding: 5px 7px;
-   word-wrap: break-word;
-   background-color: rgb(233, 233, 233);
-   border-radius: 10px;
-}
-
-.dialog-screen__message-wrapper_my {
    display: flex;
-   justify-content: flex-end;
-}
-
-.dialog-screen__message-wrapper {
-   margin: var(--margin-size-m) 0;
+   flex-direction: column;
+   height: 100vh;
+   padding: 0 20px;
 }
 
 .dialog-screen__header {
    display: flex;
    flex-direction: row;
    align-items: center;
-   margin-top: var(--margin-size-xl);
+   padding: var(--margin-size-m) 0 var(--margin-size-l) 0;
    border-bottom: 2px solid #eee;
 }
 
 .dialog-screen__name {
-   margin-left: var(--margin-size-xl);
+   margin: 0 var(--margin-size-xl);
 }
 
 .dialog-screen__message-input {
    margin-bottom: var(--margin-size-xl);
+}
+
+.dialog-screen__empty-view-text {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100vh;
 }

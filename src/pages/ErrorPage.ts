@@ -1,8 +1,7 @@
 import Block from '../components/base/Block';
-import errorPage from './ErrorPage/errorPage.hbs';
-import compile from '../utils/helpers';
-import { notFoundConfig, commonConfig } from './ErrorPage/config';
+import classes from './ErrorPage/errorPage.css';
 import { DefaultPropsType } from '../components/types';
+import errorIcon from '../assets/error.svg';
 
 /**
  * Страница с ошибкой.
@@ -12,13 +11,23 @@ export default class ErrorPage extends Block {
       super('div', { ...props });
    }
 
-   render(): DocumentFragment {
-      let fragment = null;
-      if (this.props.type === 'notFound') {
-         fragment = compile(errorPage, notFoundConfig);
-      } else {
-         fragment = compile(errorPage, commonConfig);
-      }
-      return fragment.content;
+   getStateFromProps(): void {
+      this.state = {
+         classes,
+         type: 'notFound',
+         title: '404',
+         errorIcon,
+      };
    }
+
+   render(): string {
+      return `<div class="{{classes.error-page__content}}">
+      <span>{{{Heading title=title}}}</span>
+      <div>
+        <img class="{{classes.error-page__image}}" src="{{errorIcon}}" />
+      </div>
+    </div>`;
+   }
+
+   static regName = 'ErrorPage';
 }

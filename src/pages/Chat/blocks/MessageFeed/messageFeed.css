@@ -1,0 +1,24 @@
+.dialog-screen__message {
+   width: fit-content;
+   max-width: 60%;
+   padding: 5px 7px;
+   word-wrap: break-word;
+   background-color: rgb(233, 233, 233);
+   border-radius: 10px;
+}
+
+.dialog-screen__message-wrapper_my {
+   display: flex;
+   justify-content: flex-end;
+}
+
+.dialog-screen__message-wrapper {
+   margin: var(--margin-size-m) 0;
+}
+
+.message-feed {
+   display: flex;
+   flex-direction: column;
+   height: 100vh;
+   overflow: auto;
+}

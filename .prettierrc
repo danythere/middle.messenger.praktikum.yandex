@@ -8,6 +8,9 @@
    "[html]": {
       "singleQuote": false
     },
+    "[js]":{
+       "singleQuote":true
+    },
    "prettier/prettier": [
       "error",
       {

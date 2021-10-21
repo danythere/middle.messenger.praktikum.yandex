@@ -5,3 +5,10 @@ export default interface IComponentConfig {
    inst: Block;
    template: (() => string) | null;
 }
+
+export interface IPopupOptions {
+   mode?: 'visible' | 'hide';
+   width: number;
+   title: string;
+   height: number;
+}
