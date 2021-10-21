@@ -1,74 +1,32 @@
-import Block from 'components/base/Block';
-import ErrorPage from '../pages/ErrorPage';
-import Route from './Route';
+import Block from '../components/base/Block';
+import EventBus from './EventBus';
 
-const errorRoute = new Route('/404', ErrorPage, { rootQuery: '#root' });
-
+/**
+ * Роутер для переключения страниц.
+ */
 export default class Router {
-   static __instance: Router;
+   protected static _instance: Router = new Router();
 
-   routes: Route[];
+   protected static _eventBus: EventBus = new EventBus();
 
-   history: History;
-
-   private _currentRoute: Route | null;
-
-   private _rootQuery: string;
-
-   constructor(rootQuery: string) {
-      if (Router.__instance) {
-         return Router.__instance;
+   constructor() {
+      if (Router._instance) {
+         throw new Error(
+            'Instantiation failed: ' +
+               'use Router.getInstance() instead of new.',
+         );
       }
-
-      this.routes = [];
-      this.history = window.history;
-      this._currentRoute = null;
-      this._rootQuery = rootQuery;
-      Router.__instance = this;
    }
 
-   use(pathname: string, block: new (props: unknown) => Block): Router {
-      const route = new Route(pathname, block, { rootQuery: this._rootQuery });
-
-      this.routes.push(route);
-
-      return this;
+   public static getInstance(): Router {
+      return Router._instance;
    }
 
-   start(): void {
-      window.onpopstate = (event: PopStateEvent) => {
-         if (event) {
-            const currentTarget = event.currentTarget as Window;
-            this._onRoute(currentTarget.location.pathname);
-         }
-      };
-      this._onRoute(window.location.pathname);
+   public subscribeOnChangePage(callback: CallableFunction): void {
+      Router._eventBus.on('changePage', callback);
    }
 
-   _onRoute(pathname: string): void {
-      const route = this.getRoute(pathname) || errorRoute;
-      this._currentRoute = route;
-      route.render();
-   }
-
-   go(pathname: string): void {
-      this.history.pushState({}, '', pathname);
-      this._onRoute(pathname);
-   }
-
-   back(): void {
-      this.history.back();
-   }
-
-   forward(): void {
-      this.history.forward();
-   }
-
-   getRoute(pathname: string): Route | undefined {
-      return this.routes.find(route => route.match(pathname));
-   }
-
-   public get currentRoute(): Route | null {
-      return this._currentRoute;
+   public changePage(newPage: Block): void {
+      Router._eventBus.emit('changePage', newPage);
    }
 }

@@ -1,37 +1,26 @@
-/* eslint-disable global-require */
 /* eslint-disable import/first */
-import { store } from './store';
-import { setUser } from './store/user';
-import { registerComponent, registerHelpers } from './helpers';
+import { registerHelpers } from './helpers';
 
 // Регистрируем сразу хелперы, иначе падает ошибка при компиляции шаблонов.
 registerHelpers();
 import Auth from './pages/Auth';
-import Registration from './pages/Registration';
-import Profile from './pages/Profile';
 import Router from './utils/Router';
-import Chat from './pages/Chat';
-import Controller from './api/Controller';
 import Block from './components/base/Block';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const components = require.context('./components/base/', false, /^((?!spec).)*.ts$/);
-
-components.keys().forEach(item => {
-   const component = components(item);
-   if (component.default.name !== 'WithStore') {
-      registerComponent(component.default);
-   }
-});
 window.onload = (): void => {
-   const router = new Router('#root');
-   new Controller().getCurrentUser().then(user => {
-      store.dispatch(setUser(user));
+   Router.getInstance().subscribeOnChangePage(async (newPage: Block) => {
+      const root = document.querySelector('#root');
+      while (root?.firstChild) {
+         root?.removeChild(root.firstChild);
+      }
+      const content = newPage.getContent();
+      if (content) {
+         root?.appendChild(content);
+      }
    });
-   router
-      .use('/', Auth as new (props: unknown) => Block)
-      .use('/sign-up', Registration as new (props: unknown) => Block)
-      .use('/settings', Profile as new (props: unknown) => Block)
-      .use('/messenger', Chat);
-   router.start();
+   const auth = new Auth({});
+   const content = auth.getContent();
+   if (content) {
+      document.querySelector('#root')?.appendChild(content);
+   }
 };

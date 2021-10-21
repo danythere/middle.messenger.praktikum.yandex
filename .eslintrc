@@ -17,8 +17,6 @@
    "rules": {
       "import/prefer-default-export": "off",
       "no-underscore-dangle": "off",
-      "class-methods-use-this": "off",
-      "@typescript-eslint/no-non-null-assertion": "off",
-      "import/extensions": "off"
+      "class-methods-use-this": "off"
    }
 }

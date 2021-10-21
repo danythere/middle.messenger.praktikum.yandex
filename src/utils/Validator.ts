@@ -52,13 +52,6 @@ export default class Validator {
       return 'Сообщение не должно быть пустым';
    }
 
-   static validateTitle(title: string): null | string {
-      if (title && title.length) {
-         return null;
-      }
-      return 'Имя не должно быть пустым';
-   }
-
    static validate(validType: string, value: string): string | null {
       let validRes = null;
       switch (validType) {

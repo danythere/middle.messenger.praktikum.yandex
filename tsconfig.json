@@ -4,17 +4,10 @@
       "baseUrl": "./src",
       "noImplicitAny": true,
       "target": "es5",
-      "esModuleInterop": true,
-      "noUnusedLocals": false,
+      "noUnusedLocals": true,
       "noUnusedParameters": true,
       "sourceMap": true,
       "strictNullChecks": true
    },
-    "ts-node": {
-    "files": true
-  },
-  "files": [
-   "declaration.d.ts"
- ],
-   "include": [ "declaration.d.ts", "src/**/*"]
+   "include": ["src/**/*"]
 }

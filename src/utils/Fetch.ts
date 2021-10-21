@@ -5,7 +5,7 @@ const METHODS = {
    DELETE: 'DELETE',
 };
 
-function queryStringify(data: { [props: string]: unknown }) {
+function queryStringify(data: XMLHttpRequestBodyInit) {
    if (typeof data !== 'object') {
       throw new Error('Data must be object');
    }
@@ -20,7 +20,7 @@ function queryStringify(data: { [props: string]: unknown }) {
 /**
  * Класс для запросов на сервер.
  */
-export default class Fetch {
+export default class HTTPTransport {
    get = (
       url: string,
       options: { [prop: string]: unknown } = {},
@@ -67,18 +67,11 @@ export default class Fetch {
 
    request = (
       url: string,
-      options: {
-         headers?: { [props: string]: string };
-         method?: string;
-         data?: { [props: string]: unknown };
-      } = { headers: { 'Content-Type': 'application/json' } },
+      options: { [prop: string]: unknown } = {},
       timeout = 5000,
    ): Promise<XMLHttpRequest> => {
-      const {
-         headers = { 'Content-Type': 'application/json' },
-         method,
-         data,
-      } = options;
+      const { headers = {}, method, data } = options;
+
       return new Promise((resolve, reject) => {
          if (!method) {
             reject(new Error('No method'));
@@ -87,12 +80,13 @@ export default class Fetch {
 
          const xhr = new XMLHttpRequest();
          const isGet = method === METHODS.GET;
+
          xhr.open(
             method as string,
             isGet && !!data ? `${url}${queryStringify(data)}` : url,
          );
-         console.log(isGet);
-         Object.keys(headers).forEach(key => {
+
+         Object.keys(headers as Headers).forEach(key => {
             xhr.setRequestHeader(key, headers[key]);
          });
 
@@ -105,11 +99,11 @@ export default class Fetch {
 
          xhr.timeout = timeout;
          xhr.ontimeout = reject;
-         xhr.withCredentials = true;
+
          if (isGet || !data) {
             xhr.send();
          } else {
-            xhr.send(data as unknown as XMLHttpRequestBodyInit);
+            xhr.send(data as XMLHttpRequestBodyInit);
          }
       });
    };

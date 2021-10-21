@@ -6,9 +6,7 @@
 }
 
 .dialog-list {
-   display: flex;
-   flex-direction: column;
-   height: 100vh;
+   height: 100%;
    background-color: #c4c4c4;
    border-right: solid 2px #9b9b9b;
 }
@@ -26,16 +24,4 @@
 
 .dialog-list__header {
    padding: 10px;
-}
-
-.dialog-list__first-line {
-   display: flex;
-   align-items: center;
-}
-
-.dialog-list__body {
-   display: flex;
-   flex-direction: column;
-   margin-bottom: 10px;
-   overflow: auto;
 }

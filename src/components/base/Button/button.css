@@ -3,7 +3,6 @@
 .button {
    height: 25px;
    background-color: var(--secondary-background);
-   border: none;
    cursor: pointer;
 }
 

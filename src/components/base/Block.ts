@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import Handlebars from 'handlebars';
-import { nanoid } from 'nanoid';
 import EventBus from '../../utils/EventBus';
 import classes from './Block/block.css';
 
@@ -12,27 +7,18 @@ import classes from './Block/block.css';
 export default class Block {
    static EVENTS = {
       INIT: 'init',
+      FLOW_CDM: 'flow:component-did-mount',
       FLOW_CDU: 'flow:component-did-update',
-      FLOW_CUR: 'flow:component-after-render',
       FLOW_RENDER: 'flow:render',
-      FLOW_CBM: 'flow:component-before-mount',
    };
-
-   public id = nanoid(6);
-
-   protected children: { [id: string]: Block } = {};
 
    _element: HTMLElement | null = null;
 
    _meta: { tagName: string; props: { [prop: string]: unknown } } | null = null;
 
-   protected state: unknown = {};
-
    props: any;
 
    eventBus: () => EventBus;
-
-   static regName: string;
 
    /**
     * @param {string} tagName
@@ -42,19 +28,13 @@ export default class Block {
     */
    constructor(tagName = 'div', props = {}) {
       const eventBus = new EventBus();
-      this.getStateFromProps(props);
+
       this._meta = {
          tagName,
          props,
       };
 
-      this.getStateFromProps(props);
-
-      this.state = this._makePropsProxy(this.state);
-
       this.props = this._makePropsProxy(props);
-
-      this.state = this._makePropsProxy(this.state);
 
       this.eventBus = () => eventBus;
 
@@ -69,10 +49,9 @@ export default class Block {
     */
    _registerEvents(eventBus: EventBus): void {
       eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
-      eventBus.on(Block.EVENTS.FLOW_CBM, this._componentBeforeMount.bind(this));
+      eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
       eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
       eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
-      eventBus.on(Block.EVENTS.FLOW_CUR, this._componentAfterRender.bind(this));
    }
 
    /**
@@ -90,39 +69,32 @@ export default class Block {
     */
    init(): void {
       this._createResources();
-      this.eventBus().emit(Block.EVENTS.FLOW_CBM);
+      this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+   }
+
+   /**
+    * Цикл: элемент вставлен.
+    */
+   _componentDidMount(): void {
+      this.componentDidMount();
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
    }
 
-   protected _componentBeforeMount(): void {
-      this.componentBeforeMount();
-   }
-
-   componentBeforeMount(): void {}
-
-   protected _componentAfterRender(): void {
-      this.componentAfterRender();
-   }
-
-   componentAfterRender(): void {}
-
-   protected getStateFromProps(_props: unknown): void {
-      this.state = {};
-   }
+   componentDidMount(): void {}
 
    /**
     * Цикл: компонент обновлен.
     * @returns
     */
-   _componentDidUpdate(oldProps: unknown, newProps: unknown): void {
-      const response = this.componentDidUpdate(oldProps, newProps);
+   _componentDidUpdate(): void {
+      const response = this.componentDidUpdate();
       if (!response) {
          return;
       }
       this._render();
    }
 
-   componentDidUpdate(_oldProps: unknown, _newProps: unknown): boolean {
+   componentDidUpdate(): boolean {
       return true;
    }
 
@@ -143,17 +115,19 @@ export default class Block {
     * Рендер функция.
     */
    _render(): void {
-      this.children = {};
-      const fragment = this._compile();
-      if (fragment) {
-         const newElement = fragment.firstElementChild!;
-         this._element!.replaceWith(newElement);
-         this._element = newElement as HTMLElement;
+      const block = this.render();
+      if (this._element) {
+         while (this._element.firstChild) {
+            this._element.removeChild(this._element.firstChild);
+         }
+         if (this.props.rootStyle) {
+            this._element.setAttribute('style', this.props.rootStyle);
+         }
+         this._element.appendChild(block as Node);
       }
-      this.eventBus().emit(Block.EVENTS.FLOW_CUR);
    }
 
-   render(): string | void {}
+   render(): DocumentFragment | void {}
 
    /**
     * Получение элемента.
@@ -176,13 +150,14 @@ export default class Block {
                return typeof value === 'function' ? value.bind(target) : value;
             },
             set: (target, prop, value) => {
-               const oldTarget = { ...target };
-               const newTarget = target;
-               newTarget[prop] = value;
+               target[prop] = value;
+
+               // Запускаем обновление компоненты
+               // Плохой cloneDeep, в след итерации нужно заставлять добавлять cloneDeep им самим
                this.eventBus().emit(
                   Block.EVENTS.FLOW_CDU,
-                  oldTarget,
-                  newTarget,
+                  { ...target },
+                  target,
                );
                return true;
             },
@@ -210,60 +185,6 @@ export default class Block {
       if (this._element) {
          this._element.classList.remove(classes.block_hide);
       }
-   }
-
-   /**
-    * Рендерим шаблон
-    */
-   _compile(): DocumentFragment {
-      const fragment = document.createElement('template');
-      const render = this.render();
-      if (render) {
-         const template = Handlebars.compile(render);
-         fragment.innerHTML = template({
-            ...(this.state as { [props: string]: unknown }),
-            ...(this.props as { [props: string]: unknown }),
-            children: this.children,
-         });
-      }
-
-      /**
-       * Заменяем заглушки на компоненты
-       */
-      Object.entries(this.children).forEach(([id, component]) => {
-         /**
-          * Ищем заглушку по id
-          */
-         const stub = fragment.content.querySelector(`[data-id="${id}"]`);
-
-         if (!stub) {
-            return;
-         }
-
-         /**
-          * Заменяем заглушку на component._element
-          */
-         stub.replaceWith(component.getContent() as HTMLElement);
-      });
-
-      /**
-       * Возвращаем фрагмент
-       */
-      return fragment.content;
-   }
-
-   getChild(name: string): Block | null {
-      const childrens = Object.entries(this.children).filter(
-         ([, child]: [string, Block]) => {
-            const childProps = child.props as { name?: string };
-            return childProps.name === name;
-         },
-      );
-      if (childrens.length) {
-         const [, child] = childrens[0];
-         return child;
-      }
-      return null;
    }
 
    /**
