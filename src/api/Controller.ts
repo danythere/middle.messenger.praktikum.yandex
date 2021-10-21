@@ -1,3 +1,5 @@
+import { IChat } from 'interfaces/chat';
+import { IUser } from 'interfaces/user';
 import Fetch from '../utils/Fetch';
 
 const API_LINK = 'https://ya-praktikum.tech/api/v2';
@@ -30,44 +32,28 @@ export default class Controller {
       });
    }
 
-   public registrate(data: string): Promise<boolean> {
-      return new Promise(resolve => {
-         this._fetch
-            .post(`${API_LINK}/auth/signup`, {
-               data,
-            })
-            .then(() => {
-               resolve(true);
-            });
+   public async registrate(data: string): Promise<boolean> {
+      await this._fetch.post(`${API_LINK}/auth/signup`, {
+         data,
       });
+      return true;
    }
 
-   public logout(): Promise<boolean> {
-      return new Promise(resolve => {
-         this._fetch.post(`${API_LINK}/auth/logout`).then(() => {
-            resolve(true);
-         });
-      });
+   public async logout(): Promise<boolean> {
+      await this._fetch.post(`${API_LINK}/auth/logout`);
+      return true;
    }
 
-   public getCurrentUser(): Promise<string> {
-      return new Promise(resolve => {
-         this._fetch.get(`${API_LINK}/auth/user`).then(res => {
-            resolve(res.response);
-         });
-      });
+   public async getCurrentUser(): Promise<IUser> {
+      const res = await this._fetch.get(`${API_LINK}/auth/user`);
+      return JSON.parse(res.response);
    }
 
-   public changeProfile(data: string): Promise<string> {
-      return new Promise(resolve => {
-         this._fetch
-            .put(`${API_LINK}/user/profile`, {
-               data,
-            })
-            .then(res => {
-               resolve(res.response);
-            });
+   public async changeProfile(data: string): Promise<IUser> {
+      const res = await this._fetch.put(`${API_LINK}/user/profile`, {
+         data,
       });
+      return JSON.parse(res.response);
    }
 
    public changePassword(data: string): Promise<XMLHttpRequest> {
@@ -76,22 +62,17 @@ export default class Controller {
       });
    }
 
-   public getChats(
+   public async getChats(
       data: {
          offset?: number;
          limit?: number;
          title?: string;
       } = {},
-   ): Promise<string> {
-      return new Promise(resolve => {
-         this._fetch
-            .get(`${API_LINK}/chats`, {
-               data,
-            })
-            .then(res => {
-               resolve(res.response);
-            });
+   ): Promise<IChat[]> {
+      const res = await this._fetch.get(`${API_LINK}/chats`, {
+         data,
       });
+      return JSON.parse(res.response);
    }
 
    public createChat(data: string): Promise<XMLHttpRequest> {
@@ -100,51 +81,33 @@ export default class Controller {
       });
    }
 
-   public searchUsers(data: string): Promise<string> {
-      return new Promise(resolve => {
-         this._fetch
-            .post(`${API_LINK}/user/search`, {
-               data,
-            })
-            .then(res => {
-               resolve(res.response);
-            });
+   public async searchUsers(data: string): Promise<IUser[]> {
+      const res = await this._fetch.post(`${API_LINK}/user/search`, {
+         data,
       });
+      return JSON.parse(res.response);
    }
 
-   public getToken(id: number): Promise<string> {
-      return new Promise(resolve => {
-         this._fetch.post(`${API_LINK}/chats/token/${id}`).then(data => {
-            resolve(data.response);
-         });
-      });
+   public async getToken(id: number): Promise<{ token: string }> {
+      const res = await this._fetch.post(`${API_LINK}/chats/token/${id}`);
+      return JSON.parse(res.response);
    }
 
-   public addUserInChat(data: string): Promise<boolean> {
-      return new Promise(resolve => {
-         this._fetch
-            .put(`${API_LINK}/chats/users`, {
-               data,
-            })
-            .then(() => {
-               resolve(true);
-            });
+   public async addUserInChat(data: string): Promise<boolean> {
+      await this._fetch.put(`${API_LINK}/chats/users`, {
+         data,
       });
+      return true;
    }
 
-   public changeAvatar(form: FormData): Promise<string> {
-      return new Promise(resolve => {
-         this._fetch
-            .put(`${API_LINK}/user/profile/avatar`, {
-               data: form,
-               headers: {
-                  Accept: 'application/json',
-               },
-            })
-            .then(res => {
-               resolve(res.response);
-            });
+   public async changeAvatar(form: FormData): Promise<IUser> {
+      const res = await this._fetch.put(`${API_LINK}/user/profile/avatar`, {
+         data: form,
+         headers: {
+            Accept: 'application/json',
+         },
       });
+      return JSON.parse(res.response);
    }
 
    public setChatSocket(
@@ -193,38 +156,28 @@ export default class Controller {
       });
    }
 
-   getChatUsers(
+   async getChatUsers(
       chatId: number,
       data: {
          offset?: number;
          limit?: number;
          title?: string;
       } = {},
-   ): Promise<string> {
-      return new Promise(resolve => {
-         this._fetch
-            .get(`${API_LINK}/chats/${chatId}/users`, {
-               data,
-            })
-            .then(res => {
-               resolve(res.response);
-            });
+   ): Promise<IUser[]> {
+      const res = await this._fetch.get(`${API_LINK}/chats/${chatId}/users`, {
+         data,
       });
+      return JSON.parse(res.response);
    }
 
-   deleteChatUser(data: string): Promise<boolean> {
-      return new Promise(resolve => {
-         this._fetch
-            .delete(`${API_LINK}/chats/users`, {
-               data,
-               headers: {
-                  'content-type': 'application/json',
-               },
-            })
-            .then(() => {
-               resolve(true);
-            });
+   async deleteChatUser(data: string): Promise<boolean> {
+      const res = await this._fetch.delete(`${API_LINK}/chats/users`, {
+         data,
+         headers: {
+            'content-type': 'application/json',
+         },
       });
+      return true;
    }
 
    getMessages(current: number): void {

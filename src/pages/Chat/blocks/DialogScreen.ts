@@ -92,11 +92,11 @@ class DialogScreen extends Block {
       if (oldProps?.chat?.id !== newProps?.chat?.id) {
          this.state.isLoading = true;
          new Controller().getChatUsers(newProps.chat.id).then(users => {
-            this.state.users = JSON.parse(users);
+            this.state.users = users;
             return true;
          });
          new Controller().getToken(newProps.chat.id).then(res => {
-            const { token } = JSON.parse(res);
+            const { token } = res;
             this._createSocket(token);
          });
       }

@@ -100,7 +100,7 @@ class DialogList extends Block {
 
    protected _loadChatList(limit = 10, offset = 0, loadMore = false): void {
       new Controller().getChats({ limit, offset }).then(chats => {
-         const newChats = JSON.parse(chats);
+         const newChats = chats;
          if (newChats.length < 10) {
             this.state.hasMore = false;
             if (newChats.length === 0) {

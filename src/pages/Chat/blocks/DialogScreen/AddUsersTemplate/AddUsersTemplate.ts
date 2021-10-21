@@ -24,7 +24,7 @@ export default class AddUsersTemplate extends Block {
          { displayProperty: 'login' },
          { displayProperty: 'first_name' },
       ];
-      source: (data: string) => Promise<string>;
+      source: (data: string) => Promise<IUser[]>;
       searchHandler?: void;
       itemClickHandler?: void;
       width?: number;

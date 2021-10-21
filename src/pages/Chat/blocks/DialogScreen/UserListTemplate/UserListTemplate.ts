@@ -84,7 +84,7 @@ export default class UserListTemplate extends Block {
       new Controller()
          .getChatUsers(this.props.chatId, { limit, offset })
          .then(users => {
-            const newUsers = JSON.parse(users);
+            const newUsers = users;
             if (newUsers.length < 10) {
                this.state.hasMore = false;
                if (newUsers.length === 0) {

@@ -1,6 +1,7 @@
 import Block from './Block';
 import classes from './List/list.css';
 import { ClassesType } from '../types';
+import { IUser } from '../../interfaces/user';
 
 interface IListState {
    data: unknown[];
@@ -27,8 +28,8 @@ export default class List extends Block {
    setSearchString(searchString: string): void {
       this.props
          .source(JSON.stringify({ [this.props.searchStringKey]: searchString }))
-         .then((users: string) => {
-            this.state.data = JSON.parse(users);
+         .then((users: IUser[]) => {
+            this.state.data = users;
          });
    }
 

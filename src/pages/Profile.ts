@@ -151,7 +151,7 @@ class Profile extends Block {
                ) as HTMLFormElement;
                const formData = new FormData(form);
                new Controller().changeAvatar(formData).then(user => {
-                  store.dispatch(setUser(JSON.parse(user)));
+                  store.dispatch(setUser(user));
                });
             });
       }
@@ -188,7 +188,7 @@ class Profile extends Block {
                   ),
                )
                .then(newProfile => {
-                  store.dispatch(setUser(JSON.parse(newProfile)));
+                  store.dispatch(setUser(newProfile));
                });
          }
       }

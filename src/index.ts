@@ -15,7 +15,7 @@ import Controller from './api/Controller';
 import Block from './components/base/Block';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const components = require.context('./components/base/', false, /\.ts$/);
+const components = require.context('./components/base/', false, /^((?!spec).)*.ts$/);
 
 components.keys().forEach(item => {
    const component = components(item);
@@ -25,8 +25,8 @@ components.keys().forEach(item => {
 });
 window.onload = (): void => {
    const router = new Router('#root');
-   new Controller().getCurrentUser().then(res => {
-      store.dispatch(setUser(JSON.parse(res)));
+   new Controller().getCurrentUser().then(user => {
+      store.dispatch(setUser(user));
    });
    router
       .use('/', Auth as new (props: unknown) => Block)
