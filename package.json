@@ -27,9 +27,11 @@
    },
    "homepage": "https://github.com/danythere/middle.messenger.praktikum.yandex#readme",
    "dependencies": {
+      "@types/chai-as-promised": "^7.1.4",
       "@types/hbs": "^4.0.1",
       "@typescript-eslint/eslint-plugin": "^4.30.0",
       "autoprefixer": "^9.8.6",
+      "chai-as-promised": "^7.1.1",
       "css-loader": "^6.4.0",
       "eslint-config-airbnb": "^18.2.1",
       "eslint-config-airbnb-typescript": "^14.0.0",

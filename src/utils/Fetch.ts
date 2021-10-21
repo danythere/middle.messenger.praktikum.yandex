@@ -87,11 +87,11 @@ export default class Fetch {
 
          const xhr = new XMLHttpRequest();
          const isGet = method === METHODS.GET;
-
          xhr.open(
             method as string,
             isGet && !!data ? `${url}${queryStringify(data)}` : url,
          );
+         console.log(isGet);
          Object.keys(headers).forEach(key => {
             xhr.setRequestHeader(key, headers[key]);
          });
