@@ -91,7 +91,6 @@ export default class Fetch {
             method as string,
             isGet && !!data ? `${url}${queryStringify(data)}` : url,
          );
-         console.log(isGet);
          Object.keys(headers).forEach(key => {
             xhr.setRequestHeader(key, headers[key]);
          });
