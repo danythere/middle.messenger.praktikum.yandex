@@ -3,12 +3,17 @@
    display: flex;
    flex-direction: row;
    justify-content: space-between;
+   padding: 10px;
    background-color: white;
    cursor: pointer;
 }
 
 .dialog-preview:hover {
    background-color: rgb(218, 221, 252);
+}
+
+.dialog-preview_active {
+   background-color: rgb(177, 177, 255);
 }
 
 .dialog-preview__author-name {
@@ -35,4 +40,12 @@
    -webkit-line-clamp: 3;
    -webkit-box-orient: vertical;
    overflow: hidden;
+}
+
+.dialog-preview__author {
+   color: grey;
+}
+
+.dialog-preview__avatar {
+   margin-right: 10px;
 }

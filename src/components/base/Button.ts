@@ -1,31 +1,52 @@
 import Block from './Block';
 import classes from './Button/button.css';
-import button from './Button/button.hbs';
-import compile from '../../utils/helpers';
-import { DefaultPropsType } from '../types';
+import { ClassesType } from '../types';
 
+interface IButtonProps {
+   onClick?: void;
+   classes: ClassesType;
+   capture: string;
+   background: 'primary' | 'default';
+   icon: string | null;
+   style: 'default' | 'rounded';
+   size: 's' | 'm' | 'xs';
+}
 /**
  * Базовый компонент кнопки.
  */
 export default class Button extends Block {
-   constructor(props: DefaultPropsType) {
+   constructor(props: IButtonProps) {
       super('div', props);
    }
 
-   render(): DocumentFragment {
-      const fragment = compile(button, {
+   getStateFromProps(): void {
+      this.state = {
          classes,
-         background: this.props.background,
-         capture: this.props.capture,
-         icon: this.props.icon,
-         style: this.props.style || 'default',
-         size: this.props.size || 's',
-      });
-      if (this.props.eventHandlers?.onClick) {
-         fragment.content
-            .querySelector('button')
-            ?.addEventListener('click', this.props.eventHandlers.onClick);
-      }
-      return fragment.content;
+         capture: '',
+         background: 'default',
+         icon: null,
+         style: 'default',
+         size: 's',
+      };
    }
+
+   componentAfterRender(): void {
+      if (this.props.onClick) {
+         this.getContent()?.addEventListener('click', this.props.onClick);
+      }
+   }
+
+   render(): string {
+      return `<button type='button' class="{{classes.button}}
+      {{getClass 'button_color_' background classes}} {{getClass 'button_style_' style classes}}
+   {{getClass 'button_size_' size classes}}">
+    {{#if icon}}
+    <img src="{{icon}}" class="{{classes.button__icon}}" />
+    {{else}}
+    {{capture}}
+    {{/if}}
+</button>`;
+   }
+
+   static regName = 'Button';
 }

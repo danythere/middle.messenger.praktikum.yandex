@@ -1,22 +1,31 @@
+import { ClassesType } from 'components/types';
 import Block from './Block';
-import compile from '../../utils/helpers';
 import classes from './Heading/heading.css';
-import { DefaultPropsType } from '../types';
-import heading from './Heading/heading.hbs';
 
+interface IHeadingProps {
+   classes: ClassesType;
+   title: string;
+}
 /**
  * Базовый компонент отображения заголовков.
  */
 export default class Heading extends Block {
-   constructor(props: DefaultPropsType) {
+   constructor(props: IHeadingProps) {
       super('div', props);
    }
 
-   render(): DocumentFragment {
-      const fragment = compile(heading, {
+   getStateFromProps(): void {
+      this.state = {
          classes,
-         title: this.props.title,
-      });
-      return fragment.content;
+         title: '',
+      };
    }
+
+   render(): string {
+      return `<h1 class="{{classes.heading}}">
+      {{title}}
+  </h1>`;
+   }
+
+   static regName = 'Heading';
 }

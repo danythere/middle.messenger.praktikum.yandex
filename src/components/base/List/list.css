@@ -1,0 +1,12 @@
+.list__row {
+   display: flex;
+   justify-content: space-between;
+}
+
+.list__row:hover {
+   background-color: khaki;
+}
+
+.list__row_clickable {
+   cursor: pointer;
+}
