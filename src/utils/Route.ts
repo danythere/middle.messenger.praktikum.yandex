@@ -29,7 +29,6 @@ export default class Route {
 
    constructor(
       pathname: string,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       view: new (props: any) => Block,
       props: { rootQuery: string },
    ) {
@@ -53,9 +52,5 @@ export default class Route {
    render(): void {
       this._block = new this._blockClass({});
       render(this._props.rootQuery, this._block);
-   }
-
-   public get blockClass(): new (props: any) => Block {
-      return this._blockClass;
    }
 }

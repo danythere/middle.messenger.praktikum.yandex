@@ -5,7 +5,7 @@ export interface Action {
    payload?: unknown;
 }
 
-type Reducer<S = Indexed> = (state: S, action: Action) => S;
+type Reducer<S = unknown> = (state: S, action: Action) => S;
 
 type Indexed = { [key: string]: unknown };
 
@@ -36,14 +36,9 @@ export class Store extends EventBus {
       return (_state: unknown, action: Action) => {
          const newState: Indexed = {};
 
-         Object.entries(reducers).forEach(
-            ([key, reducer]: [
-               string,
-               (state: unknown, action: unknown) => unknown,
-            ]) => {
-               newState[key] = reducer(this.state[key], action);
-            },
-         );
+         Object.entries(reducers).forEach(([key, reducer]) => {
+            newState[key] = reducer(this.state[key], action);
+         });
 
          return newState;
       };

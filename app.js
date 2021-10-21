@@ -5,10 +5,10 @@ const router = express.Router();
 
 app.use(express.static(path.join(__dirname, '/dist')));
 
-router.get('*', function (req, res) {
-   res.sendFile(path.join(__dirname + '/dist/index.html'));
+router.get('*',function(req,res){
+  res.sendFile(path.join(__dirname+'/dist/index.html'));
 });
 
 app.use('/', router);
-app.listen(process.env.PORT || 3000);
+app.listen(3000);
 console.log('Running at Port 3000');

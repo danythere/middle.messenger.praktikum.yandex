@@ -1,23 +1,26 @@
 import Block from '../components/base/Block';
 import classes from './Registration/registration.css';
-import { DefaultPropsType, ClassesType } from '../components/types';
+import { DefaultPropsType } from '../components/types';
 import Validator from '../utils/Validator';
 import Controller from '../api/Controller';
 import Router from '../utils/Router';
 import { connect } from '../store';
-import Input, { IInputProps } from '../components/base/Input';
+import Input from '../components/base/Input';
 import { IUser } from '../interfaces/user';
 
+interface IInputConfig {
+   type: string;
+   placeholder: string;
+   name: string;
+   width: number;
+   height: number;
+   capture: string;
+   validFunc: void;
+}
 /**
  * Страница регистрации.
  */
 class Registration extends Block {
-   state: {
-      classes: ClassesType;
-      onCreateAccountClickHandler: () => unknown;
-      inputsConfig: IInputProps[];
-   };
-
    getStateFromProps(): void {
       this.state = {
          classes,
@@ -27,8 +30,8 @@ class Registration extends Block {
                type: 'text',
                placeholder: '',
                name: 'first_name',
-               width: 200,
-               height: 25,
+               width: '200',
+               height: '25',
                capture: 'Имя',
                validFunc: Validator.validateName,
             },
@@ -37,8 +40,8 @@ class Registration extends Block {
                placeholder: '',
                name: 'second_name',
                capture: 'Фамилия',
-               width: 200,
-               height: 25,
+               width: '200',
+               height: '25',
                validFunc: Validator.validateName,
             },
             {
@@ -46,8 +49,8 @@ class Registration extends Block {
                placeholder: '',
                capture: 'Логин',
                name: 'login',
-               width: 200,
-               height: 25,
+               width: '200',
+               height: '25',
                validFunc: Validator.validateLogin,
             },
             {
@@ -55,8 +58,8 @@ class Registration extends Block {
                placeholder: '',
                name: 'email',
                capture: 'Email',
-               width: 200,
-               height: 25,
+               width: '200',
+               height: '25',
                validFunc: Validator.validateEmail,
             },
             {
@@ -64,17 +67,17 @@ class Registration extends Block {
                placeholder: '',
                name: 'password',
                capture: 'Пароль',
-               width: 200,
-               height: 25,
+               width: '200',
+               height: '25',
                validFunc: Validator.validatePassword,
             },
             {
                type: 'text',
                placeholder: '',
                name: 'phone',
-               width: 200,
+               width: '200',
                capture: 'Телефон',
-               height: 25,
+               height: '25',
                validFunc: Validator.validatePhone,
             },
          ],
@@ -95,10 +98,8 @@ class Registration extends Block {
    private _createAccount(): void {
       let isValid = true;
       Object.entries(this.state.inputsConfig).forEach(
-         ([, value]: [string, IInputProps]) => {
-            const child = this.getChild(
-               value.name as string,
-            ) as unknown as Input;
+         ([, value]: [string, IInputConfig]) => {
+            const child = this.getChild(value.name) as unknown as Input;
             if (child) {
                const validRes = child.validate();
                if (validRes) {
@@ -152,6 +153,6 @@ class Registration extends Block {
 
 const RegistrationWithStore = connect(
    (state: { user: { profile: IUser } }) => ({ user: state.user || null }),
-   Registration as unknown as typeof Block,
+   Registration,
 );
 export default RegistrationWithStore;

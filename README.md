@@ -1,3 +1,4 @@
+https://github.com/danythere/middle.messenger.praktikum.yandex/pull/1
 # Мессенджер
 ## 1. Описание
 Учебный проект студента danythere в Яндекс.Практикум. 
@@ -26,19 +27,11 @@
 * stylelint(файл с настройками .stylelintrc.json)
 ## 4. Ссылки:
 Макет:https://www.figma.com/file/cn4s2uPeAcVzpCm4MMMmox/Untitled?node-id=0%3A1  
-Netlify: [https://optimistic-leavitt-837679.netlify.app  ](https://optimistic-leavitt-837679.netlify.app/messenger)
+Netlify: https://optimistic-leavitt-837679.netlify.app  
 Pull Request: 
 * https://github.com/danythere/middle.messenger.praktikum.yandex/pull/1
 * https://github.com/danythere/middle.messenger.praktikum.yandex/pull/2
-* https://github.com/danythere/middle.messenger.praktikum.yandex/pull/3
 
-Что сделано в 3 спринте:
-* Компоненты переведены на новый подход(верстка в ts-файле лежит+есть некий state)
-* Подключено api(авторизация, регистрация, выход, создание чата, список чатов, изменение профиля, аватара, пароля, добавление участников, удаление участников, сообщения в real-time).
-* На данный момент не успел реализовать тесты, поправить все ошибки типизации(с этим проблемы в каких-то местах не могу понять как править)
-* Не вывожу того, кто отправил сообщение в чате.
-* Нет обработок ошибок, нужно ли это делать?
-* В некоторых компонентах много лишних перерисовок, надо выставить какие-то условия.
-* Правильно ли то, что я стейт компонента задаю в getStateFromProps? И можно ли менять стейт в жизненных циклах(beforeMount, didUpdate)?
-* Как лучше работать с данными, отправлять уже в JSON.stringify или делать все это в контроллере?
-  
+Валидацию по фокусу не получилось сделать :(
+    Uncaught DOMException: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this node. Perhaps it was moved in a 'blur' event handler?
+Такую ошибку выдает, если повесить в input-е еще событие focus.

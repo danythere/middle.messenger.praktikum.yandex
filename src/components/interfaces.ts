@@ -6,6 +6,10 @@ export default interface IComponentConfig {
    template: (() => string) | null;
 }
 
+export interface ClassType<T> extends Function {
+   new (...args: any[]): T;
+}
+
 export interface IPopupOptions {
    mode?: 'visible' | 'hide';
    width: number;

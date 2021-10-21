@@ -10,11 +10,5 @@
       "sourceMap": true,
       "strictNullChecks": true
    },
-    "ts-node": {
-    "files": true
-  },
-  "files": [
-   "declaration.d.ts"
- ],
    "include": [ "declaration.d.ts", "src/**/*"]
 }

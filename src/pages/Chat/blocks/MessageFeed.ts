@@ -1,10 +1,9 @@
 import Block from '../../../components/base/Block';
 import classes from './MessageFeed/messageFeed.css';
-import { DefaultPropsType, ClassesType } from '../../../components/types';
+import { DefaultPropsType } from '../../../components/types';
 import Controller from '../../../api/Controller';
 import { store } from '../../../store';
 import { IUser } from '../../../interfaces/user';
-import { IMessage } from '../../../interfaces/chat';
 
 /**
  * Лента сообщений в диалоге.
@@ -21,12 +20,6 @@ export default class MessageFeed extends Block {
    private _needScrollBottom: boolean;
 
    private _previousScroll: number;
-
-   state: {
-      classes: ClassesType;
-      messages: IMessage[];
-      currentUser: number;
-   };
 
    constructor(props: DefaultPropsType) {
       super('div', { ...props });
@@ -79,7 +72,7 @@ export default class MessageFeed extends Block {
       });
    }
 
-   protected _setMessages(messages: IMessage[]): void {
+   protected _setMessages(messages: unknown[] | unknown): void {
       if (Array.isArray(messages)) {
          this.state.messages = [...this.state.messages, ...messages];
       } else {

@@ -4,15 +4,16 @@ import classes from './Chat/chat.css';
 import { DefaultPropsType } from '../components/types';
 import { registerComponent } from '../helpers';
 
-const components = require.context('./Chat/blocks/', false, /\.ts$/);
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const components = require('./Chat/blocks/*.ts') as {
+   [key: string]: { default: typeof Block };
+};
 
-components.keys().forEach(item => {
-   const component = components(item);
+Object.values(components).forEach(component => {
    if (component.default.name !== 'WithStore') {
       registerComponent(component.default);
    }
 });
-
 /**
  * Страница с чатами.
  */

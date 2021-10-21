@@ -1,11 +1,10 @@
 import Block from './Block';
 import classes from './List/list.css';
-import { ClassesType } from '../types';
-import { IUser } from '../../interfaces/user';
+import { DefaultPropsType } from '../types';
 
 interface IListState {
    data: unknown[];
-   classes: ClassesType;
+   classes: { [key: string]: string };
 }
 /**
  * Базовый список( к сожалению не хватило сил сделать его универсальным, поэтому
@@ -14,7 +13,7 @@ interface IListState {
 export default class List extends Block {
    state: IListState;
 
-   constructor(props: IListState) {
+   constructor(props: DefaultPropsType) {
       super('div', props);
    }
 
@@ -28,8 +27,8 @@ export default class List extends Block {
    setSearchString(searchString: string): void {
       this.props
          .source(JSON.stringify({ [this.props.searchStringKey]: searchString }))
-         .then((users: IUser[]) => {
-            this.state.data = users;
+         .then((users: string) => {
+            this.state.data = JSON.parse(users);
          });
    }
 

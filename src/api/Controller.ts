@@ -1,5 +1,3 @@
-import { IChat } from 'interfaces/chat';
-import { IUser } from 'interfaces/user';
 import Fetch from '../utils/Fetch';
 
 const API_LINK = 'https://ya-praktikum.tech/api/v2';
@@ -32,82 +30,127 @@ export default class Controller {
       });
    }
 
-   public async registrate(data: string): Promise<boolean> {
-      await this._fetch.post(`${API_LINK}/auth/signup`, {
-         data,
+   public registrate(data: string): Promise<boolean> {
+      return new Promise(resolve => {
+         this._fetch
+            .post(`${API_LINK}/auth/signup`, {
+               data,
+               headers: { 'Content-Type': 'application/json' },
+            })
+            .then(() => {
+               resolve(true);
+            });
       });
-      return true;
    }
 
-   public async logout(): Promise<boolean> {
-      await this._fetch.post(`${API_LINK}/auth/logout`);
-      return true;
-   }
-
-   public async getCurrentUser(): Promise<IUser> {
-      const res = await this._fetch.get(`${API_LINK}/auth/user`);
-      return JSON.parse(res.response);
-   }
-
-   public async changeProfile(data: string): Promise<IUser> {
-      const res = await this._fetch.put(`${API_LINK}/user/profile`, {
-         data,
+   public logout(): Promise<boolean> {
+      return new Promise(resolve => {
+         this._fetch.post(`${API_LINK}/auth/logout`).then(() => {
+            resolve(true);
+         });
       });
-      return JSON.parse(res.response);
+   }
+
+   public getCurrentUser(): Promise<string> {
+      return new Promise(resolve => {
+         this._fetch.get(`${API_LINK}/auth/user`).then(res => {
+            resolve(res.response);
+         });
+      });
+   }
+
+   public changeProfile(data: string): Promise<string> {
+      return new Promise(resolve => {
+         this._fetch
+            .put(`${API_LINK}/user/profile`, {
+               data,
+               headers: { 'Content-Type': 'application/json' },
+            })
+            .then(res => {
+               resolve(res.response);
+            });
+      });
    }
 
    public changePassword(data: string): Promise<XMLHttpRequest> {
       return this._fetch.put(`${API_LINK}/user/password`, {
          data,
+         headers: { 'Content-Type': 'application/json' },
       });
    }
 
-   public async getChats(
+   public getChats(
       data: {
          offset?: number;
          limit?: number;
          title?: string;
       } = {},
-   ): Promise<IChat[]> {
-      const res = await this._fetch.get(`${API_LINK}/chats`, {
-         data,
+   ): Promise<string> {
+      return new Promise(resolve => {
+         this._fetch
+            .get(`${API_LINK}/chats`, {
+               data,
+            })
+            .then(res => {
+               resolve(res.response);
+            });
       });
-      return JSON.parse(res.response);
    }
 
    public createChat(data: string): Promise<XMLHttpRequest> {
       return this._fetch.post(`${API_LINK}/chats`, {
          data,
+         headers: { 'Content-Type': 'application/json' },
       });
    }
 
-   public async searchUsers(data: string): Promise<IUser[]> {
-      const res = await this._fetch.post(`${API_LINK}/user/search`, {
-         data,
+   public searchUsers(data: JSON): Promise<string> {
+      return new Promise(resolve => {
+         this._fetch
+            .post(`${API_LINK}/user/search`, {
+               headers: { 'Content-Type': 'application/json' },
+               data,
+            })
+            .then(res => {
+               resolve(res.response);
+            });
       });
-      return JSON.parse(res.response);
    }
 
-   public async getToken(id: number): Promise<{ token: string }> {
-      const res = await this._fetch.post(`${API_LINK}/chats/token/${id}`);
-      return JSON.parse(res.response);
+   public getToken(id: number): Promise<string> {
+      return new Promise(resolve => {
+         this._fetch.post(`${API_LINK}/chats/token/${id}`).then(data => {
+            resolve(data.response);
+         });
+      });
    }
 
-   public async addUserInChat(data: string): Promise<boolean> {
-      await this._fetch.put(`${API_LINK}/chats/users`, {
-         data,
+   public addUserInChat(data: string): Promise<boolean> {
+      return new Promise(resolve => {
+         this._fetch
+            .put(`${API_LINK}/chats/users`, {
+               headers: { 'Content-Type': 'application/json' },
+               data,
+            })
+            .then(() => {
+               resolve(true);
+            });
       });
-      return true;
    }
 
-   public async changeAvatar(form: FormData): Promise<IUser> {
-      const res = await this._fetch.put(`${API_LINK}/user/profile/avatar`, {
-         data: form,
-         headers: {
-            Accept: 'application/json',
-         },
+   public changeAvatar(form: FormData): Promise<string> {
+      return new Promise(resolve => {
+         this._fetch
+            .put(`${API_LINK}/user/profile/avatar`, {
+               data: form,
+               headers: {
+                  Accept: 'application/json',
+               },
+            })
+            .then(res => {
+               resolve(res.response);
+            });
       });
-      return JSON.parse(res.response);
    }
 
    public setChatSocket(
@@ -156,28 +199,38 @@ export default class Controller {
       });
    }
 
-   async getChatUsers(
+   getChatUsers(
       chatId: number,
       data: {
          offset?: number;
          limit?: number;
          title?: string;
       } = {},
-   ): Promise<IUser[]> {
-      const res = await this._fetch.get(`${API_LINK}/chats/${chatId}/users`, {
-         data,
+   ): Promise<string> {
+      return new Promise(resolve => {
+         this._fetch
+            .get(`${API_LINK}/chats/${chatId}/users`, {
+               data,
+            })
+            .then(res => {
+               resolve(res.response);
+            });
       });
-      return JSON.parse(res.response);
    }
 
-   async deleteChatUser(data: string): Promise<boolean> {
-      const res = await this._fetch.delete(`${API_LINK}/chats/users`, {
-         data,
-         headers: {
-            'content-type': 'application/json',
-         },
+   deleteChatUser(data: JSON): Promise<boolean> {
+      return new Promise(resolve => {
+         this._fetch
+            .delete(`${API_LINK}/chats/users`, {
+               data,
+               headers: {
+                  'content-type': 'application/json',
+               },
+            })
+            .then(() => {
+               resolve(true);
+            });
       });
-      return true;
    }
 
    getMessages(current: number): void {

@@ -1,28 +1,14 @@
 import Block from '../../../components/base/Block';
 import classes from './DialogList/dialogList.css';
-import { DefaultPropsType, ClassesType } from '../../../components/types';
+import { DefaultPropsType } from '../../../components/types';
 import Controller from '../../../api/Controller';
-import { connect, IStore, store } from '../../../store';
+import { connect, store } from '../../../store';
 import { setCurrentChat } from '../../../store/chats';
 import { registerComponent } from '../../../helpers';
 import Router from '../../../utils/Router';
 import { IUser } from '../../../interfaces/user';
 import CreateChatTemplate from './DialogList/CreateChatTemplate/CreateChatTemplate';
 import { IChat } from '../../../interfaces/chat';
-
-interface IDialogList {
-   classes: ClassesType;
-   currentChat: IChat | undefined;
-   exitHandler: void;
-   openCreateChat: void;
-   onChooseHandler: void;
-   addChatHandler: void;
-   openProfile: void;
-   avatar: string | null;
-   hasMore: boolean;
-   chats: IChat[];
-   loadMore: void;
-}
 
 const RES_LINK = 'https://ya-praktikum.tech/api/v2/resources';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -37,8 +23,6 @@ class DialogList extends Block {
       super('div', { ...props });
    }
 
-   state: IDialogList;
-
    getStateFromProps(): void {
       const state = store.getState() as {
          user: {
@@ -48,7 +32,7 @@ class DialogList extends Block {
       const avatar = state?.user?.profile?.avatar;
       this.state = {
          classes,
-         currentChat: undefined,
+         currentChat: {},
          exitHandler: this._exitHandler.bind(this),
          openCreateChat: this._openCreateChatPopup.bind(this),
          onChooseHandler: this._chooseDialog.bind(this),
@@ -65,7 +49,7 @@ class DialogList extends Block {
       this._loadChatList(undefined, this.state.chats.length, true);
    }
 
-   componentDidUpdate(oldProps: IDialogList, newProps: IDialogList): boolean {
+   protected componentDidUpdate(oldProps: any, newProps: any): boolean {
       if (newProps.avatar && newProps.avatar !== this.state.avatar) {
          this.state.avatar = newProps.avatar;
          return true;
@@ -100,7 +84,7 @@ class DialogList extends Block {
 
    protected _loadChatList(limit = 10, offset = 0, loadMore = false): void {
       new Controller().getChats({ limit, offset }).then(chats => {
-         const newChats = chats;
+         const newChats = JSON.parse(chats);
          if (newChats.length < 10) {
             this.state.hasMore = false;
             if (newChats.length === 0) {
@@ -176,13 +160,13 @@ class DialogList extends Block {
 }
 
 const DialogListWithStore = connect(
-   (state: IStore) => ({
+   (state: any) => ({
       avatar: state?.user?.profile?.avatar
          ? `${RES_LINK}${state.user.profile.avatar}`
          : null,
    }),
-   DialogList as unknown as typeof Block,
+   DialogList,
 );
 export default DialogListWithStore;
 
-registerComponent(DialogListWithStore as typeof Block, 'DialogList');
+registerComponent(DialogListWithStore, 'DialogList');

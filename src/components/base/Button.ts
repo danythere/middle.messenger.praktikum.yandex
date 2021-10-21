@@ -1,21 +1,12 @@
 import Block from './Block';
 import classes from './Button/button.css';
-import { ClassesType } from '../types';
+import { DefaultPropsType } from '../types';
 
-interface IButtonProps {
-   onClick?: void;
-   classes: ClassesType;
-   capture: string;
-   background: 'primary' | 'default';
-   icon: string | null;
-   style: 'default' | 'rounded';
-   size: 's' | 'm' | 'xs';
-}
 /**
  * Базовый компонент кнопки.
  */
 export default class Button extends Block {
-   constructor(props: IButtonProps) {
+   constructor(props: DefaultPropsType) {
       super('div', props);
    }
 
@@ -23,7 +14,7 @@ export default class Button extends Block {
       this.state = {
          classes,
          capture: '',
-         background: 'default',
+         background: '',
          icon: null,
          style: 'default',
          size: 's',

@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
 import EventBus from '../../utils/EventBus';
@@ -31,8 +28,6 @@ export default class Block {
    props: any;
 
    eventBus: () => EventBus;
-
-   static regName: string;
 
    /**
     * @param {string} tagName
@@ -212,20 +207,19 @@ export default class Block {
       }
    }
 
-   /**
-    * Рендерим шаблон
-    */
    _compile(): DocumentFragment {
       const fragment = document.createElement('template');
-      const render = this.render();
-      if (render) {
-         const template = Handlebars.compile(render);
-         fragment.innerHTML = template({
-            ...(this.state as { [props: string]: unknown }),
-            ...(this.props as { [props: string]: unknown }),
-            children: this.children,
-         });
-      }
+
+      /**
+       * Рендерим шаблон
+       */
+
+      const template = Handlebars.compile(this.render());
+      fragment.innerHTML = template({
+         ...(this.state as { [props: string]: unknown }),
+         ...(this.props as { [props: string]: unknown }),
+         children: this.children,
+      });
 
       /**
        * Заменяем заглушки на компоненты

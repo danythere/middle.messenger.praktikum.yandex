@@ -1,4 +1,4 @@
-import { Action } from '../utils/Store';
+import { Action } from '../utils/store';
 import { IUser } from '../interfaces/user';
 
 const SET_USER = 'user/SET';

@@ -2,7 +2,7 @@ import Controller from '../../../../../api/Controller';
 import Block from '../../../../../components/base/Block';
 import classes from './createChatTemplate.css';
 import popupClasses from '../../../../../components/base/popup.css';
-import { DefaultPropsType, ClassesType } from '../../../../../components/types';
+import { DefaultPropsType } from '../../../../../components/types';
 import Input from '../../../../../components/base/Input';
 import { IPopupOptions } from '../../../../../components/interfaces';
 import Validator from '../../../../../utils/Validator';
@@ -19,16 +19,6 @@ export default class CreateChatTemplate extends Block {
    constructor(props: DefaultPropsType) {
       super('div', { ...props });
    }
-
-   state: {
-      classes: ClassesType;
-      mode: 'hide' | 'visible';
-      validFunc: (title: string) => string | null;
-      createChat: void;
-      width?: number;
-      title?: string;
-      height?: number;
-   };
 
    getStateFromProps(): void {
       this.state = {
