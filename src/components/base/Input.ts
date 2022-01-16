@@ -1,22 +1,22 @@
+import { ClassesType } from 'components/types';
 import Block from './Block';
 import classes from './Input/input.css';
 
 export interface IInputProps {
-   value: string;
-   type: string;
-   placeholder: string;
-   name: string;
+   value?: string;
+   type?: string;
+   placeholder?: string;
+   name?: string;
    width: number;
    height: number;
-   capture: string;
-   validFunc: () => string | null;
+   style?: string;
+   background?: string;
+   capture?: string;
+   validFunc?: (name: string) => string | null;
 }
 
-interface IInputState {
-   value: string;
-   classes: { [key: string]: string };
-   style: string;
-   background: string;
+interface IInputState extends IInputProps {
+   classes: ClassesType;
 }
 /**
  * Базовый компонент поля ввода.
@@ -34,9 +34,12 @@ export default class Input extends Block {
    getStateFromProps(props: IInputProps): void {
       this.state = {
          classes,
-         style: 'default',
-         background: 'transparent',
-         value: props.value,
+         type: props.type || 'text',
+         style: props.style || 'default',
+         background: props.background || 'transparent',
+         value: props.value || '',
+         width: props.width || 100,
+         height: props.height || 20,
       };
    }
 

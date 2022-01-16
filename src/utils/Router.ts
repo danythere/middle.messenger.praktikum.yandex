@@ -67,4 +67,8 @@ export default class Router {
    getRoute(pathname: string): Route | undefined {
       return this.routes.find(route => route.match(pathname));
    }
+
+   public get currentRoute(): Route | null {
+      return this._currentRoute;
+   }
 }

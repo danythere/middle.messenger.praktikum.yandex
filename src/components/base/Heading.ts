@@ -1,12 +1,16 @@
+import { ClassesType } from 'components/types';
 import Block from './Block';
 import classes from './Heading/heading.css';
-import { DefaultPropsType } from '../types';
 
+interface IHeadingProps {
+   classes: ClassesType;
+   title: string;
+}
 /**
  * Базовый компонент отображения заголовков.
  */
 export default class Heading extends Block {
-   constructor(props: DefaultPropsType) {
+   constructor(props: IHeadingProps) {
       super('div', props);
    }
 

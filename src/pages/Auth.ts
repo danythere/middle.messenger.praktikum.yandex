@@ -5,7 +5,7 @@ import { DefaultPropsType } from '../components/types';
 import Router from '../utils/Router';
 import Controller from '../api/Controller';
 import Input from '../components/base/Input';
-import { connect } from '../store';
+import { connect, IStore } from '../store';
 
 /**
  * Страница авторизации.
@@ -29,7 +29,7 @@ class Auth extends Block {
       new Router('#root').go('/sign-up');
    }
 
-   componentDidUpdate(oldProps: any, newProps: any): boolean {
+   componentDidUpdate(_oldProps: any, newProps: any): boolean {
       if (newProps.user && newProps.user.profile.id) {
          new Router('#root').go('/messenger');
       }
@@ -102,7 +102,7 @@ class Auth extends Block {
 }
 
 const AuthWithStore = connect(
-   (state: any) => ({ user: state.user || null }),
-   Auth,
+   (state: IStore) => ({ user: state.user || null }),
+   Auth as unknown as typeof Block,
 );
 export default AuthWithStore;

@@ -1,5 +1,6 @@
 import Block from './Block';
 import { DefaultPropsType } from '../types';
+import emptyAvatar from '../../assets/empty_avatar.jpg';
 import classes from './Avatar/avatar.css';
 
 /**
@@ -14,6 +15,7 @@ export default class Avatar extends Block {
       this.state = {
          classes,
          size: 's',
+         emptyAvatar,
       };
    }
 
@@ -22,7 +24,7 @@ export default class Avatar extends Block {
       {{#if link}}
       <img src="{{link}}" class="{{classes.avatar}} {{getClass 'avatar_size_' size classes}}" />
       {{else}}
-      <div class="{{classes.avatar}} {{classes.avatar_empty}} {{getClass 'avatar_size_' size classes}}"> </div>
+      <img src="{{emptyAvatar}}" class="{{classes.avatar}} {{getClass 'avatar_size_' size classes}}" />
       {{/if}}
 
    </div>`;

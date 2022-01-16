@@ -2,7 +2,7 @@ import Block from '../../../../../components/base/Block';
 import Controller from '../../../../../api/Controller';
 import { store } from '../../../../../store';
 import popupClasses from '../../../../../components/base/popup.css';
-import { DefaultPropsType } from '../../../../../components/types';
+import { DefaultPropsType, ClassesType } from '../../../../../components/types';
 import { IUser } from '../../../../../interfaces/user';
 import { IChat } from '../../../../../interfaces/chat';
 import { IPopupOptions } from '../../../../../components/interfaces';
@@ -16,6 +16,21 @@ interface IAddUsersTemplateOptions extends IPopupOptions {
  */
 export default class AddUsersTemplate extends Block {
    private _onChooseHandler: (item: IUser) => unknown;
+
+   state: {
+      classes: ClassesType;
+      mode: string;
+      columns: [
+         { displayProperty: 'login' },
+         { displayProperty: 'first_name' },
+      ];
+      source: (data: string) => Promise<IUser[]>;
+      searchHandler?: void;
+      itemClickHandler?: void;
+      width?: number;
+      title?: string;
+      height?: number;
+   };
 
    constructor(props: DefaultPropsType) {
       super('div', { ...props });

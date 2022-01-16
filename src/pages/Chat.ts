@@ -4,16 +4,15 @@ import classes from './Chat/chat.css';
 import { DefaultPropsType } from '../components/types';
 import { registerComponent } from '../helpers';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const components = require('./Chat/blocks/*.ts') as {
-   [key: string]: { default: typeof Block };
-};
+const components = require.context('./Chat/blocks/', false, /\.ts$/);
 
-Object.values(components).forEach(component => {
+components.keys().forEach(item => {
+   const component = components(item);
    if (component.default.name !== 'WithStore') {
       registerComponent(component.default);
    }
 });
+
 /**
  * Страница с чатами.
  */
